@@ -4,7 +4,6 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "start http://localhost:8000 && set PORT=8000 && nodemon core/index.js"
     },
     "author": "",

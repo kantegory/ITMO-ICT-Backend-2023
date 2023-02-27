@@ -14,13 +14,14 @@ const assertDatabaseConnectionOk = async () => {
     }
 };
 
-// {} - Creates the table if it doesn't exist (and does nothing if it already exists)
-// { force: true } - Creates the table, dropping it first if it already existed
-// { alter: true } - Checks what is the current state of the table in the database
-//                   (which columns it has, what are their data types, etc), and then
-//                   performs the necessary changes in the table to make it match the model.
 const syncDatabase = async () => {
     console.log("Database force synced!");
+    // {}              - Creates the table if it doesn't exist (and does nothing if
+    //                   it already exists)
+    // { force: true } - Creates the table, dropping it first if it already existed
+    // { alter: true } - Checks what is the current state of the table in the database
+    //                   (which columns it has, what are their data types, etc), and then
+    //                   performs the necessary changes in the table to make it match the model.
     await sequelize.sync({ force: true });
 };
 
@@ -28,10 +29,10 @@ const init = async () => {
     await assertDatabaseConnectionOk();
     await syncDatabase();
 
-    console.log(`Starting Sequelize + Express example on port ${port}...`);
+    console.log(`Starting on port ${port}...`);
 
     app.listen(port, () => {
-        console.log(`Express server started on port ${port}.`);
+        console.log(`Express server started at http://localhost:${port}.`);
     });
 };
 
