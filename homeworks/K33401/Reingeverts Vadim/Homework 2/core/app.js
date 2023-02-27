@@ -20,8 +20,8 @@ app.get("/", async (req, res) => {
 
         <p>GET /user</p>
         <p>POST /user</p>
-        <p>PUT /user</p>
-        <p>DELETE /user</p>
+        <p>PUT /user/:username</p>
+        <p>DELETE /user/:username</p>
     `);
 });
 
@@ -43,12 +43,40 @@ app.post("/user", async (req, res) => {
     res.status(200).send({ message: `User '${req.body.username}' created successfully.` });
 });
 
-app.put("/user", async (req, res) => {
+app.put("/user/:username", async (req, res) => {
     console.log("Got a PUT request at /user");
+
+    const { username } = req.params;
+
+    try {
+        await models.User.update(req.body, {
+            where: {
+                username,
+            },
+        });
+    } catch (error) {
+        return res.status(400).send({ message: error });
+    }
+
+    res.status(200).send({ message: `User '${username}' updated successfully.` });
 });
 
-app.delete("/user", async (req, res) => {
+app.delete("/user/:username", async (req, res) => {
     console.log("Got a DELETE request at /user");
+
+    const { username } = req.params;
+
+    try {
+        await models.User.destroy({
+            where: {
+                username,
+            },
+        });
+    } catch (error) {
+        return res.status(400).send({ message: error });
+    }
+
+    res.status(200).send({ message: `User '${username}' deleted successfully.` });
 });
 
 module.exports = app;
