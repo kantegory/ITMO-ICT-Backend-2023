@@ -15,14 +15,14 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/", async (req, res) => {
-    res.write("Start\n");
-    await models.User.create({
-        username: "Test",
-    });
-    const users = await models.User.findAll();
-    res.write(JSON.stringify(users, null, 2) + "\n\n");
+    res.status(200).send(`
+        <h3>Avaliable rotues:</h3>
 
-    res.end();
+        <p>GET /user</p>
+        <p>POST /user</p>
+        <p>PUT /user</p>
+        <p>DELETE /user</p>
+    `);
 });
 
 app.get("/user", async (req, res) => {
