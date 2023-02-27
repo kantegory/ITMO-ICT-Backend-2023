@@ -4,7 +4,7 @@
 
 ### Requirments
 ```bash
-npm install express sequlize sqlite3 nodemon
+npm install express sequlize sqlite3 nodemon bcrypt
 ```
 
 
