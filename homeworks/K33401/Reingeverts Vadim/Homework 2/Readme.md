@@ -4,6 +4,12 @@
 
 ### Requirments
 ```bash
-npm install express sequlize
+npm install express sequlize sqlite3 nodemon
 ```
 
+
+### Running
+
+```bash
+npm run dev
+```
