@@ -1,0 +1,16 @@
+site_name: Отчеты по Backend
+nav:
+    - Главная страница: index.md
+    - Лабораторные:
+        - Лабораторная №1: lr_1.md
+
+    - Домашние задания: 
+        - Задание №1: hw_1.md
+        - Задание №2: hw_2.md
+
+
+
+
+theme:
+  name: null
+  custom_dir: "MkDocs-Theme-Cinder-Superhero/cinder-superhero"
