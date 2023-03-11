@@ -6,6 +6,6 @@ let usersRouter = require('./routes/user');
 let app = express();
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 
 module.exports = app;
