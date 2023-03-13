@@ -1,15 +1,20 @@
 {
   "name": "hw_2",
   "version": "1.0.0",
-  "description": "homework_2",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prestart": "echo \"App starting...\"",
+    "start": "npx nodemon index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
-    "sequelize": "^6.29.0"
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.4"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
   }
 }
