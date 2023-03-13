@@ -1,0 +1,19 @@
+{
+  "name": "homework-02",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kobelev Lev",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
+  }
+}
