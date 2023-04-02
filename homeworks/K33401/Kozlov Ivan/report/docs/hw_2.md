@@ -28,7 +28,7 @@
 - `npm init`
 - `npm install express -S`
 - `npm install sequelize -S`
-- `npm install --save-dev sequelize-clix`
+- `npm install --save-dev sequelize-cli`
 - `npm install nodemon`
 - `npm install sqlite3 -S` 
 

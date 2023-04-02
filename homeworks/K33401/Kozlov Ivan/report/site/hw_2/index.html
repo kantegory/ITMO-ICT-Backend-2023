@@ -8,17 +8,17 @@
     
     
     
-    <link rel="img/favicon.ico">
+    <link rel="../img/favicon.ico">
 
     
-    <title>Главная страница - Отчеты по Backend</title>
+    <title>Задание №2 - Отчеты по Backend</title>
     
 
-    <link href="css/hack.min.css" rel="stylesheet">
-    <link href="css/bootstrap-custom.css" rel="stylesheet">
-    <link href="css/base.css" rel="stylesheet">
-    <link href="css/cinder.css" rel="stylesheet">
-    <link href="css/highlight.css" rel="stylesheet">
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
      
 </head>
 
-<body class="homepage" >
+<body>
 
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -47,7 +47,7 @@
 
             <!-- Main title -->
 
-            <a class="navbar-brand" href=".">Отчеты по Backend</a>
+            <a class="navbar-brand" href="..">Отчеты по Backend</a>
         </div>
 
         <!-- Expanded navigation -->
@@ -56,8 +56,8 @@
                 <ul class="nav navbar-nav">
                 
                 
-                    <li class="active">
-                        <a href=".">Главная страница</a>
+                    <li >
+                        <a href="..">Главная страница</a>
                     </li>
                 
                 
@@ -68,7 +68,7 @@
                         
                             
 <li >
-    <a href="lr_1.md">Лабораторная №1</a>
+    <a href="../lr_1.md">Лабораторная №1</a>
 </li>
 
                         
@@ -77,19 +77,19 @@
                 
                 
                 
-                    <li class="dropdown">
+                    <li class="dropdown active">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Домашние задания <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 <li >
-    <a href="hw_1/">Задание №1</a>
+    <a href="../hw_1/">Задание №1</a>
 </li>
 
                         
                             
-<li >
-    <a href="hw_2/">Задание №2</a>
+<li class="active">
+    <a href="./">Задание №2</a>
 </li>
 
                         
@@ -106,13 +106,13 @@
                         </a>
                     </li>
 		    <!--
-                    <li class="disabled">
-                        <a rel="prev" >
+                    <li >
+                        <a rel="prev" href="../hw_1/">
                             <i class="fas fa-arrow-left"></i> Previous
                         </a>
                     </li>
-                    <li >
-                        <a rel="next" href="hw_1/">
+                    <li class="disabled">
+                        <a rel="next" >
                             Next <i class="fas fa-arrow-right"></i>
                         </a>
                     </li>
@@ -127,18 +127,140 @@
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="first-level active"><a href="#_1">Титульный лист</a></li>
+        <li class="first-level active"><a href="#no-2">Домашняя работа № 2</a></li>
+        <li class="first-level "><a href="#_1">Ход работы</a></li>
+        <li class="first-level "><a href="#_2">Тестирование</a></li>
+        <li class="first-level "><a href="#_3">Вывод</a></li>
     </ul>
 </div></div>
         <div class="col-md-9" role="main">
 
-<h2 id="_1">Титульный лист</h2>
-<h1> Выполнил: Козлов Иван Дмитриевич </h1>
-<h1> Группа: К33401 </h1>
-<h1> Предмет: Бек-энд разработка</h1>
-<h1> Преподаватель: Добряков Давид Ильич</h1>
-<h4> Университет ИТМО </h4>
-<h4> Санкт-Петербург 2023 </h4></div>
+<h1 id="no-2">Домашняя работа № 2</h1>
+<h2>Знакомство с ORM Sequelize</h2>
+
+<p><code>Описание:</code> </p>
+<ul>
+<li>Продумать свою собственную модель пользователя</li>
+<li>Реализовать набор из CRUD-методов для работы с пользователями средствами Express + Sequelize</li>
+<li>Написать запрос для получения пользователя по id/email</li>
+</ul>
+<p><code>Материалы:</code></p>
+<p><a href="https://docs.google.com/presentation/d/1QAyV4WYFkILzhd-f13J06z94X6vAmWrWlfM6RNvXiGo/edit?usp=sharing">Презентация Express + Sequelize</a></p>
+<p><a href="http://expressjs.com/en/starter/hello-world.html">Документация Express</a></p>
+<p><a href="https://sequelize.org/master/">Документация Sequelize</a></p>
+<p><a href="https://openbase.com/js/sequelize-cli/documentation">Документация sequelize-cli</a></p>
+<p><a href="https://github.com/kantegory/mentoring/tree/master/14_express_example">Пример, который делали на паре</a></p>
+<hr>
+
+<h1 id="_1">Ход работы</h1>
+<p>Подготовим проект и пропишем в консоли команды:</p>
+<ul>
+<li><code>npm init</code></li>
+<li><code>npm install express -S</code></li>
+<li><code>npm install sequelize -S</code></li>
+<li><code>npm install --save-dev sequelize-clix</code></li>
+<li><code>npm install nodemon</code></li>
+<li><code>npm install sqlite3 -S</code> </li>
+</ul>
+<p>С помщью sequelize-cli делаем модель пользователя и делаем миграции в консоли:</p>
+<pre><code>npx sequelize-cli model:generate --name User --attributes 
+firstName:string,lastName:string,email:string,password:string,passport:string
+</code></pre>
+<p><code>npx sequelize-cli db:migrate</code></p>
+<p>Далее создадим файл index.js, который содержит основную логику.</p>
+<ul>
+<li><code>index.js</code></li>
+</ul>
+<pre><code class="language-javascript">const express = require('express')
+const db = require('./models')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const app = express()
+const port = 3333
+
+app.use(cors())
+app.use(bodyParser.json())
+
+app.get('/', (req, res) =&gt; {
+    res.send('Hello World!')
+})
+
+app.get('/api/users/:id', async (req, res) =&gt; {
+    const user = await db.User.findByPk(req.params.id)
+
+    console.log('user is', user)
+
+    if (user) {
+        return res.send(user.toJSON())
+    }
+
+    return res.send({&quot;msg&quot;: &quot;user is not found&quot;})
+})
+
+app.listen(port, () =&gt; {
+    console.log(`Example app listening on port ${port}`)
+})
+
+app.post('/api/users/', async (req, res) =&gt; {
+    try {
+        const user = await db.User.create(req.body);
+        await user.reload();
+        res.send(user.toJSON());
+    } catch (e) {
+        return res.send({&quot;msg&quot;: &quot;failed to create&quot;})
+    }
+})
+
+app.put('/api/users/:id', async (req, res) =&gt; {
+    const user = await db.User.findByPk(req.params.id);
+    if (user) {
+        try {
+            user.update(req.body, {where: {id: req.params.id}});
+            user.reload();
+            res.send(user.toJSON());
+        } catch (e) {
+            return res.send({&quot;msg&quot;: &quot;failed to update&quot;})
+        }
+    } else {
+        return res.send({&quot;msg&quot;: &quot;user is not found&quot;})
+    }
+
+})
+
+app.delete('/api/users/:id', async (req, res) =&gt; {
+    const user = await db.User.destroy({where: {id: req.params.id}})
+    if (user) {
+        res.send({&quot;detail&quot;: &quot;User deleted&quot;});
+    }
+    return res.send({&quot;msg&quot;: &quot;user is not found&quot;})
+})
+</code></pre>
+<p>Также установлены зависимости, чтобы работать с JSON и CORS:</p>
+<ul>
+<li><code>npm install body-parser -S</code> </li>
+<li><code>npm install cors -S</code> </li>
+</ul>
+<h1 id="_2">Тестирование</h1>
+<ul>
+<li>Создаем пользователя:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_1.png" /></p>
+<ul>
+<li>Получаем пользователя по id:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_2.png" /></p>
+<ul>
+<li>Обновляем данные пользователя по id:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_3.png" /></p>
+<ul>
+<li>Удаляем пользователя по id:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_4.png" /></p>
+<hr>
+
+<h1 id="_3">Вывод</h1>
+<p>Я научился работать с моделями с помощью ORM Sequelize и создавать API с помощью Express</p></div>
         
         
     </div>
@@ -155,15 +277,15 @@
     </footer>
 
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/fontawesome-all.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/highlight.pack.js"></script>
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-    <script>var base_url = "."</script>
+    <script>var base_url = ".."</script>
     
-    <script src="js/base.js"></script>
-    <script src="search/main.js"></script>
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
     aria-hidden="true">
