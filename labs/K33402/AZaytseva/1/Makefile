@@ -27,4 +27,4 @@ start: node_modules
 
 # Очистка сгенерированных файлов
 clean:
-	rm -rf node_modules db.sqlite
+	rm -rf node_modules db.sqlite dist
