@@ -8,11 +8,11 @@
 
 [Вводная презентация](https://docs.google.com/presentation/d/1jPnw4sra6DSnoHs6OIp7LF9t68blBGKu_FKxSyGUX3k/edit?usp=sharing)
 
-**ДЗ1** (срок: 06.03.2023)
+**ДЗ1** (срок: 06.03.2023, для 401й группы - 27.02.2023)
 
 Задание:
 
-- Установка npm (8.1.0), node.js (16.13.0)
+- Установка npm (9.3.1), node.js (18.14.1)
 - Инициализация npm-пакета
 - Установка express
 - Удаление express/попытка его обновить
@@ -31,7 +31,7 @@
 
 [Пример, который делали на паре](https://github.com/kantegory/mentoring/tree/master/14_express_example)
 
-**ДЗ2** (срок 25.03.2023)
+**ДЗ2** (срок 13.03.2023)
 
 Задание:
 
