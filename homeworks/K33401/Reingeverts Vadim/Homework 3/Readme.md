@@ -9,8 +9,21 @@ npm create vite@latest
 
 - vanilla, typescript
 
-### Установка make
+### Использование make
+> `mingw32-make.exe`
+
+
+#### Установка зависимостей и сборка
+```bash
+./make
+```
+
+![](https://i.imgur.com/HaSaLPk.png)
+
+#### Запуск сервера разработки
 
 ```bash
-sudo apt-get install build-essential
+./make run
 ```
+
+![](https://i.imgur.com/j0LmSo5.png)
