@@ -1,13 +1,16 @@
+// @ts-nocheck
 import { Sequelize } from 'sequelize-typescript'
 import RefreshToken from '../models/auth/RefreshToken'
 import User from '../models/users/User'
+import dotenv from "dotenv"
+dotenv.config()
 
 const sequelize = new Sequelize({
-    database: 'db',
-    dialect: 'sqlite',
-    username: 'root',
-    password: '',
-    storage: 'db.sqlite',
+    database:  process.env.NAME,
+    dialect:  process.env.DIALECT || 'sqlite',
+    username: process.env.USERNAME,
+    password: process.env.PASSWORD,
+    storage: process.env.STORAGE,
     logging: console.log,
 })
 
