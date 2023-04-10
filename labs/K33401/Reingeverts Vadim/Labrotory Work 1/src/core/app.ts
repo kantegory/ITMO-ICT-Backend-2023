@@ -1,6 +1,19 @@
 import express from "express";
+import { PrismaClient } from "@prisma/client";
 
 export const viteNodeApp = express();
+
+const prisma = new PrismaClient();
+
+const user = await prisma.user.create({
+    data: {
+        email: "elsa@prisma.io",
+        name: "Elsa Prisma",
+    },
+});
+const users = await prisma.user.findMany();
+console.log("SUCCESS", users);
+// console.log("prisma", prisma);
 
 /* MIDDLEWARE */
 /* Requires header 'Content-Type: application/json' for body */
