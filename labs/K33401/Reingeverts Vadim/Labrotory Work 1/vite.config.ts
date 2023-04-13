@@ -8,6 +8,13 @@ export default defineConfig({
         // vite server configs, for details see [vite doc](https://vitejs.dev/config/#server-host)
         port: 3000,
     },
+
+    resolve: {
+        alias: {
+            "~": resolve("./src"),
+        },
+    },
+
     plugins: [
         ...VitePluginNode({
             // Nodejs native Request adapter

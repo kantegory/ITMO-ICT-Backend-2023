@@ -14,7 +14,10 @@
         "noImplicitReturns": true,
         "skipLibCheck": true,
 
-        "noUnusedParameters": false
+        "noUnusedParameters": false,
+        "paths": {
+            "~/*": ["./src/*"]
+        }
     },
     "include": ["src"]
 }
