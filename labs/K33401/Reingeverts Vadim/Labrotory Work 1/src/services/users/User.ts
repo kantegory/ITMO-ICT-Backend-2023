@@ -3,6 +3,19 @@ import { PrismaClient, User, Prisma } from "@prisma/client";
 class UserService {
     private db = new PrismaClient();
 
+    exclude<User, Key extends keyof User>(user: User, keys: Key[]): Omit<User, Key> {
+        const omitedUser = { ...user };
+        for (let key of keys) {
+            delete omitedUser[key];
+        }
+        return omitedUser;
+    }
+
+    excludeMany<User, Key extends keyof User>(users: User[], keys: Key[]): Omit<User, Key>[] {
+        const omitedUsers = users.map((user) => this.exclude(user, keys));
+        return omitedUsers;
+    }
+
     async getAll(): Promise<User[]> {
         return this.db.user.findMany();
     }

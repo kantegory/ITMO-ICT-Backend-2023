@@ -21,7 +21,8 @@ class UserController {
         res.type("json");
 
         const users = await this.userService.getAll();
-        res.status(200).send(JSON.stringify(users, null, 2));
+        const usersWithoutPass = this.userService.excludeMany(users, ["password"]);
+        res.status(200).send(JSON.stringify(usersWithoutPass, null, 2));
     };
 
     get = async (req: express.Request, res: express.Response) => {
@@ -32,7 +33,8 @@ class UserController {
         try {
             const user = await this.userService.getById(Number(id));
             if (user) {
-                res.status(200).send(JSON.stringify(user, null, 2));
+                const userWithoutPass = this.userService.exclude(user, ["password"]);
+                res.status(200).send(JSON.stringify(userWithoutPass, null, 2));
             } else {
                 res.status(404).send({ message: `${this.name} with id ${id} does not exist` });
             }
@@ -48,7 +50,8 @@ class UserController {
 
         try {
             const user = await this.userService.create(body);
-            res.status(200).send(JSON.stringify(user, null, 2));
+            const userWithoutPass = this.userService.exclude(user, ["password"]);
+            res.status(200).send(JSON.stringify(userWithoutPass, null, 2));
         } catch (error) {
             this.handleError(error, res, `Failed to create ${this.name}`);
         }
@@ -62,7 +65,8 @@ class UserController {
 
         try {
             const user = await this.userService.update(Number(id), body);
-            res.status(200).send(JSON.stringify(user, null, 2));
+            const userWithoutPass = this.userService.exclude(user, ["password"]);
+            res.status(200).send(JSON.stringify(userWithoutPass, null, 2));
         } catch (error) {
             this.handleError(error, res, `Failed to update ${this.name}`);
         }
