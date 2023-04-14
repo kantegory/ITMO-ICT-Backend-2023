@@ -1,16 +1,23 @@
 import express from "express";
 import UserController from "~/controllers/users/User";
 
-const router = express.Router();
-
+const userRoutes = express.Router();
 const controller = new UserController();
 
-router.route("/").post(controller.post);
+userRoutes.route("/").get(controller.getAll);
 
-router.route("/profile/:id").get(controller.get);
+userRoutes.route("/").post(controller.post);
 
-router.route("/login").post(controller.auth);
+userRoutes.route("/:id").get(controller.get);
 
-router.route("/refresh").post(controller.refreshToken);
+userRoutes.route("/:id").patch(controller.patch);
 
-export default router;
+userRoutes.route("/:id").delete(controller.delete);
+
+// router.route("/profile/:id").get(controller.get);
+
+// router.route("/login").post(controller.auth);
+
+// router.route("/refresh").post(controller.refreshToken);
+
+export default userRoutes;

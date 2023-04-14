@@ -10,14 +10,17 @@
         "isolatedModules": true,
         "esModuleInterop": true,
         "noEmit": true,
-        "noUnusedLocals": true,
         "noImplicitReturns": true,
         "skipLibCheck": true,
 
+        "noUnusedLocals": false,
         "noUnusedParameters": false,
         "paths": {
-            "~/*": ["./src/*"]
-        }
+            "~/*": ["./src/*"],
+            "express-body-parser-error-handler": ["./src/types/express-body-parser-error-handler"]
+        },
+        "typeRoots": ["node_modules/@types", "src/types"]
     },
-    "include": ["src"]
+    "include": ["src"],
+    "exclude": ["src/types/**"]
 }

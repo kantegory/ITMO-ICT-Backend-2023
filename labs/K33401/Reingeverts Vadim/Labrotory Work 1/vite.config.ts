@@ -27,7 +27,7 @@ export default defineConfig({
 
             // Optional, default: 'viteNodeApp'
             // the name of named export of you app from the appPath file
-            exportName: "viteNodeApp",
+            exportName: "app",
 
             // Optional, default: 'esbuild'
             // The TypeScript compiler you want to use
