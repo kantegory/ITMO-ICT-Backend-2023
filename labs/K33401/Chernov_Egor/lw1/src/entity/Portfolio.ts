@@ -1,14 +1,17 @@
-import {Entity, Column, PrimaryColumn, ManyToOne} from "typeorm"
+import {Entity, Column, PrimaryGeneratedColumn, PrimaryColumn, ManyToOne} from "typeorm"
 import {User} from "./User";
 import {Coin} from "./Coin";
 
 @Entity("portfolio")
 export class Portfolio {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn('uuid')
+    id: string
+
+    // @PrimaryColumn()
     @ManyToOne(() => User, (user) => user.portfolios)
     id_user: User
 
-    @PrimaryColumn()
+    // @PrimaryColumn()
     @ManyToOne(() => Coin, (coin) => coin.portfolios)
     id_coin: Coin
 

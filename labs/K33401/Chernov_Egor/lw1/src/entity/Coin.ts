@@ -6,7 +6,9 @@ export class Coin {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_coin)
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_coin, {
+        cascade: true
+    })
     portfolios: Portfolio[]
 
     @Column({
@@ -15,12 +17,13 @@ export class Coin {
     })
     name: string
 
-    @Column("double")
+    @Column("money")
     price: number
 
     @Column({
         type: "character varying",
-        length: 200
+        length: 200,
+        nullable: true
     })
     description: string
 }
