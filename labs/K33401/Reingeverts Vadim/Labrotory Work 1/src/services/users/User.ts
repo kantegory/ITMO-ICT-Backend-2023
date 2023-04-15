@@ -47,9 +47,7 @@ class UserService {
         const { password } = userData;
         if (typeof password === "string") {
             const hashedPassword = await this.hashPassword(password);
-            console.log("it is!", userData);
             userData.password = hashedPassword;
-            console.log("it is 2!", userData);
         }
 
         return this.db.user.update({
