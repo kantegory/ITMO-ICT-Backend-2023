@@ -1,7 +1,7 @@
 import express from "express"
-import userRouter from "./UserRoute"
-import portfolioRouter from "./PortfolioRoute"
-import coinRouter from "./CoinRoute"
+import userRouter from "./UserRouter"
+import portfolioRouter from "./PortfolioRouter"
+import coinRouter from "./CoinRouter"
 
 const router: express.Router = express.Router()
 

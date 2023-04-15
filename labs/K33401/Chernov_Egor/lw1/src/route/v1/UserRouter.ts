@@ -1,7 +1,7 @@
 import express from "express"
 // import TestController from "../../controller/test/index"
 import UserController from "../../controller/v1/UserController"
-import portfolioRouter from "./PortfolioRoute";
+import portfolioRouter from "./PortfolioRouter";
 // import passport from "../../../middleware/passport"
 
 // Test
