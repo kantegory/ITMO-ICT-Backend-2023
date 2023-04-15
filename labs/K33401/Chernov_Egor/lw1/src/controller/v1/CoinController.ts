@@ -2,13 +2,13 @@ import { Request, Response } from "express"
 
 class CoinController {
     get_all = async (request: Request, response: Response) => {
-        const todo = "get coins from DB"
+        const todo = "get coins from Service"
 
         return response.send(todo)
     }
 
     get = async (request: Request, response: Response) => {
-        const todo = "get specific coin from DB"
+        const todo = "get specific coin from Service"
 
         return response.send(todo)
     }
@@ -20,7 +20,7 @@ class CoinController {
     }
 
     delete = async (request: Request, response: Response) => {
-        const todo = "drop coin from DB"
+        const todo = "drop coin from Service"
 
         return response.send(todo)
     }

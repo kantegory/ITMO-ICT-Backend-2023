@@ -2,13 +2,13 @@ import { Request, Response } from "express"
 
 class PortfolioController {
     get_all = async (request: Request, response: Response) => {
-        const todo = "get all rows by id_user from Portfolio table of DB"
+        const todo = "get all rows by id_user from Portfolio table of Service"
 
         return response.send(todo)
     }
 
     get = async (request: Request, response: Response) => {
-        const todo = "get specific row by id_user, id_coin from Portfolio table of DB"
+        const todo = "get specific row by id_user, id_coin from Portfolio table of Service"
 
         return response.send(todo)
     }
