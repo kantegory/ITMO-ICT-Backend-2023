@@ -22,7 +22,7 @@ class App {
     private readonly app: express.Application
     private server: Server
 
-    constructor(port=Number(process.env.PORT), host=String(process.env.HOST)) {
+    constructor(port=parseInt(process.env.PORT), host=String(process.env.HOST)) {
         this.port = port
         this.host = host
 
