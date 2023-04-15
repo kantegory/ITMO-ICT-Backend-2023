@@ -7,7 +7,8 @@ export class Coin {
     id: string
 
     @OneToMany(() => Portfolio, (portfolio) => portfolio.id_coin, {
-        cascade: true
+        cascade: true,
+        onDelete: "SET NULL"
     })
     portfolios: Portfolio[]
 

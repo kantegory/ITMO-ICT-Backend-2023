@@ -7,7 +7,8 @@ export class User {
     id: string
 
     @OneToMany(() => Portfolio, (portfolio) => portfolio.id_user, {
-        cascade: true
+        cascade: true,
+        onDelete: "CASCADE"
     })
     portfolios: Portfolio[]
 
