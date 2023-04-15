@@ -1,7 +1,7 @@
 import express from "express"
 // import TestController from "../../controller/test/index"
 import UserController from "../../controller/v1/UserController"
-import portfolioRouter from "./Portfolio";
+import portfolioRouter from "./PortfolioRoute";
 // import passport from "../../../middleware/passport"
 
 // Test
@@ -12,23 +12,23 @@ import portfolioRouter from "./Portfolio";
 //     .get(testController.get)
 
 // Create router and controller
-const userRoutes: express.Router = express.Router()
+const userRouter: express.Router = express.Router()
 const userController: UserController = new UserController()
 
 // User routes
-userRoutes.route('/list')
+userRouter.route('/list')
     .get(userController.get_all)
 
-userRoutes.route('/specific')
+userRouter.route('/specific')
     .get(userController.get)
 
-userRoutes.route('/registration')
+userRouter.route('/registration')
     .get(userController.post_create_user)
 
-userRoutes.route('/login')
+userRouter.route('/login')
     .get(userController.post_login_user)
 
 portfolioRouter.route('/delete')
     .get(userController.delete)
 
-export default userRoutes
+export default userRouter
