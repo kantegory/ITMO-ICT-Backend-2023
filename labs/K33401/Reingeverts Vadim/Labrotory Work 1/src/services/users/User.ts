@@ -1,7 +1,9 @@
 import { PrismaClient, User, Prisma } from "@prisma/client";
+import bcrypt from "bcrypt";
 
 class UserService {
     private db = new PrismaClient();
+    private saltRounds = 8;
 
     exclude<User, Key extends keyof User>(user: User, keys: Key[]): Omit<User, Key> {
         const omitedUser = { ...user };
@@ -29,12 +31,27 @@ class UserService {
     }
 
     async create(userData: Prisma.UserUncheckedCreateInput): Promise<User> {
-        return this.db.user.create({
-            data: userData,
-        });
+        const { password } = userData;
+
+        if (password) {
+            const hashedPassword = await this.hashPassword(password);
+            userData.password = hashedPassword;
+
+            return this.db.user.create({
+                data: userData,
+            });
+        } else throw new Error("Password field was not provided");
     }
 
     async update(id: number, userData: Prisma.UserUncheckedUpdateInput): Promise<User> {
+        const { password } = userData;
+        if (typeof password === "string") {
+            const hashedPassword = await this.hashPassword(password);
+            console.log("it is!", userData);
+            userData.password = hashedPassword;
+            console.log("it is 2!", userData);
+        }
+
         return this.db.user.update({
             where: {
                 id,
@@ -51,7 +68,16 @@ class UserService {
         });
     }
 
-    // async checkPassword(email: string, password: string): Promise<any> {}
+    async hashPassword(password: string): Promise<string> {
+        return bcrypt.hash(password, this.saltRounds);
+    }
+
+    async comparePassword(id: number, password: string): Promise<boolean> {
+        const user = await this.getById(id);
+        if (user) {
+            return bcrypt.compare(password, user.password);
+        } else return false;
+    }
 }
 
 export default UserService;
