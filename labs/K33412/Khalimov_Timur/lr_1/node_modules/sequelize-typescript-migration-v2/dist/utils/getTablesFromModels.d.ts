@@ -1,0 +1,5 @@
+import { Sequelize } from "sequelize-typescript";
+import { ModelCtor, Model } from "sequelize/types";
+export default function reverseModels(sequelize: Sequelize, models: {
+    [key: string]: ModelCtor<Model>;
+}): {};

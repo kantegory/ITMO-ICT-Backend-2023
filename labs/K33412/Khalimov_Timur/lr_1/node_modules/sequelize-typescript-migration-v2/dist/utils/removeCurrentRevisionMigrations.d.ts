@@ -1,0 +1,1 @@
+export default function removeCurrentRevisionMigrations(revision: any, migrationsPath: any, options: any): Promise<Boolean>;

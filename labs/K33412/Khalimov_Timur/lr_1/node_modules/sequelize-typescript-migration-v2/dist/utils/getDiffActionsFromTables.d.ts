@@ -1,0 +1,11 @@
+export interface IAction {
+    actionType: "createTable" | "addIndex" | "addColumn" | "dropTable" | "removeColumn" | "removeIndex" | "changeColumn";
+    tableName: string;
+    attributes?: any;
+    attributeName?: any;
+    options?: any;
+    columnName?: any;
+    fields?: any[];
+    depends: string[];
+}
+export default function getDiffActionsFromTables(previousStateTables: any, currentStateTables: any): IAction[];

@@ -1,0 +1,5 @@
+export default function getMigration(actions: any): {
+    commandsUp: any[];
+    commandsDown: any[];
+    consoleOut: string[];
+};

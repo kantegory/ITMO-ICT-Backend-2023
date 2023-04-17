@@ -1,0 +1,13 @@
+import { Sequelize } from "sequelize-typescript";
+export interface IMigrationOptions {
+    outDir: string;
+    preview?: boolean;
+    migrationName?: string;
+    comment?: string;
+    debug?: boolean;
+}
+export declare class SequelizeTypescriptMigration {
+    static makeMigration: (sequelize: Sequelize, options: IMigrationOptions) => Promise<{
+        msg: string;
+    }>;
+}

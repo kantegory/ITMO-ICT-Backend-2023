@@ -1,0 +1,11 @@
+#!/usr/bin/env node
+
+var commander = require('commander');
+
+commander
+  .version(require('../package').version, '-v, --version')
+  .option('-c, --cwd [value]', 'directory of static files')
+  .option('-p, --port <n>', 'server port')
+  .parse(process.argv);
+
+require('../server')(commander);

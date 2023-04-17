@@ -1,0 +1,13 @@
+export default function reverseSequelizeDefValueType(defaultValue: any, prefix?: string): {
+    internal: boolean;
+    value: string;
+    notSupported?: undefined;
+} | {
+    notSupported: boolean;
+    value: string;
+    internal?: undefined;
+} | {
+    value: any;
+    internal?: undefined;
+    notSupported?: undefined;
+};

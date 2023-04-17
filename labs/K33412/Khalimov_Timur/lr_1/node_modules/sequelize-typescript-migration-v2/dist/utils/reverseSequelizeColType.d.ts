@@ -1,0 +1,2 @@
+import { Sequelize } from "sequelize-typescript";
+export default function reverseSequelizeColType(sequelize: Sequelize, attrType: any, prefix?: string): any;

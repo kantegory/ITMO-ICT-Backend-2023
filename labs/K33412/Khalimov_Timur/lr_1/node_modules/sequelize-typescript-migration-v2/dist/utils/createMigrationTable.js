@@ -1,0 +1,32 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const sequelize_typescript_1 = require("sequelize-typescript");
+async function createMigrationTable(sequelize) {
+    const queryInterface = sequelize.getQueryInterface();
+    await queryInterface.createTable("SequelizeMeta", {
+        name: {
+            type: sequelize_typescript_1.DataType.STRING,
+            allowNull: false,
+            unique: true,
+            primaryKey: true
+        }
+    });
+    await queryInterface.createTable("SequelizeMetaMigrations", {
+        revision: {
+            type: sequelize_typescript_1.DataType.INTEGER,
+            allowNull: false,
+            unique: true,
+            primaryKey: true
+        },
+        name: {
+            type: sequelize_typescript_1.DataType.STRING,
+            allowNull: false
+        },
+        state: {
+            type: sequelize_typescript_1.DataType.JSON,
+            allowNull: false
+        }
+    });
+}
+exports.default = createMigrationTable;
+//# sourceMappingURL=createMigrationTable.js.map

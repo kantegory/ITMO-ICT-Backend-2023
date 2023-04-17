@@ -1,0 +1,38 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const crypto = require("crypto");
+function parseIndex(idx) {
+    let result = {};
+    [
+        "name",
+        "type",
+        "unique",
+        "concurrently",
+        "fields",
+        "using",
+        "operator",
+        "where"
+    ].forEach(key => {
+        if (idx[key] !== undefined) {
+            result[key] = idx[key];
+        }
+    });
+    const options = {};
+    if (idx.name) {
+        options["indexName"] = idx.name;
+    }
+    if (idx.unique) {
+        options["indicesType"] = "UNIQUE";
+    }
+    if (idx.parser && idx.parser !== "") {
+        options["parser"] = idx.parser;
+    }
+    result["options"] = options;
+    result["hash"] = crypto
+        .createHash("sha1")
+        .update(JSON.stringify(idx))
+        .digest("hex");
+    return result;
+}
+exports.default = parseIndex;
+//# sourceMappingURL=parseIndex.js.map

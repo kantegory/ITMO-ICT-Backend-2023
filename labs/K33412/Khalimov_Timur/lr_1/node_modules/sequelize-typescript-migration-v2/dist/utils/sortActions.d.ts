@@ -1,0 +1,2 @@
+import { IAction } from "./getDiffActionsFromTables";
+export default function sortActions(actions: IAction[]): IAction[];

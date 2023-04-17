@@ -1,0 +1,2 @@
+import { IndexesOptions } from "sequelize/types";
+export default function parseIndex(idx: IndexesOptions): {};
