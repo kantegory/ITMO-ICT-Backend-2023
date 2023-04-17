@@ -12,4 +12,3 @@ migrate:
 	npx sequelize-cli db:migrate
 
 .DEFAULT_GOAL := init
-
