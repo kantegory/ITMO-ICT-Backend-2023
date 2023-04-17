@@ -23,8 +23,8 @@ rout.put('/users/:id',userControllers.UpdateUser)
 rout.delete('/users/:id',userControllers.DeleteUser)
 
 rout.post('/login',[
-    body('username').not().isEmpty().withMessage('username is Required'),
-    body('email').not().isEmpty().withMessage('email is Required')
+    body('email').not().isEmpty().withMessage('email is Required'),
+    body('password').not().isEmpty().withMessage('password is Required')
 ],userControllers.Login)
 
 

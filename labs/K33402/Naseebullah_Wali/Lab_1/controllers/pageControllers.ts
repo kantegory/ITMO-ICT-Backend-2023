@@ -47,7 +47,8 @@ public static FindById = async (req:express.Request,res:express.Response)=>{
 public static UpdateUser = async (req:express.Request,res:express.Response)=>{
     // const requestedId = req.params.id;
     const requestedUser:any = await User.findOne({where: {id: req.params.id} })
-    requestedUser.username = req.body.username;
+    requestedUser.firstName = req.body.firstName;
+    requestedUser.lastName = req.body.lastName;
     requestedUser.password = req.body.password;
     requestedUser.email= req.body.email
     await requestedUser.save()
