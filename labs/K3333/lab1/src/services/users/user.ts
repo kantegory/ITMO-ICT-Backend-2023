@@ -53,7 +53,7 @@ class UserService {
 
             if (user) {
                 const deleted_user = await user.destroy({where: {id: id}})
-
+                
                 return deleted_user
             }
         }

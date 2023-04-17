@@ -1,5 +1,4 @@
 import UserService from '../services/users/user'
-import User from '../models/users/User';
 import express from "express"
 
 
@@ -12,16 +11,14 @@ class UserController {
     }
 
     get = async (req: express.Request, res: express.Response) => {
-
         res.type("json")
-
         const users = await this.userService.get();
         res.send(users)
     }
 
     getById = async (request: any, response: any) => {
         try {
-            const user: User = await this.userService.getById(
+            const user = await this.userService.getById(
                 Number(request.params.id)
             )
             response.send(user)

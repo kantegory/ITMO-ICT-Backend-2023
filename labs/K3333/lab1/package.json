@@ -5,8 +5,6 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "npx sequelize db:migrate",
-    "seed": "npx sequelize-cli db:seed:all",
     "watch": "tsc -w",
     "build": "npx tsc",
     "start": "nodemon ./dist/index.js",
