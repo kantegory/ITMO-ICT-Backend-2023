@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>Задание №2 - Отчеты по Backend</title>
+    
+
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">Отчеты по Backend</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Главная страница</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Лабораторные <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../lr_1/">Лабораторная №1</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Домашние задания <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../hw_1/">Задание №1</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Задание №2</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_3/">Задание №3</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+		    <!--
+                    <li >
+                        <a rel="prev" href="../hw_1/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../hw_3/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+		    -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#no-2">Домашняя работа № 2</a></li>
+        <li class="first-level "><a href="#_1">Ход работы</a></li>
+        <li class="first-level "><a href="#_2">Тестирование</a></li>
+        <li class="first-level "><a href="#_3">Вывод</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="no-2">Домашняя работа № 2</h1>
+<h2>Знакомство с ORM Sequelize</h2>
+
+<p><code>Описание:</code> </p>
+<ul>
+<li>Продумать свою собственную модель пользователя</li>
+<li>Реализовать набор из CRUD-методов для работы с пользователями средствами Express + Sequelize</li>
+<li>Написать запрос для получения пользователя по id/email</li>
+</ul>
+<p><code>Материалы:</code></p>
+<p><a href="https://docs.google.com/presentation/d/1QAyV4WYFkILzhd-f13J06z94X6vAmWrWlfM6RNvXiGo/edit?usp=sharing">Презентация Express + Sequelize</a></p>
+<p><a href="http://expressjs.com/en/starter/hello-world.html">Документация Express</a></p>
+<p><a href="https://sequelize.org/master/">Документация Sequelize</a></p>
+<p><a href="https://openbase.com/js/sequelize-cli/documentation">Документация sequelize-cli</a></p>
+<p><a href="https://github.com/kantegory/mentoring/tree/master/14_express_example">Пример, который делали на паре</a></p>
+<hr>
+
+<h1 id="_1">Ход работы</h1>
+<p>Подготовим проект и пропишем в консоли команды:</p>
+<ul>
+<li><code>npm init</code></li>
+<li><code>npm install express -S</code></li>
+<li><code>npm install sequelize -S</code></li>
+<li><code>npm install --save-dev sequelize-cli</code></li>
+<li><code>npm install nodemon</code></li>
+<li><code>npm install sqlite3 -S</code> </li>
+</ul>
+<p>С помщью sequelize-cli делаем модель пользователя и делаем миграции в консоли:</p>
+<pre><code>npx sequelize-cli model:generate --name User --attributes 
+firstName:string,lastName:string,email:string,password:string,passport:string
+</code></pre>
+<p><code>npx sequelize-cli db:migrate</code></p>
+<p>Далее создадим файл index.js, который содержит основную логику.</p>
+<ul>
+<li><code>index.js</code></li>
+</ul>
+<pre><code class="language-javascript">const express = require('express')
+const db = require('./models')
+const bodyParser = require('body-parser')
+const cors = require('cors')
+const app = express()
+const port = 3333
+
+app.use(cors())
+app.use(bodyParser.json())
+
+app.get('/', (req, res) =&gt; {
+    res.send('Hello World!')
+})
+
+app.get('/api/users/:id', async (req, res) =&gt; {
+    const user = await db.User.findByPk(req.params.id)
+
+    console.log('user is', user)
+
+    if (user) {
+        return res.send(user.toJSON())
+    }
+
+    return res.send({&quot;msg&quot;: &quot;user is not found&quot;})
+})
+
+app.listen(port, () =&gt; {
+    console.log(`Example app listening on port ${port}`)
+})
+
+app.post('/api/users/', async (req, res) =&gt; {
+    try {
+        const user = await db.User.create(req.body);
+        await user.reload();
+        res.send(user.toJSON());
+    } catch (e) {
+        return res.send({&quot;msg&quot;: &quot;failed to create&quot;})
+    }
+})
+
+app.put('/api/users/:id', async (req, res) =&gt; {
+    const user = await db.User.findByPk(req.params.id);
+    if (user) {
+        try {
+            user.update(req.body, {where: {id: req.params.id}});
+            user.reload();
+            res.send(user.toJSON());
+        } catch (e) {
+            return res.send({&quot;msg&quot;: &quot;failed to update&quot;})
+        }
+    } else {
+        return res.send({&quot;msg&quot;: &quot;user is not found&quot;})
+    }
+
+})
+
+app.delete('/api/users/:id', async (req, res) =&gt; {
+    const user = await db.User.destroy({where: {id: req.params.id}})
+    if (user) {
+        res.send({&quot;detail&quot;: &quot;User deleted&quot;});
+    }
+    return res.send({&quot;msg&quot;: &quot;user is not found&quot;})
+})
+</code></pre>
+<p>Также установлены зависимости, чтобы работать с JSON и CORS:</p>
+<ul>
+<li><code>npm install body-parser -S</code> </li>
+<li><code>npm install cors -S</code> </li>
+</ul>
+<h1 id="_2">Тестирование</h1>
+<ul>
+<li>Создаем пользователя:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_1.png" /></p>
+<ul>
+<li>Получаем пользователя по id:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_2.png" /></p>
+<ul>
+<li>Обновляем данные пользователя по id:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_3.png" /></p>
+<ul>
+<li>Удаляем пользователя по id:</li>
+</ul>
+<p><img alt="Screenshot" src="../img/hw_2/p_4.png" /></p>
+<hr>
+
+<h1 id="_3">Вывод</h1>
+<p>Я научился работать с моделями с помощью ORM Sequelize и создавать API с помощью Express</p></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <p>
+            <!--
+	<small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+	-->
+
+            
+            
+    </footer>
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Поиск</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Вы можете искать по документам.
+                    Введите условия поиска ниже.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск" id="mkdocs-search-query"
+                            title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="https://github.com/IYunet/ITMO-ICT-Backend-2023">
+        <center>GitHub</center>
+    </a>
+    </body>
+
+</html>
