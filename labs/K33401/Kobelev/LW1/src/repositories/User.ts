@@ -1,5 +1,6 @@
 import { AppDataSource } from '../database/data-source'
 import { User } from '../models/User'
+import { RandomEntity } from '../models/RandomEntity'
 
 const userRepository = AppDataSource.getRepository(User)
 
@@ -10,26 +11,9 @@ class UserRepository {
         })
     }
 
-    async readById(id: number) {
+    async readOneByUsername(username: string) {
         return await userRepository.findOneOrFail({
-            select: ['id', 'username'],
-            relations: {
-                randomEntities: true,
-            },
-            where: { id: id },
-        })
-    }
-
-    async ReadTokenVersion(id: number) {
-        return await userRepository.findOneOrFail({
-            select: ['id', 'username', 'tokenVersion'],
-            where: { id: id },
-        })
-    }
-
-    async readByUsername(username: string) {
-        return await userRepository.findOneOrFail({
-            select: ['id', 'username'],
+            select: ['id', 'username', 'password', 'tokenVersion'],
             relations: {
                 randomEntities: true,
             },
@@ -37,14 +21,30 @@ class UserRepository {
         })
     }
 
-    async createUser() {}
+    async updateTokenVersion(username: string) {
+        const user = await this.readOneByUsername(username)
+        user.tokenVersion += 1
+        await userRepository.save(user)
+        return user.tokenVersion
+    }
+
+    async createUser(username: string, password: string) {
+        const user = new User()
+        user.username = username
+        user.password = password
+        user.tokenVersion = 1
+
+        user.hashPassword()
+
+        return await userRepository.save(user)
+    }
 
     async updateUserRandomEntities(
         username: string,
-        randomEntity: any,
+        randomEntity: RandomEntity,
         add: boolean
     ) {
-        const user = await this.readByUsername(username)
+        const user = await this.readOneByUsername(username)
         if (add) {
             await userRepository
                 .createQueryBuilder()
@@ -59,7 +59,7 @@ class UserRepository {
                 .remove(randomEntity)
         }
 
-        return await this.readByUsername(username)
+        return await this.readOneByUsername(username)
     }
 }
 

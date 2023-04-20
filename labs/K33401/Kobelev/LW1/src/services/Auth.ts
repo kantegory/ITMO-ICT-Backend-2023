@@ -3,11 +3,13 @@ import UserRepository from '../repositories/User'
 const userRepository = new UserRepository()
 
 class AuthService {
-    async getUserTokenVersion(id: number) {
-        return userRepository.ReadTokenVersion(id)
+    async getUserTokenVersion(username: string) {
+        return userRepository.readOneByUsername(username)
     }
 
-    async login(username: string, password: string) {}
+    async updateUserTokenVersion(username: string) {
+        return userRepository.updateTokenVersion(username)
+    }
 }
 
 export default AuthService

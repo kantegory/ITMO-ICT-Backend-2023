@@ -1,5 +1,6 @@
 import express from 'express'
 import RandomEntityController from '../controllers/RandomEntityController'
+
 const router: express.Router = express.Router()
 
 const randomEntityController = new RandomEntityController()

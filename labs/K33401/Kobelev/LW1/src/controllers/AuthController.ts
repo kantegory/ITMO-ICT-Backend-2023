@@ -3,9 +3,11 @@ import 'dotenv/config'
 import * as jwt from 'jsonwebtoken'
 
 import { User } from '../models/User'
-import { AppDataSource } from '../database/data-source'
+import UserService from '../services/User'
+import AuthService from '../services/Auth'
 
-const userRepository = AppDataSource.getRepository(User)
+const userService = new UserService()
+const authService = new AuthService()
 
 class AuthController {
     login = async (request: Request, response: Response) => {
@@ -19,9 +21,7 @@ class AuthController {
 
         let user: User
         try {
-            user = await userRepository.findOneOrFail({
-                where: { username: username },
-            })
+            user = await userService.getByUsername(username)
         } catch (error) {
             return response.status(401).send({
                 error: 'Cant find user from DB',
@@ -34,12 +34,12 @@ class AuthController {
             })
         }
 
-        user.tokenVersion += 1
-
-        await userRepository.save(user)
+        const newTokenVersion = await authService.updateUserTokenVersion(
+            user.username
+        )
 
         const token = jwt.sign(
-            { userId: user.id, username: user.username, v: user.tokenVersion },
+            { userId: user.id, username: user.username, v: newTokenVersion },
             process.env.JWT_SECRET as string,
             { expiresIn: process.env.JWT_LIFETIME as string }
         )
@@ -49,18 +49,11 @@ class AuthController {
 
     signup = async (request: Request, response: Response) => {
         const { username, password } = request.body
-        const user = new User()
-        user.username = username
-        user.password = password
-        user.tokenVersion = 1
-
-        user.hashPassword()
 
         try {
-            await userRepository.save(user)
+            await userService.createNewUser(username, password)
         } catch (error) {
-            response.status(409).send('Username already in use')
-            return
+            return response.status(409).send('Username already in use')
         }
 
         response.status(201).send('User created')

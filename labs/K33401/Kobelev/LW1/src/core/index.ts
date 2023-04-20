@@ -23,8 +23,8 @@ class App {
     private createApp(): express.Application {
         const app = express()
 
+        app.use(express.urlencoded({ extended: true }))
         app.use(express.json())
-        app.use(express.urlencoded())
 
         app.use('/users', users)
         app.use('/auth', auth)

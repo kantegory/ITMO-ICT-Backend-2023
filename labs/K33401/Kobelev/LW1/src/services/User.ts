@@ -9,12 +9,12 @@ class UserService {
         return userRepository.readAll()
     }
 
-    async getById(id: number) {
-        return userRepository.readById(id)
+    async getByUsername(username: string) {
+        return userRepository.readOneByUsername(username)
     }
 
-    async getByUsername(username: string) {
-        return userRepository.readByUsername(username)
+    async createNewUser(username: string, password: string) {
+        return userRepository.createUser(username, password)
     }
 
     async addRandomEntity(username: string, randomEntityId: number) {

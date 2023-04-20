@@ -3,6 +3,7 @@ import AuthController from '../controllers/AuthController'
 import { checkJWT } from '../middlewares/checkJWT'
 
 const router: express.Router = express.Router()
+
 const authController = new AuthController()
 
 router.route('/login').post(authController.login)
