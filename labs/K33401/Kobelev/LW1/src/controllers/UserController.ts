@@ -1,7 +1,7 @@
-import { Request, Response } from "express"
-import UserService from "../services/User"
+import { Request, Response } from 'express'
+import UserService from '../services/User'
 
-const userService = new UserService
+const userService = new UserService()
 
 class UserController {
     getAllUsers = async (request: Request, response: Response) => {
@@ -10,22 +10,25 @@ class UserController {
     }
 
     addUserRandomEntity = async (request: Request, response: Response) => {
-        let randomEntityId =  Number(request.params.id)
-        let username = response.locals.jwtPayload.username
-        let user = await userService.addRandomEntity(username, randomEntityId)
+        const randomEntityId = Number(request.params.id)
+        const username = response.locals.jwtPayload.username
+        const user = await userService.addRandomEntity(username, randomEntityId)
         return response.send(user)
     }
 
     removeUserRandomEntity = async (request: Request, response: Response) => {
-        let randomEntityId =  Number(request.params.id)
-        let username = response.locals.jwtPayload.username
-        let user = await userService.deleteRandomEntity(username, randomEntityId)
+        const randomEntityId = Number(request.params.id)
+        const username = response.locals.jwtPayload.username
+        const user = await userService.deleteRandomEntity(
+            username,
+            randomEntityId
+        )
         return response.send(user)
     }
 
     getMyRandomEntities = async (request: Request, response: Response) => {
-        let username = response.locals.jwtPayload.username
-        let user = await userService.getByUsername(username)
+        const username = response.locals.jwtPayload.username
+        const user = await userService.getByUsername(username)
         return response.send(user)
     }
 }

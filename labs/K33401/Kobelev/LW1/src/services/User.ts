@@ -1,8 +1,8 @@
-import UserRepository from "../repositories/User"
-import RandomEntityService from "./RandomEntity";
+import UserRepository from '../repositories/User'
+import RandomEntityService from './RandomEntity'
 
-const userRepository = new UserRepository
-const randomEntityService = new RandomEntityService
+const userRepository = new UserRepository()
+const randomEntityService = new RandomEntityService()
 
 class UserService {
     async getAll() {
@@ -18,13 +18,21 @@ class UserService {
     }
 
     async addRandomEntity(username: string, randomEntityId: number) {
-        let randomEntity = await randomEntityService.getById(randomEntityId)
-        return userRepository.updateUserRandomEntities(username, randomEntity, true)
+        const randomEntity = await randomEntityService.getById(randomEntityId)
+        return userRepository.updateUserRandomEntities(
+            username,
+            randomEntity,
+            true
+        )
     }
 
     async deleteRandomEntity(username: string, randomEntityId: number) {
-        let randomEntity = await randomEntityService.getById(randomEntityId)
-        return await userRepository.updateUserRandomEntities(username, randomEntity, false)
+        const randomEntity = await randomEntityService.getById(randomEntityId)
+        return await userRepository.updateUserRandomEntities(
+            username,
+            randomEntity,
+            false
+        )
     }
 }
 

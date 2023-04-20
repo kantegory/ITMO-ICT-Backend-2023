@@ -1,21 +1,21 @@
-import { AppDataSource } from "../database/data-source"
-import { RandomEntity } from "../models/RandomEntity"
+import { AppDataSource } from '../database/data-source'
+import { RandomEntity } from '../models/RandomEntity'
 
 const randomEntityRepository = AppDataSource.getRepository(RandomEntity)
 
 class RandomEntityRepository {
     async readById(id: number) {
         return await randomEntityRepository.findOneByOrFail({
-            id: id
+            id: id,
         })
     }
 
     async readAll() {
-        return await (randomEntityRepository.find())
+        return await randomEntityRepository.find()
     }
 
     async create(randomProperty: string) {
-        let randomEntity = new RandomEntity()
+        const randomEntity = new RandomEntity()
         randomEntity.randomProperty = randomProperty
         return await randomEntityRepository.save(randomEntity)
     }

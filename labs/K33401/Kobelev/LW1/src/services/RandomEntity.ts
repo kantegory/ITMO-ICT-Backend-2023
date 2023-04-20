@@ -1,6 +1,6 @@
-import RandomEntityRepository from "../repositories/RandomEntity"
+import RandomEntityRepository from '../repositories/RandomEntity'
 
-const randomEntityRepository = new RandomEntityRepository
+const randomEntityRepository = new RandomEntityRepository()
 
 class RandomEntityService {
     async getById(id: number) {

@@ -1,9 +1,9 @@
-import { Request, Response } from "express"
-import "dotenv/config"
-import * as jwt from "jsonwebtoken"
+import { Request, Response } from 'express'
+import 'dotenv/config'
+import * as jwt from 'jsonwebtoken'
 
-import { User } from "../models/User"
-import { AppDataSource } from "../database/data-source"
+import { User } from '../models/User'
+import { AppDataSource } from '../database/data-source'
 
 const userRepository = AppDataSource.getRepository(User)
 
@@ -13,22 +13,24 @@ class AuthController {
 
         if (!(username && password)) {
             return response.status(400).send({
-                error: "Empty name or password"
+                error: 'Empty name or password',
             })
         }
 
         let user: User
         try {
-            user = await userRepository.findOneOrFail({ where: { username: username } })
+            user = await userRepository.findOneOrFail({
+                where: { username: username },
+            })
         } catch (error) {
             return response.status(401).send({
-                error: "Cant find user from DB"
+                error: 'Cant find user from DB',
             })
         }
 
         if (!user.checkIfUnencryptedPasswordIsValid(password)) {
             return response.status(401).send({
-                error: "Wrong password"
+                error: 'Wrong password',
             })
         }
 
@@ -46,8 +48,8 @@ class AuthController {
     }
 
     signup = async (request: Request, response: Response) => {
-        let { username, password } = request.body
-        let user = new User()
+        const { username, password } = request.body
+        const user = new User()
         user.username = username
         user.password = password
         user.tokenVersion = 1
@@ -57,11 +59,11 @@ class AuthController {
         try {
             await userRepository.save(user)
         } catch (error) {
-            response.status(409).send("Username already in use")
+            response.status(409).send('Username already in use')
             return
         }
 
-        response.status(201).send("User created")
+        response.status(201).send('User created')
     }
 
     me = async (request: Request, response: Response) => {

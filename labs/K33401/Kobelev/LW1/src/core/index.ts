@@ -1,9 +1,9 @@
-import express from "express"
-import { createServer, Server } from "http"
-import users from "../routes/Users"
-import auth from "../routes/Auth"
-import randomEntities from "../routes/RandomEntities";
-import { AppDataSource } from "../database/data-source"
+import express from 'express'
+import { createServer, Server } from 'http'
+import users from '../routes/Users'
+import auth from '../routes/Auth'
+import randomEntities from '../routes/RandomEntities'
+import { AppDataSource } from '../database/data-source'
 
 class App {
     public port: number
@@ -12,7 +12,7 @@ class App {
     private app: express.Application
     private server: Server
 
-    constructor(port = 8000, host = "localhost") {
+    constructor(port = 8000, host = 'localhost') {
         this.port = port
         this.host = host
 
@@ -23,8 +23,8 @@ class App {
     private createApp(): express.Application {
         const app = express()
 
-        app.use(express.json());
-        app.use(express.urlencoded());
+        app.use(express.json())
+        app.use(express.urlencoded())
 
         app.use('/users', users)
         app.use('/auth', auth)
@@ -38,7 +38,7 @@ class App {
     }
 
     public start(): void {
-        AppDataSource.initialize().then(r =>
+        AppDataSource.initialize().then(() =>
             this.server.listen(this.port, () => {
                 console.log(`Running server on port ${this.port}`)
             })

@@ -1,6 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm"
-import * as bcrypt from "bcryptjs"
-import { RandomEntity } from "./RandomEntity"
+import {
+    Entity,
+    PrimaryGeneratedColumn,
+    Column,
+    ManyToMany,
+    JoinTable,
+} from 'typeorm'
+import * as bcrypt from 'bcryptjs'
+import { RandomEntity } from './RandomEntity'
 
 @Entity()
 export class User {
@@ -16,7 +22,9 @@ export class User {
     @Column()
     tokenVersion: number
 
-    @ManyToMany(() => RandomEntity)
+    @ManyToMany(() => RandomEntity, {
+        cascade: true,
+    })
     @JoinTable()
     randomEntities: RandomEntity[]
 
