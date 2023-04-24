@@ -39,7 +39,7 @@ class UserController {
     me = async (request: any, response: any) => {
         response.send(request.user)
     }
-
+    
     auth = async (request: any, response: any) => {
         const { body } = request
 

@@ -9,7 +9,7 @@ const controller: UserController = new UserController()
 router.route('/reg')
     .post(controller.post)
 
-router.route('/acoount')
+router.route('/account')
     .get(passport.authenticate('jwt', { session: false }), controller.me)
 
 router.route('/account/:id')

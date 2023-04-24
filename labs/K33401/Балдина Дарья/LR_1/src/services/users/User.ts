@@ -11,7 +11,7 @@ class UserService {
         throw new UserError('Not found!')
     }
 
-    async create(userData: any) {
+    async create(userData: Partial<User>): Promise<User> {
         try {
             const user = await User.create(userData)
 

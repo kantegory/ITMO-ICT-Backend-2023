@@ -5,7 +5,7 @@ import dotenv from "dotenv"
 dotenv.config()
 
 const opts = {
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('Bearer') ,
     secretOrKey: 'secret',
     jsonWebTokenOptions: {
         maxAge: `${process.env.ACCESS_TOKEN_LIFETIME}ms`
