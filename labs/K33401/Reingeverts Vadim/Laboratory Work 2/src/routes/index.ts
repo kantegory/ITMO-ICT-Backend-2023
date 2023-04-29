@@ -1,5 +1,6 @@
 import express from "express";
 import userRoutes from "~/routes/users/User";
+import authRoutes from "~/routes/auth/Auth";
 
 const routes = express.Router();
 
@@ -17,5 +18,6 @@ routes.get("/", async (req, res) => {
 });
 
 routes.use("/users", userRoutes);
+// routes.use("/auth", authRoutes);
 
 export default routes;

@@ -1,8 +1,9 @@
-import { PrismaClient, User, Prisma } from "@prisma/client";
+import { User, Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { hashToken } from "~/utils/jwt";
+import BaseService from "~/services/BaseService";
 
-class UserService {
-    private db = new PrismaClient();
+class UserService extends BaseService {
     private saltRounds = 8;
 
     exclude<User, Key extends keyof User>(user: User, keys: Key[]): Omit<User, Key> {
@@ -22,7 +23,7 @@ class UserService {
         return this.db.user.findMany();
     }
 
-    async getById(id: number): Promise<User | null> {
+    async getById(id: User["id"]): Promise<User | null> {
         return this.db.user.findUnique({
             where: {
                 id,
@@ -43,7 +44,7 @@ class UserService {
         } else throw new Error("Password field was not provided");
     }
 
-    async update(id: number, userData: Prisma.UserUncheckedUpdateInput): Promise<User> {
+    async update(id: User["id"], userData: Prisma.UserUncheckedUpdateInput): Promise<User> {
         const { password } = userData;
         if (typeof password === "string") {
             const hashedPassword = await this.hashPassword(password);
@@ -58,7 +59,7 @@ class UserService {
         });
     }
 
-    async delete(id: number): Promise<User> {
+    async delete(id: User["id"]): Promise<User> {
         return this.db.user.delete({
             where: {
                 id,
@@ -67,10 +68,10 @@ class UserService {
     }
 
     async hashPassword(password: string): Promise<string> {
-        return bcrypt.hash(password, this.saltRounds);
+        return bcrypt.hash(String(password), this.saltRounds);
     }
 
-    async comparePassword(id: number, password: string): Promise<boolean> {
+    async comparePassword(id: User["id"], password: string): Promise<boolean> {
         const user = await this.getById(id);
         if (user) {
             return bcrypt.compare(password, user.password);

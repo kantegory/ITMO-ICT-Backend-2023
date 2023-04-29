@@ -14,10 +14,15 @@ userRoutes.route("/:id").patch(controller.patch);
 
 userRoutes.route("/:id").delete(controller.delete);
 
-// router.route("/profile/:id").get(controller.get);
+// userRoutes.route("/profile/:id").get(controller.get);
 
-// router.route("/login").post(controller.auth);
+// userRoutes.route("/login").post(controller.auth);
 
-// router.route("/refresh").post(controller.refreshToken);
+// userRoutes.route("/refresh").post(controller.refreshToken);
+
+userRoutes.route("/register").post(controller.register);
+userRoutes.route("/findRefreshTokenById").post(controller.findRefreshTokenById);
+userRoutes.route("/deleteRefreshToken").post(controller.deleteRefreshToken);
+userRoutes.route("/revokeTokens").post(controller.revokeTokens);
 
 export default userRoutes;

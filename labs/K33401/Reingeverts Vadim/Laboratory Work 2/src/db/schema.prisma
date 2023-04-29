@@ -11,18 +11,31 @@ datasource db {
 }
 
 model User {
-    id       Int     @id @default(autoincrement())
-    email    String  @unique
-    password String
-    name     String?
-    posts    Post[]
+    id            String         @id @unique @default(uuid())
+    email         String         @unique
+    password      String
+    name          String?
+    // posts    Post[]
+    refreshTokens RefreshToken[]
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
 }
 
-model Post {
-    id        Int     @id @default(autoincrement())
-    title     String
-    content   String?
-    published Boolean @default(false)
-    author    User    @relation(fields: [authorId], references: [id])
-    authorId  Int
+// model Post {
+//     id        Int     @id @default(autoincrement())
+//     title     String
+//     content   String?
+//     published Boolean @default(false)
+//     author    User    @relation(fields: [authorId], references: [id])
+//     authorId  Int
+// }
+
+model RefreshToken {
+    id          String   @id @unique @default(uuid())
+    hashedToken String
+    userId      String
+    User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    revoked     Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
