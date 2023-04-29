@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
 // Usually I keep the token between 5 minutes - 15 minutes
-export const generateAccessToken = (user: any) => {
+export const generateAccessToken = (user: { id: string }) => {
     return jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET!, {
         expiresIn: "5m",
     });
@@ -12,11 +12,11 @@ export const generateAccessToken = (user: any) => {
 // But keep him logged in if he is using the app.
 // You can change this value depending on your app logic.
 // I would go for a maximum of 7 days, and make him login again after 7 days of inactivity.
-export const generateRefreshToken = (user: any, jti: any) => {
+export const generateRefreshToken = (user: { id: string }, jwtId: string) => {
     return jwt.sign(
         {
             userId: user.id,
-            jti,
+            jti: jwtId,
         },
         process.env.JWT_REFRESH_SECRET!,
         {
@@ -25,9 +25,9 @@ export const generateRefreshToken = (user: any, jti: any) => {
     );
 };
 
-export const generateTokens = (user: any, jti: any) => {
+export const generateTokens = (user: { id: string }, jwtId: string) => {
     const accessToken = generateAccessToken(user);
-    const refreshToken = generateRefreshToken(user, jti);
+    const refreshToken = generateRefreshToken(user, jwtId);
 
     return {
         accessToken,

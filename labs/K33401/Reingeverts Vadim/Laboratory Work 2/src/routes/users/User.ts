@@ -21,8 +21,7 @@ userRoutes.route("/:id").delete(controller.delete);
 // userRoutes.route("/refresh").post(controller.refreshToken);
 
 userRoutes.route("/register").post(controller.register);
-userRoutes.route("/findRefreshTokenById").post(controller.findRefreshTokenById);
-userRoutes.route("/deleteRefreshToken").post(controller.deleteRefreshToken);
-userRoutes.route("/revokeTokens").post(controller.revokeTokens);
+userRoutes.route("/login").post(controller.login);
+userRoutes.route("/refreshToken").post(controller.refreshToken);
 
 export default userRoutes;

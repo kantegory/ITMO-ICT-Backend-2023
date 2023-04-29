@@ -1,8 +1,8 @@
-import { hashToken } from "~/utils/jwt";
+import { hashToken } from "~/utils";
 import BaseService from "~/services/BaseService";
 
 class UserService extends BaseService {
-    // used when we create a refresh token.
+    // Creates token entry for user in db
     addRefreshTokenToWhitelist({
         jwtId,
         refreshToken,
@@ -21,7 +21,7 @@ class UserService extends BaseService {
         });
     }
 
-    // used to check if the token sent by the client is in the database.
+    // Checks if the token sent by the client is in the database.
     findRefreshTokenById(id: string) {
         return this.db.refreshToken.findUnique({
             where: {
@@ -30,7 +30,7 @@ class UserService extends BaseService {
         });
     }
 
-    // soft delete tokens after usage.
+    // Soft deletes tokens after usage
     deleteRefreshToken(id: string) {
         return this.db.refreshToken.update({
             where: {
@@ -42,6 +42,7 @@ class UserService extends BaseService {
         });
     }
 
+    // Called in case, where there is a need to invalidate all of the tokens (e.g.: password reset)
     revokeTokens(userId: string) {
         return this.db.refreshToken.updateMany({
             where: {

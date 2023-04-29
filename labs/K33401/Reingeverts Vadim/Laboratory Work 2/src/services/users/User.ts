@@ -1,6 +1,5 @@
 import { User, Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { hashToken } from "~/utils/jwt";
 import BaseService from "~/services/BaseService";
 
 class UserService extends BaseService {
@@ -27,6 +26,14 @@ class UserService extends BaseService {
         return this.db.user.findUnique({
             where: {
                 id,
+            },
+        });
+    }
+
+    async getByEmail(email: User["email"]): Promise<User | null> {
+        return this.db.user.findUnique({
+            where: {
+                email,
             },
         });
     }
@@ -71,11 +78,16 @@ class UserService extends BaseService {
         return bcrypt.hash(String(password), this.saltRounds);
     }
 
-    async comparePassword(id: User["id"], password: string): Promise<boolean> {
+    async comparePasswordByUser(user: User, password: string): Promise<boolean> {
+        if (!user) return false;
+        return bcrypt.compare(password, user.password);
+    }
+
+    async comparePasswordById(id: User["id"], password: string): Promise<boolean> {
         const user = await this.getById(id);
-        if (user) {
-            return bcrypt.compare(password, user.password);
-        } else return false;
+        if (!user) return false;
+
+        return await this.comparePasswordByUser(user, password);
     }
 }
 

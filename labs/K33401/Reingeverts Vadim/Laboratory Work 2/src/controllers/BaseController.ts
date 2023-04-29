@@ -9,7 +9,7 @@ class BaseController {
         let errorMessage = defaultMessage;
         if (error instanceof Error) errorMessage = error.message;
 
-        res.status(400).send({ message: errorMessage });
+        res.status(400).json({ message: errorMessage });
     };
 }
 
