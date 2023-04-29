@@ -1,10 +1,12 @@
 import express from "express";
+
 import UserController from "~/controllers/users/User";
+import { isAuthenticated } from "~/middleware";
 
 const userRoutes = express.Router();
 const controller = new UserController();
 
-userRoutes.route("/").get(controller.getAll);
+userRoutes.route("/").get(isAuthenticated, controller.getAll);
 
 userRoutes.route("/").post(controller.post);
 
