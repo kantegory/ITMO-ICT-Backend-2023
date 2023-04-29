@@ -7,7 +7,7 @@
     "prestart": "npm run build",
     "start": "nodemon -r dotenv/config dist/index.js",
     "build": "npx tsc",
-    "migrate": "typeorm migration:create ./dist/migration/%npm_config_name%"
+    "migrate": "typeorm migration:create ./src/migration/%npm_config_name%"
   },
   "author": "",
   "license": "ISC",
