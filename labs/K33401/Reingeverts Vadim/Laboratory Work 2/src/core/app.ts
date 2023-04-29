@@ -2,15 +2,6 @@ import express from "express";
 import routes from "~/routes";
 import bodyParserErrorHandler from "express-body-parser-error-handler";
 
-const returnJson: express.RequestHandler = (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-) => {
-    res.type("json");
-    next();
-};
-
 const logger: express.RequestHandler = (
     req: express.Request,
     res: express.Response,
@@ -27,7 +18,6 @@ app.use(express.json());
 
 /* Handle json body parsing errors */
 app.use(bodyParserErrorHandler());
-app.use(returnJson);
 app.use(logger);
 
 app.use("/", routes);

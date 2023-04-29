@@ -1,4 +1,6 @@
 import express from "express";
+import { generateTokens, hashToken } from "~/utils/jwt";
+import { v4 as uuidv4 } from "uuid";
 
 import UserService from "~/services/users/User";
 import BaseController from "~/controllers/BaseController";
@@ -13,7 +15,7 @@ class UserController extends BaseController {
     getAll = async (req: express.Request, res: express.Response) => {
         const users = await this.userService.getAll();
         const usersWithoutPass = this.userService.excludeMany(users, ["password"]);
-        res.status(200).send(JSON.stringify(usersWithoutPass, null, 2));
+        res.status(200).json(usersWithoutPass);
     };
 
     get = async (req: express.Request, res: express.Response) => {
@@ -23,7 +25,7 @@ class UserController extends BaseController {
             const user = await this.userService.getById(id);
             if (user) {
                 const userWithoutPass = this.userService.exclude(user, ["password"]);
-                res.status(200).send(JSON.stringify(userWithoutPass, null, 2));
+                res.status(200).json(userWithoutPass);
             } else {
                 res.status(404).send({ message: `${this.name} with id ${id} does not exist` });
             }
@@ -38,7 +40,7 @@ class UserController extends BaseController {
         try {
             const user = await this.userService.create(body);
             const userWithoutPass = this.userService.exclude(user, ["password"]);
-            res.status(200).send(JSON.stringify(userWithoutPass, null, 2));
+            res.status(200).json(userWithoutPass);
         } catch (error) {
             this.handleError(error, res, `Failed to create ${this.name}`);
         }
@@ -51,7 +53,7 @@ class UserController extends BaseController {
         try {
             const user = await this.userService.update(id, body);
             const userWithoutPass = this.userService.exclude(user, ["password"]);
-            res.status(200).send(JSON.stringify(userWithoutPass, null, 2));
+            res.status(200).json(userWithoutPass);
         } catch (error) {
             this.handleError(error, res, `Failed to update ${this.name}`);
         }
@@ -69,20 +71,30 @@ class UserController extends BaseController {
     };
     // me = async (req: express.Request, res: express.Response) => {};
 
-    auth = async (req: express.Request, res: express.Response) => {};
+    // auth = async (req: express.Request, res: express.Response) => {};
 
-    refreshToken = async (req: express.Request, res: express.Response) => {};
+    // refreshToken = async (req: express.Request, res: express.Response) => {};
 
-    register = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    register = async (req: express.Request, res: express.Response) => {
         const { body } = req;
 
         try {
-            const ss = await this.authService.addRefreshTokenToWhitelist(body);
-            res.status(200).send(JSON.stringify(ss, null, 2));
+            const user = await this.userService.create(body);
+
+            const jwtId = uuidv4();
+            const { accessToken, refreshToken } = generateTokens(user, jwtId);
+            await this.authService.addRefreshTokenToWhitelist({
+                jwtId,
+                refreshToken,
+                userId: user.id,
+            });
+
+            res.status(200).json({ accessToken, refreshToken });
         } catch (error) {
-            this.handleError(error, res, `Failed to post ${this.name}`);
+            this.handleError(error, res, `Failed to register ${this.name}`);
         }
     };
+    // TODO
     findRefreshTokenById = async (req: express.Request, res: express.Response) => {};
     deleteRefreshToken = async (req: express.Request, res: express.Response) => {};
     revokeTokens = async (req: express.Request, res: express.Response) => {};
