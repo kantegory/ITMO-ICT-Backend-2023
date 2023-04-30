@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import SMTPTransport from "nodemailer/lib/smtp-transport";
+import SMTPTransport from "nodemailer";
 
 class MailService {
     host: string;
@@ -42,8 +42,8 @@ class MailService {
     private getCretentials = async () => {
         if (this.user && this.password) return { user: this.user, password: this.password };
 
-        // Generate test SMTP service account from ethereal.email
-        // Only needed if you don't have a real mail account for testing
+        // Generates test SMTP service account from ethereal.email
+        // Only needed if there is no a real mail account for testing
         const testAccount = await nodemailer.createTestAccount();
         this.isTest = true;
         return { user: testAccount.user, password: testAccount.pass };
@@ -53,7 +53,7 @@ class MailService {
         if (!this.transporter) {
             const { user, password } = await this.getCretentials();
 
-            // create reusable transporter object using the default SMTP transport
+            // Creates reusable transporter object using the default SMTP transport
             const transporter = nodemailer.createTransport({
                 host: this.host,
                 port: this.port,
@@ -66,7 +66,7 @@ class MailService {
             this.transporter = transporter;
         }
 
-        // send mail with defined transport object
+        // Sends mail with defined transport object
         const info = await this.transporter.sendMail({
             from: `"${this.fromName}" <${this.fromEmail}>`, // sender address
             to, // list of receivers
