@@ -1,31 +1,39 @@
 import { Request, Response } from "express"
+import UserService from "../../service/v1/UserService"
 
 class UserController {
-    get_all = async (request: Request, response: Response) => {
-        const todo = "get list of users from Service"
+    private userService: UserService
 
-        return response.send(todo)
+    constructor() {
+        this.userService = new UserService()
     }
 
-    get = async (request: Request, response: Response) => {
-        const todo = "get user from Service"
-
-        return response.send(todo)
+    getAll = async (request: Request, response: Response) => {
+        const users = await this.userService.getAll()
+        return response.send(users)
     }
 
-    post_create_user = async (request: Request, response: Response) => {
+    getUser = async (request: Request, response: Response) => {
+        const { body } = request
+        const user = await this.userService.getByEmail(body.email)
+        return response.send(user)
+    }
+
+    postCreateUser = async (request: Request, response: Response) => {
         const todo = "create user in Service, create jwt, create portfolio in Service"
+        const { body } = request
+        const user = await this.userService.create(body)
 
-        return response.send(todo)
+        return response.send(user)
     }
 
-    post_login_user = async (request: Request, response: Response) => {
+    postLoginUser = async (request: Request, response: Response) => {
         const todo = "auth and get user from DB, auth jwt"
 
         return response.send(todo)
     }
 
-    delete = async (request: Request, response: Response) => {
+    deleteUser = async (request: Request, response: Response) => {
         const todo = "drop row from DB"
 
         return response.send(todo)
