@@ -21,8 +21,10 @@ const isAuthenticated = (
     } catch (err) {
         if (err instanceof Error && err.name === "TokenExpiredError") {
             res.status(401).json({ message: err.name });
+            return;
         }
         res.status(401).json({ message: "Unauthorized" });
+        return;
     }
 
     return next();

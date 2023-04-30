@@ -1,5 +1,5 @@
 import express from "express";
-import { generateTokens, hashToken } from "~/utils";
+import { generateTokens, hashToken, mail } from "~/utils";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 
@@ -139,7 +139,7 @@ class UserController extends BaseController {
                 refreshToken,
                 process.env.JWT_REFRESH_SECRET!
             ) as jwt.JwtPayload;
-            const savedRefreshToken = await this.authService.findRefreshTokenById(jwtId!);
+            const savedRefreshToken = await this.authService.getRefreshTokenById(jwtId!);
 
             if (!savedRefreshToken || savedRefreshToken.revoked === true) {
                 res.status(401).json({
@@ -196,7 +196,7 @@ class UserController extends BaseController {
                 refreshToken,
                 process.env.JWT_REFRESH_SECRET!
             ) as jwt.JwtPayload;
-            const savedRefreshToken = await this.authService.findRefreshTokenById(jwtId!);
+            const savedRefreshToken = await this.authService.getRefreshTokenById(jwtId!);
 
             if (!savedRefreshToken || savedRefreshToken.revoked === true) {
                 res.status(401).json({
@@ -225,6 +225,57 @@ class UserController extends BaseController {
             res.status(200).json(userWithoutPass);
         } catch (error) {
             this.handleError(error, res, `Failed to fetch ${this.name}`);
+        }
+    };
+
+    resetPassword = async (req: express.Request, res: express.Response) => {
+        const { email } = req.body;
+        try {
+            const user = await this.userService.getByEmail(email);
+            if (!user) {
+                res.status(404).json({
+                    message: `${this.name} with the email ${email} does not exist`,
+                });
+                return;
+            }
+
+            const url = new URL(`${req.protocol}://${req.get("host")}${req.originalUrl}`);
+            const resetUrl = url.href + "/" + user.id;
+
+            mail(
+                email,
+                "Password reset",
+                `Did you want to reset your password?\n\n
+                Visit this link to confirm the password reset:
+                ${resetUrl}
+                `
+            );
+            res.status(200).json({ message: "Link for a password reset was sent to the email" });
+        } catch (error) {
+            this.handleError(error, res, `Failed to reset ${this.name} password`);
+        }
+    };
+
+    confirmResetPassword = async (req: express.Request, res: express.Response) => {
+        const { id } = req.params;
+
+        try {
+            const user = await this.userService.getById(id);
+            if (!user) {
+                res.status(404).json({
+                    message: `${this.name} with the id ${id} does not exist`,
+                });
+                return;
+            }
+
+            const generatedPassword = uuidv4().slice(0, 8);
+            mail(user.email, "Password reset", "Your new password:\n" + generatedPassword);
+
+            await this.authService.revokeTokens(user.id);
+            await this.userService.update(user.id, { password: generatedPassword });
+            res.status(200).json({ message: "New password was sent to the email" });
+        } catch (error) {
+            this.handleError(error, res, `Failed to reset ${this.name} password`);
         }
     };
 }

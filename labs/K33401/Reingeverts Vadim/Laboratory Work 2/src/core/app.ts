@@ -6,6 +6,9 @@ import { logger } from "~/middleware";
 
 export const app = express();
 
+const rootRoutes = express.Router();
+rootRoutes.use(routes);
+
 /* Handle json body in 'Content-Type: application/json' requests */
 app.use(express.json());
 
@@ -14,4 +17,4 @@ app.use(bodyParserErrorHandler());
 
 app.use(logger);
 
-app.use("/", routes);
+app.use("/", rootRoutes);

@@ -1,3 +1,4 @@
 import { generateAccessToken, generateRefreshToken, generateTokens, hashToken } from "./jwt";
+import mail from "./email";
 
-export { generateAccessToken, generateRefreshToken, generateTokens, hashToken };
+export { mail, generateAccessToken, generateRefreshToken, generateTokens, hashToken };

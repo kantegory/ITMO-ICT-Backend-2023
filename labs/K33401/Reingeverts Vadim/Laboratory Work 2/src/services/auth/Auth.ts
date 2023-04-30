@@ -22,7 +22,7 @@ class UserService extends BaseService {
     }
 
     // Checks if the token sent by the client is in the database.
-    findRefreshTokenById(id: string) {
+    getRefreshTokenById(id: string) {
         return this.db.refreshToken.findUnique({
             where: {
                 id,
