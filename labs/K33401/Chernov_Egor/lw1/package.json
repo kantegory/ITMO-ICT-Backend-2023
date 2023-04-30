@@ -4,10 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "typeorm": "typeorm-ts-node-commonjs",
     "prestart": "npm run build",
-    "start": "nodemon -r dotenv/config dist/index.js",
+    "start": "nodemon",
+    "start:prod": "npm run build && node -r dotenv/config dist/index.js",
     "build": "npx tsc",
-    "migrate": "typeorm migration:create ./src/migration/%npm_config_name%"
+    "migrate": "typeorm migration:create -o -n %npm_config_name%"
   },
   "author": "",
   "license": "ISC",
@@ -24,6 +26,7 @@
   },
   "dependencies": {
     "@types/express": "^4.17.17",
+    "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "pg": "^8.10.0",
