@@ -14,11 +14,24 @@ model User {
     id            String         @id @unique @default(uuid())
     email         String         @unique
     password      String
-    name          String?
+    firstName     String?
+    lastName      String?
+    phoneNumber   String?
+    role          String?
+    salary        Int?
     // posts    Post[]
     refreshTokens RefreshToken[]
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
+}
+
+model Stock {
+    id          Int     @id @unique @default(autoincrement())
+    name        String
+    description String?
+    category    String
+    price       String
+    quantity    Int
 }
 
 // model Post {
