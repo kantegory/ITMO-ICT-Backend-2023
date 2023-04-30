@@ -1,5 +1,6 @@
 import * as dotenv from "dotenv";
 import express from "express"
+import bodyParser from "body-parser"
 import {createServer, Server} from "http"
 import routes from "../route/v1/index"
 import {AppDataSource} from "../data-source";
@@ -32,6 +33,7 @@ class App {
 
     private createApp(): express.Application {
         const app = express()
+        app.use(bodyParser.json())
         app.use("/v1", routes)
 
         return app
