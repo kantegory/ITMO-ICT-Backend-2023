@@ -1,15 +1,17 @@
 import express from "express";
-import { generateTokens, hashToken, mail } from "~/utils";
+import { generateTokens, hashToken } from "~/utils";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 
 import UserService from "~/services/users/User";
 import BaseController from "~/controllers/BaseController";
 import AuthService from "~/services/auth/Auth";
+import MailService from "~/services/mail/Mail";
 
 class UserController extends BaseController {
     private userService = new UserService();
     private authService = new AuthService();
+    private mailService = new MailService();
 
     readonly name = "User";
 
@@ -242,11 +244,11 @@ class UserController extends BaseController {
             const url = new URL(`${req.protocol}://${req.get("host")}${req.originalUrl}`);
             const resetUrl = url.href + "/" + user.id;
 
-            mail(
+            await this.mailService.send(
                 email,
                 "Password reset",
-                `Did you want to reset your password?\n\n
-                Visit this link to confirm the password reset:
+                `Did you want to reset your password?\n
+                Visit this link to confirm the password reset:\n
                 ${resetUrl}
                 `
             );
@@ -268,8 +270,12 @@ class UserController extends BaseController {
                 return;
             }
 
-            const generatedPassword = uuidv4().slice(0, 8);
-            mail(user.email, "Password reset", "Your new password:\n" + generatedPassword);
+            const generatedPassword = uuidv4().slice(0, 16);
+            await this.mailService.send(
+                user.email,
+                "Password reset",
+                "Your new password:\n\n" + generatedPassword
+            );
 
             await this.authService.revokeTokens(user.id);
             await this.userService.update(user.id, { password: generatedPassword });

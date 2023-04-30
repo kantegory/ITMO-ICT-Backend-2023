@@ -1,7 +1,7 @@
 import { hashToken } from "~/utils";
-import BaseService from "~/services/BaseService";
+import DbService from "~/services/DbService";
 
-class UserService extends BaseService {
+class UserService extends DbService {
     // Creates token entry for user in db
     addRefreshTokenToWhitelist({
         jwtId,

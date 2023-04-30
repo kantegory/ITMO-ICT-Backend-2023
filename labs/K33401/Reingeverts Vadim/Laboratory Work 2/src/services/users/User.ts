@@ -1,8 +1,8 @@
 import { User, Prisma } from "@prisma/client";
 import bcrypt from "bcrypt";
-import BaseService from "~/services/BaseService";
+import DbService from "~/services/DbService";
 
-class UserService extends BaseService {
+class UserService extends DbService {
     private saltRounds = 8;
 
     exclude<User, Key extends keyof User>(user: User, keys: Key[]): Omit<User, Key> {
