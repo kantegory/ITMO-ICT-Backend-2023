@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
+// https://dev.to/mihaiandrei97/jwt-authentication-using-prisma-and-express-37nk
+
 // Usually I keep the token between 5 minutes - 15 minutes
 export const generateAccessToken = (user: { id: string }) => {
     return jwt.sign({ userId: user.id }, process.env.JWT_ACCESS_SECRET!, {

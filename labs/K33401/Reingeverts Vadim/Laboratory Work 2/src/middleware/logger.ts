@@ -5,7 +5,7 @@ const logger: express.RequestHandler = (
     res: express.Response,
     next: express.NextFunction
 ) => {
-    console.log(req.method, req.path);
+    console.info(req.method, req.path);
     next();
 };
 export default logger;
