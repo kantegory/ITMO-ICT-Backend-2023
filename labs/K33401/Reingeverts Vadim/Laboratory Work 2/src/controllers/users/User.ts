@@ -70,7 +70,6 @@ class UserController extends BaseController {
             this.handleError(error, res, `Failed to delete ${this.name}`);
         }
     };
-    // me = async (req: express.Request, res: express.Response) => {};
 
     register = async (req: express.Request, res: express.Response) => {
         const { body } = req;
@@ -180,6 +179,52 @@ class UserController extends BaseController {
             });
         } catch (error) {
             this.handleError(error, res, `Failed to login ${this.name}`);
+        }
+    };
+
+    me = async (req: express.Request, res: express.Response) => {
+        const { refreshToken } = req.body;
+
+        try {
+            if (!refreshToken) {
+                res.status(400).json({
+                    message: "Missing refresh token",
+                });
+                return;
+            }
+            const { userId, jti: jwtId } = jwt.verify(
+                refreshToken,
+                process.env.JWT_REFRESH_SECRET!
+            ) as jwt.JwtPayload;
+            const savedRefreshToken = await this.authService.findRefreshTokenById(jwtId!);
+
+            if (!savedRefreshToken || savedRefreshToken.revoked === true) {
+                res.status(401).json({
+                    message: "Unauthorized",
+                });
+                return;
+            }
+
+            const hashedToken = hashToken(refreshToken);
+            if (hashedToken !== savedRefreshToken.hashedToken) {
+                res.status(401).json({
+                    message: "Unauthorized",
+                });
+                return;
+            }
+
+            const user = await this.userService.getById(userId);
+            if (!user) {
+                res.status(401).json({
+                    message: "Unauthorized",
+                });
+                return;
+            }
+
+            const userWithoutPass = this.userService.exclude(user, ["password"]);
+            res.status(200).json(userWithoutPass);
+        } catch (error) {
+            this.handleError(error, res, `Failed to fetch ${this.name}`);
         }
     };
 }

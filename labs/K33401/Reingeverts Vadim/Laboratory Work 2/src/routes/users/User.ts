@@ -20,6 +20,14 @@ userRoutes.route("/register").post(controller.register);
 
 userRoutes.route("/login").post(controller.login);
 
-userRoutes.route("/refreshToken").post(isAuthenticated, controller.refreshToken);
+// Expects refreshToken in body
+userRoutes.route("/refreshToken").post(controller.refreshToken);
+
+// Expects refreshToken in body
+userRoutes.route("/me").post(controller.me);
+
+// Reset password
+
+// logout
 
 export default userRoutes;

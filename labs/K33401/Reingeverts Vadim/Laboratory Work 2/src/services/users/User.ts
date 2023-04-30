@@ -58,7 +58,7 @@ class UserService extends BaseService {
             const hashedPassword = await this.hashPassword(password);
             userData.password = hashedPassword;
         }
-        userData.updatedAt = new Date().toISOString();
+        userData.updatedAt = new Date().toJSON();
 
         return this.db.user.update({
             where: {
