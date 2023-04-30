@@ -185,35 +185,11 @@ class UserController extends BaseController {
     };
 
     me = async (req: express.Request, res: express.Response) => {
-        const { refreshToken } = req.body;
+        const { authorization } = req.headers;
+        const token = authorization!.split(" ")[1];
 
         try {
-            if (!refreshToken) {
-                res.status(400).json({
-                    message: "Missing refresh token",
-                });
-                return;
-            }
-            const { userId, jti: jwtId } = jwt.verify(
-                refreshToken,
-                process.env.JWT_REFRESH_SECRET!
-            ) as jwt.JwtPayload;
-            const savedRefreshToken = await this.authService.getRefreshTokenById(jwtId!);
-
-            if (!savedRefreshToken || savedRefreshToken.revoked === true) {
-                res.status(401).json({
-                    message: "Unauthorized",
-                });
-                return;
-            }
-
-            const hashedToken = hashToken(refreshToken);
-            if (hashedToken !== savedRefreshToken.hashedToken) {
-                res.status(401).json({
-                    message: "Unauthorized",
-                });
-                return;
-            }
+            const { userId } = jwt.decode(token) as jwt.JwtPayload;
 
             const user = await this.userService.getById(userId);
             if (!user) {

@@ -24,7 +24,7 @@ userRoutes.route("/login").post(controller.login);
 userRoutes.route("/refreshToken").post(controller.refreshToken);
 
 // Expects refreshToken in the body
-userRoutes.route("/me").post(controller.me);
+userRoutes.route("/me").post(isAuthenticated, controller.me);
 
 userRoutes.route("/resetPassword").post(controller.resetPassword);
 

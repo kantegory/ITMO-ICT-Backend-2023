@@ -19,10 +19,25 @@ model User {
     phoneNumber   String?
     role          String?
     salary        Int?
-    // posts    Post[]
     refreshTokens RefreshToken[]
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
+}
+
+model Warehouse {
+    id      Int     @id @unique @default(autoincrement())
+    name    String
+    address String?
+    stocks  Stock[]
+}
+
+model Product {
+    id          Int     @id @unique @default(autoincrement())
+    name        String
+    description String?
+    category    String
+    price       String
+    stocks      Stock[]
 }
 
 model Stock {
@@ -32,16 +47,13 @@ model Stock {
     category    String
     price       String
     quantity    Int
-}
 
-// model Post {
-//     id        Int     @id @default(autoincrement())
-//     title     String
-//     content   String?
-//     published Boolean @default(false)
-//     author    User    @relation(fields: [authorId], references: [id])
-//     authorId  Int
-// }
+    product   Product @relation(fields: [productId], references: [id])
+    productId Int // relation scalar field  (used in the `@relation` attribute above)
+
+    warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+    warehouseId Int // relation scalar field  (used in the `@relation` attribute above)
+}
 
 model RefreshToken {
     id          String   @id @unique @default(uuid())
