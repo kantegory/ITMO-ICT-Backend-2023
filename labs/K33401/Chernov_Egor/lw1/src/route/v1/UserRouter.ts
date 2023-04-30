@@ -17,18 +17,18 @@ const userController: UserController = new UserController()
 
 // User routes
 userRouter.route('/list')
-    .get(userController.get_all)
+    .get(userController.getAll)
 
 userRouter.route('/specific')
-    .get(userController.get)
+    .get(userController.getUser)
 
 userRouter.route('/registration')
-    .get(userController.post_create_user)
+    .post(userController.postCreateUser)
 
 userRouter.route('/login')
-    .get(userController.post_login_user)
+    .get(userController.postLoginUser)
 
 portfolioRouter.route('/delete')
-    .get(userController.delete)
+    .get(userController.deleteUser)
 
 export default userRouter
