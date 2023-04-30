@@ -9,10 +9,9 @@ const isAuthenticated = (
 ) => {
     const { authorization } = req.headers;
 
-    // TODO nicer error pages
     if (!authorization) {
-        res.status(401);
-        throw new Error("🚫 Un-Authorized 🚫");
+        res.status(401).json({ message: "Unauthorized" });
+        return;
     }
 
     try {
@@ -20,11 +19,10 @@ const isAuthenticated = (
         const payload = jwt.verify(token, process.env.JWT_ACCESS_SECRET!);
         req.payload = payload;
     } catch (err) {
-        res.status(401);
         if (err instanceof Error && err.name === "TokenExpiredError") {
-            throw new Error(err.name);
+            res.status(401).json({ message: err.name });
         }
-        throw new Error("🚫 Un-Authorized 🚫");
+        res.status(401).json({ message: "Unauthorized" });
     }
 
     return next();

@@ -53,10 +53,12 @@ class UserService extends BaseService {
 
     async update(id: User["id"], userData: Prisma.UserUncheckedUpdateInput): Promise<User> {
         const { password } = userData;
+
         if (typeof password === "string") {
             const hashedPassword = await this.hashPassword(password);
             userData.password = hashedPassword;
         }
+        userData.updatedAt = new Date().toISOString();
 
         return this.db.user.update({
             where: {

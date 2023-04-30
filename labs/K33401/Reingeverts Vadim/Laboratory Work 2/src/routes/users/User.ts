@@ -8,22 +8,18 @@ const controller = new UserController();
 
 userRoutes.route("/").get(isAuthenticated, controller.getAll);
 
-userRoutes.route("/").post(controller.post);
+userRoutes.route("/").post(isAuthenticated, controller.post);
 
-userRoutes.route("/:id").get(controller.get);
+userRoutes.route("/:id").get(isAuthenticated, controller.get);
 
-userRoutes.route("/:id").patch(controller.patch);
+userRoutes.route("/:id").patch(isAuthenticated, controller.patch);
 
-userRoutes.route("/:id").delete(controller.delete);
-
-// userRoutes.route("/profile/:id").get(controller.get);
-
-// userRoutes.route("/login").post(controller.auth);
-
-// userRoutes.route("/refresh").post(controller.refreshToken);
+userRoutes.route("/:id").delete(isAuthenticated, controller.delete);
 
 userRoutes.route("/register").post(controller.register);
+
 userRoutes.route("/login").post(controller.login);
-userRoutes.route("/refreshToken").post(controller.refreshToken);
+
+userRoutes.route("/refreshToken").post(isAuthenticated, controller.refreshToken);
 
 export default userRoutes;

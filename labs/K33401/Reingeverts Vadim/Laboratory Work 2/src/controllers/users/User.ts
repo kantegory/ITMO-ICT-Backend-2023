@@ -182,8 +182,6 @@ class UserController extends BaseController {
             this.handleError(error, res, `Failed to login ${this.name}`);
         }
     };
-
-    revokeTokens = async (req: express.Request, res: express.Response) => {};
 }
 
 export default UserController;
