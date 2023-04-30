@@ -19,34 +19,36 @@ model User {
     phoneNumber   String?
     role          String?
     salary        Int?
-    refreshTokens RefreshToken[]
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
+    refreshTokens RefreshToken[]
 }
 
 model Warehouse {
-    id      Int     @id @unique @default(autoincrement())
-    name    String
-    address String?
-    stocks  Stock[]
+    id        Int      @id @unique @default(autoincrement())
+    name      String
+    address   String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    stocks    Stock[]
 }
 
 model Product {
-    id          Int     @id @unique @default(autoincrement())
+    id          Int      @id @unique @default(autoincrement())
     name        String
     description String?
     category    String
-    price       String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
     stocks      Stock[]
 }
 
 model Stock {
-    id          Int     @id @unique @default(autoincrement())
-    name        String
-    description String?
-    category    String
-    price       String
-    quantity    Int
+    id        Int      @id @unique @default(autoincrement())
+    price     Decimal
+    quantity  Int
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 
     product   Product @relation(fields: [productId], references: [id])
     productId Int // relation scalar field  (used in the `@relation` attribute above)
@@ -58,9 +60,10 @@ model Stock {
 model RefreshToken {
     id          String   @id @unique @default(uuid())
     hashedToken String
-    userId      String
-    User        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
     revoked     Boolean  @default(false)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
+
+    User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
 }
