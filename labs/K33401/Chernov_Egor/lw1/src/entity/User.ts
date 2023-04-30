@@ -6,10 +6,7 @@ export class User {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_user, {
-        cascade: true,
-        onDelete: "CASCADE"
-    })
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_user)
     portfolios: Portfolio[]
 
     @Column({
@@ -26,14 +23,15 @@ export class User {
 
     @Column({
         type: "character varying",
-        length: 20
+        length: 20,
+        nullable: true
     })
     phone: string
 
     @Column({
         type: "character varying",
         length: 20,
-        nullable: true
+        unique: true
     })
     email: string
 

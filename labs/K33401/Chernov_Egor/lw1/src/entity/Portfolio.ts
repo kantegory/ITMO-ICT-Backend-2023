@@ -8,11 +8,17 @@ export class Portfolio {
     id: string
 
     // @PrimaryColumn()
-    @ManyToOne(() => User, (user) => user.portfolios)
+    @ManyToOne(() => User, (user) => user.portfolios, {
+        cascade: true,
+        onDelete: "CASCADE"
+    })
     id_user: User
 
     // @PrimaryColumn()
-    @ManyToOne(() => Coin, (coin) => coin.portfolios)
+    @ManyToOne(() => Coin, (coin) => coin.portfolios, {
+        cascade: true,
+        onDelete: "SET NULL"
+    })
     id_coin: Coin
 
     @Column({
