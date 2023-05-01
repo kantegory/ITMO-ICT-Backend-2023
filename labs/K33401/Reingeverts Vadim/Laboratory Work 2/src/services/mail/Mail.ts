@@ -39,7 +39,7 @@ class MailService {
         this.fromEmail = fromEmail;
     }
 
-    private getCretentials = async () => {
+    private getCredentials = async () => {
         if (this.user && this.password) return { user: this.user, password: this.password };
 
         // Generates test SMTP service account from ethereal.email
@@ -51,7 +51,7 @@ class MailService {
 
     send = async (to: string, subject: string, text: string) => {
         if (!this.transporter) {
-            const { user, password } = await this.getCretentials();
+            const { user, password } = await this.getCredentials();
 
             // Creates reusable transporter object using the default SMTP transport
             const transporter = nodemailer.createTransport({
