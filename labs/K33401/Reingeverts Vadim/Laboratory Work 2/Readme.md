@@ -1,7 +1,6 @@
 # Laboratory Work 2
 > K33401 - Рейнгеверц В.А.
 
-
 ### Requirements
 > Вариант 4 - Сайт администратора интернет-магазина
 
@@ -10,8 +9,6 @@
 - Учёт товара на складе
 - Графики по продажам тех или иных товаров, по общей выручке предприятия
 - Управление сотрудниками
-
-
 
 ### ER Diagram
 
@@ -119,7 +116,7 @@
 
 #### Logout
 
-- Logout would be achived by clearing local storage on the client
+- Logout would be achieved by clearing local storage on the client
 
 ### Stock quantity constraint
 > Was made using Prisma's [interactive transaction](https://stackoverflow.com/a/74292933)
@@ -128,6 +125,12 @@
 [src/services/receiptEntries/ReceiptEntry.ts](src/services/receiptEntries/ReceiptEntry.ts#L32)
 
 
+#### Password reset
+
+After sending email in a POST request to `/users/resetPassword`: 
+
+1. Confirmation link is sent to the email
+2. By clicking confirmation link, password is reset, tokens are revoked and newly generated password is sent to the email
 
 ### Running
 
@@ -149,6 +152,7 @@ npm run dev
 - Middlewares are defined at [middleware/*](./src/middleware/isAuthenticated.ts)
 - Routes are defined at [routes/*](./src/routes/users/User.ts)
 - Services are defined at [services/*](./src/services/users/User.ts)
+- Utility functions are defined at [utils/*](./src/utils/jwt.ts)
 
 ### Reference
 
