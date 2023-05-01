@@ -2,10 +2,9 @@
 > K33401 - Рейнгеверц В.А.
 
 
-### Description
+### Requirements
 > Вариант 4 - Сайт администратора интернет-магазина
 
-#### Requirements
 - Вход
 - Регистрация
 - Учёт товара на складе
@@ -13,9 +12,37 @@
 - Управление сотрудниками
 
 
-#### Route diagrams
 
-![](https://i.imgur.com/XLveZgz.png)
+### ER Diagram
+
+![](https://i.imgur.com/G4sRJ0i.png)
+
+### JWT 
+
+#### Authentication
+> - **Refresh Token** ― allows for acquirement of new **Access Tokens**
+>   - Valid for 8 hours 
+>   - Requires check against db to use
+>   - Revocation is immediate
+> - **Access Token** ― provides access to protected routes
+>   - Valid for 5 minutes
+>   - Does not require check against db to use
+>   - Revocation is not immediate: users could still use **Access Token** for up to 5 minutes even with revoked **Refresh Token**
+
+
+![](https://i.imgur.com/stVMxbO.png)
+
+#### Using access token
+
+![](https://i.imgur.com/bryP2ZC.png)
+
+
+### Refreshing both tokens
+
+![](https://i.imgur.com/02YeBgh.png)
+
+
+
 
 
 ### Running
@@ -37,3 +64,8 @@ npm run dev
 - Controllers are defined at [controllers/*](./src/controllers/users/User.ts)
 - Routes are defined at [routes/*](./src/routes/users/User.ts)
 - Services are defined at [services/*](./src/services/users/User.ts)
+
+### Reference
+
+- [JWT Authentication using Prisma and Express](https://dev.to/mihaiandrei97/jwt-authentication-using-prisma-and-express-37nk)
+- [JWT Decoder](http://calebb.net/)

@@ -24,6 +24,17 @@ model User {
     refreshTokens RefreshToken[]
 }
 
+model RefreshToken {
+    id          String   @id @unique @default(uuid())
+    hashedToken String
+    revoked     Boolean  @default(false)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+
+    User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+}
+
 model Warehouse {
     id        Int      @id @unique @default(autoincrement())
     name      String
@@ -78,15 +89,4 @@ model Stock {
 
     warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
     warehouseId Int // relation scalar field  (used in the `@relation` attribute above)
-}
-
-model RefreshToken {
-    id          String   @id @unique @default(uuid())
-    hashedToken String
-    revoked     Boolean  @default(false)
-    createdAt   DateTime @default(now())
-    updatedAt   DateTime @updatedAt
-
-    User   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-    userId String
 }
