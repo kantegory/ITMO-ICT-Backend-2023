@@ -95,14 +95,14 @@
 [src/utils/jwt.ts](src/utils/jwt.ts)
 
 #### Authentication
-> - **Refresh Token** ― allows for acquirement of new **Access Tokens**
+> - **Refresh Token** ― allows for acquirement of more **Access Tokens**
 >   - Valid for **8 hours** 
->   - Requires check against db to use
+>   - Requires check against db per use
 >   - Revocation is immediate
 > - **Access Token** ― provides access to protected routes
 >   - Valid for **5 minutes**
->   - Does not require check against db to use
->   - Revocation is not immediate: users could still use **Access Token** for up to 5 minutes even with revoked **Refresh Token**
+>   - Does **not** require check against db per use
+>   - Revocation is **not** immediate: users could still use **Access Token** for up to 5 minutes even with revoked **Refresh Token**
 
 
 ![](https://i.imgur.com/stVMxbO.png)
@@ -116,6 +116,10 @@
 
 ![](https://i.imgur.com/02YeBgh.png)
 
+
+#### Logout
+
+- Logout would be achived by clearing local storage on the client
 
 ### Stock quantity constraint
 > Was made using Prisma's [interactive transaction](https://stackoverflow.com/a/74292933)
