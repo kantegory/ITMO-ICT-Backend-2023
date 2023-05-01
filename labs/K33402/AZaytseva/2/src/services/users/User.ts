@@ -10,6 +10,12 @@ interface UserCreateRequest {
 }
 
 class UserRepository {
+    async getAll() : Promise<User[]> {
+        const users = await User.findAll()
+
+        return users
+    }
+
     async getById(id: number) : Promise<User> {
         const user = await User.findByPk(id)
 
@@ -36,6 +42,16 @@ class UserRepository {
         }
 
         throw new Error('Incorrect login/password!')
+    }
+
+    async deleteById(id: number): Promise<boolean> {
+        const deletedRows = await User.destroy({ where: { id } })
+        return deletedRows > 0;
+    }
+
+    async updateById(id: number, userData: Partial<UserCreateRequest>): Promise<boolean> {
+        const affectedCount = await User.update(userData, { where: { id } })
+        return affectedCount[0] > 0;
     }
 }
 

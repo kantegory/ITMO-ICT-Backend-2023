@@ -1,6 +1,12 @@
 import { Table, Column, Model, Unique, AllowNull, BeforeCreate, BeforeUpdate } from 'sequelize-typescript'
 import { hashPassword } from '../../utils/password'
 
+export const enum UserRole {
+    'ADMIN' = 1,
+    'MANAGER',
+    'EMPLOYEE'
+}
+
 @Table
 class User extends Model {
     @AllowNull(false)
@@ -17,6 +23,10 @@ class User extends Model {
 
     @Column
     lastName: string
+
+    @AllowNull(false)
+    @Column
+    role: number
 
     @Column
     dob: Date

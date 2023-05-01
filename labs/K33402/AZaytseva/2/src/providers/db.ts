@@ -1,6 +1,10 @@
 import { Sequelize } from 'sequelize-typescript'
+import RefreshToken from '../models/auth/RefreshToken'
 import User from '../models/users/User'
 import { production as dbConfig } from '../config/db'
+import Product from '../models/products/Product'
+import Sale from '../models/products/Sale'
+import Supply from '../models/products/Supply'
 
 const sequelize = new Sequelize({
   database: dbConfig.name,
@@ -13,7 +17,7 @@ const sequelize = new Sequelize({
   logging: console.log,
 })
 
-const models = [User]
+const models = [User, RefreshToken, Product, Sale, Supply]
 
 sequelize.addModels(models)
 

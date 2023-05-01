@@ -5,6 +5,7 @@ import { Dialect } from 'sequelize';
 export const enum ConfigModule {
     DATABASE = 'DATABASE',
     SERVER = 'SERVER',
+    JWT = 'JWT',
 }
 
 export interface DatabaseConfig {

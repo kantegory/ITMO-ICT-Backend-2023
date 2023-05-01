@@ -5,6 +5,7 @@ import routes from "../routes/v1/index"
 import sequelize from "../providers/db"
 import { Sequelize } from 'sequelize-typescript'
 import bodyParser from "body-parser"
+import passport from "../middlewares/passport"
 import { parseConfig, ConfigModule } from "../utils/configParser"
 import path from 'path'
 
@@ -32,6 +33,7 @@ class App {
         const app = express()
         app.use(cors())
         app.use(bodyParser.json())
+        app.use(passport.initialize())
         app.use('/v1', routes)
 
         return app
