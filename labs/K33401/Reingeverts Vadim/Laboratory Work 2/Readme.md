@@ -15,17 +15,17 @@
 
 ### ER Diagram
 
-![](https://i.imgur.com/G4sRJ0i.png)
+![](https://i.imgur.com/GBXb3xs.png)
 
 ### JWT 
 
 #### Authentication
 > - **Refresh Token** ― allows for acquirement of new **Access Tokens**
->   - Valid for 8 hours 
+>   - Valid for **8 hours** 
 >   - Requires check against db to use
 >   - Revocation is immediate
 > - **Access Token** ― provides access to protected routes
->   - Valid for 5 minutes
+>   - Valid for **5 minutes**
 >   - Does not require check against db to use
 >   - Revocation is not immediate: users could still use **Access Token** for up to 5 minutes even with revoked **Refresh Token**
 

@@ -2,39 +2,42 @@ import { Warehouse, Prisma } from "@prisma/client";
 
 import DbService from "~/services/DbService";
 
+type WarehouseNested = Prisma.WarehouseGetPayload<{
+    include: {
+        stocks: { include: { product: true } };
+    };
+}>;
 class WarehouseService extends DbService {
-    async getAll(): Promise<Warehouse[]> {
+    include = {
+        stocks: { include: { product: true } },
+    };
+
+    async getAll(): Promise<WarehouseNested[]> {
         return this.db.warehouse.findMany({
-            include: {
-                stocks: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
-    async getById(id: Warehouse["id"]): Promise<Warehouse | null> {
+    async getById(id: Warehouse["id"]): Promise<WarehouseNested | null> {
         return this.db.warehouse.findUnique({
             where: {
                 id,
             },
-            include: {
-                stocks: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
-    async create(data: Prisma.WarehouseUncheckedCreateInput): Promise<Warehouse> {
+    async create(data: Prisma.WarehouseUncheckedCreateInput): Promise<WarehouseNested> {
         return this.db.warehouse.create({
             data: data,
-            include: {
-                stocks: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
     async update(
         id: Warehouse["id"],
         data: Prisma.WarehouseUncheckedUpdateInput
-    ): Promise<Warehouse> {
+    ): Promise<WarehouseNested> {
         data.updatedAt = new Date().toJSON();
 
         return this.db.warehouse.update({
@@ -42,17 +45,16 @@ class WarehouseService extends DbService {
                 id,
             },
             data: data,
-            include: {
-                stocks: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
-    async delete(id: Warehouse["id"]): Promise<Warehouse> {
+    async delete(id: Warehouse["id"]): Promise<WarehouseNested> {
         return this.db.warehouse.delete({
             where: {
                 id,
             },
+            include: this.include,
         });
     }
 }

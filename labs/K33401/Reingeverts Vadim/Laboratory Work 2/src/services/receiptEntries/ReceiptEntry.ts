@@ -2,29 +2,34 @@ import { ReceiptEntry, Prisma } from "@prisma/client";
 
 import DbService from "~/services/DbService";
 
+type ReceiptEntryNested = Prisma.ReceiptEntryGetPayload<{
+    include: {
+        receipt: true;
+        stock: { include: { product: true } };
+    };
+}>;
 class ReceiptEntryService extends DbService {
-    async getAll(): Promise<ReceiptEntry[]> {
+    include = {
+        receipt: true,
+        stock: { include: { product: true } },
+    };
+
+    async getAll(): Promise<ReceiptEntryNested[]> {
         return this.db.receiptEntry.findMany({
-            include: {
-                receipt: true,
-                stock: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
-    async getById(id: ReceiptEntry["id"]): Promise<ReceiptEntry | null> {
+    async getById(id: ReceiptEntry["id"]): Promise<ReceiptEntryNested | null> {
         return this.db.receiptEntry.findUnique({
             where: {
                 id,
             },
-            include: {
-                receipt: true,
-                stock: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
-    async create(data: Prisma.ReceiptEntryUncheckedCreateInput): Promise<ReceiptEntry> {
+    async create(data: Prisma.ReceiptEntryUncheckedCreateInput): Promise<ReceiptEntryNested> {
         const ReceiptEntry = await this.db.$transaction(async () => {
             const { stockId } = data;
             const stock = await this.db.stock.findUnique({
@@ -57,7 +62,7 @@ class ReceiptEntryService extends DbService {
     async update(
         id: ReceiptEntry["id"],
         data: Prisma.ReceiptEntryUncheckedUpdateInput
-    ): Promise<ReceiptEntry> {
+    ): Promise<ReceiptEntryNested> {
         data.updatedAt = new Date().toJSON();
 
         return this.db.receiptEntry.update({
@@ -65,18 +70,16 @@ class ReceiptEntryService extends DbService {
                 id,
             },
             data: data,
-            include: {
-                receipt: true,
-                stock: { include: { product: true } },
-            },
+            include: this.include,
         });
     }
 
-    async delete(id: ReceiptEntry["id"]): Promise<ReceiptEntry> {
+    async delete(id: ReceiptEntry["id"]): Promise<ReceiptEntryNested> {
         return this.db.receiptEntry.delete({
             where: {
                 id,
             },
+            include: this.include,
         });
     }
 }

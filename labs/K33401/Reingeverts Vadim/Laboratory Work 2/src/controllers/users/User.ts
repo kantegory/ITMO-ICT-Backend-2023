@@ -16,9 +16,13 @@ class UserController extends BaseController {
     readonly name = "User";
 
     getAll = async (req: express.Request, res: express.Response) => {
-        const users = await this.userService.getAll();
-        const usersWithoutPass = this.userService.excludeMany(users, ["password"]);
-        res.status(200).json(usersWithoutPass);
+        try {
+            const users = await this.userService.getAll();
+            const usersWithoutPass = this.userService.excludeMany(users, ["password"]);
+            res.status(200).json(usersWithoutPass);
+        } catch (error) {
+            this.handleError(error, res, `Failed to get all ${this.name}`);
+        }
     };
 
     get = async (req: express.Request, res: express.Response) => {

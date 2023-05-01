@@ -2,39 +2,41 @@ import { Stock, Prisma } from "@prisma/client";
 
 import DbService from "~/services/DbService";
 
+type StockNested = Prisma.StockGetPayload<{
+    include: {
+        product: true;
+        warehouse: true;
+    };
+}>;
 class StockService extends DbService {
-    async getAll(): Promise<Stock[]> {
+    include = {
+        product: true,
+        warehouse: true,
+    };
+
+    async getAll(): Promise<StockNested[]> {
         return this.db.stock.findMany({
-            include: {
-                product: true,
-                warehouse: true,
-            },
+            include: this.include,
         });
     }
 
-    async getById(id: Stock["id"]): Promise<Stock | null> {
+    async getById(id: Stock["id"]): Promise<StockNested | null> {
         return this.db.stock.findUnique({
             where: {
                 id,
             },
-            include: {
-                product: true,
-                warehouse: true,
-            },
+            include: this.include,
         });
     }
 
-    async create(data: Prisma.StockUncheckedCreateInput): Promise<Stock> {
+    async create(data: Prisma.StockUncheckedCreateInput): Promise<StockNested> {
         return this.db.stock.create({
             data: data,
-            include: {
-                product: true,
-                warehouse: true,
-            },
+            include: this.include,
         });
     }
 
-    async update(id: Stock["id"], data: Prisma.StockUncheckedUpdateInput): Promise<Stock> {
+    async update(id: Stock["id"], data: Prisma.StockUncheckedUpdateInput): Promise<StockNested> {
         data.updatedAt = new Date().toJSON();
 
         return this.db.stock.update({
@@ -42,18 +44,16 @@ class StockService extends DbService {
                 id,
             },
             data: data,
-            include: {
-                product: true,
-                warehouse: true,
-            },
+            include: this.include,
         });
     }
 
-    async delete(id: Stock["id"]): Promise<Stock> {
+    async delete(id: Stock["id"]): Promise<StockNested> {
         return this.db.stock.delete({
             where: {
                 id,
             },
+            include: this.include,
         });
     }
 }

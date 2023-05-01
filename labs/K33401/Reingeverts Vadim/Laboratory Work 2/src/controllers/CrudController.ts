@@ -7,8 +7,12 @@ class CrudController extends BaseController {
     name = "Unnamed";
 
     getAll = async (req: express.Request, res: express.Response) => {
-        const items = await this.providerService.getAll();
-        res.status(200).json(items);
+        try {
+            const items = await this.providerService.getAll();
+            res.status(200).json(items);
+        } catch (error) {
+            this.handleError(error, res, `Failed to get all ${this.name}`);
+        }
     };
 
     get = async (req: express.Request, res: express.Response) => {

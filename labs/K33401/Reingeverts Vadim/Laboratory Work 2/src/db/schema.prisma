@@ -63,15 +63,15 @@ model Receipt {
 
 model ReceiptEntry {
     id        Int      @id @unique @default(autoincrement())
-    discount  Decimal  @default(0)
-    tax       Decimal  @default(0)
+    discount  Float    @default(0.0)
+    tax       Float    @default(0.10)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    receipt   Receipt @relation(fields: [receiptId], references: [id])
+    receipt   Receipt @relation(fields: [receiptId], references: [id], onDelete: Cascade)
     receiptId Int // relation scalar field  (used in the `@relation` attribute above)
 
-    stock   Stock @relation(fields: [stockId], references: [id])
+    stock   Stock @relation(fields: [stockId], references: [id], onDelete: Cascade)
     stockId Int // relation scalar field  (used in the `@relation` attribute above)
 }
 
@@ -84,9 +84,9 @@ model Stock {
     updatedAt      DateTime       @updatedAt
     receiptEntries ReceiptEntry[]
 
-    product   Product @relation(fields: [productId], references: [id])
+    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
     productId Int // relation scalar field  (used in the `@relation` attribute above)
 
-    warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+    warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
     warehouseId Int // relation scalar field  (used in the `@relation` attribute above)
 }
