@@ -42,14 +42,15 @@ class UserService extends DbService {
     async create(userData: Prisma.UserUncheckedCreateInput): Promise<User> {
         const { password } = userData;
 
-        if (password) {
-            const hashedPassword = await this.hashPassword(password);
-            userData.password = hashedPassword;
+        if (!password) {
+            throw Error("Password field was not provided");
+        }
+        const hashedPassword = await this.hashPassword(password);
+        userData.password = hashedPassword;
 
-            return this.db.user.create({
-                data: userData,
-            });
-        } else throw new Error("Password field was not provided");
+        return this.db.user.create({
+            data: userData,
+        });
     }
 
     async update(id: User["id"], userData: Prisma.UserUncheckedUpdateInput): Promise<User> {

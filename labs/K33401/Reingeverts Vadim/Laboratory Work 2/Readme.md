@@ -37,11 +37,16 @@
 ![](https://i.imgur.com/bryP2ZC.png)
 
 
-### Refreshing both tokens
+#### Refreshing both tokens
 
 ![](https://i.imgur.com/02YeBgh.png)
 
 
+### Stock quantity constraint
+> Made using Prisma's [interactive transaction](https://stackoverflow.com/a/74292933)
+> 
+
+[src/services/receiptEntries/ReceiptEntry.ts](src/services/receiptEntries/ReceiptEntry.ts#L27)
 
 
 

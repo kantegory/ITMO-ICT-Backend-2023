@@ -25,13 +25,33 @@ class ReceiptEntryService extends DbService {
     }
 
     async create(data: Prisma.ReceiptEntryUncheckedCreateInput): Promise<ReceiptEntry> {
-        return this.db.receiptEntry.create({
-            data: data,
-            include: {
-                receipt: true,
-                stock: { include: { product: true } },
-            },
+        const ReceiptEntry = await this.db.$transaction(async () => {
+            const { stockId } = data;
+            const stock = await this.db.stock.findUnique({
+                where: { id: stockId },
+                include: { receiptEntries: true },
+            });
+
+            if (!stock) {
+                throw Error(`Stock with id ${stockId} does not exist`);
+            }
+            const boughtCount = stock.receiptEntries.length;
+            const canBeBought = stock.quantity - boughtCount >= 1;
+
+            if (!canBeBought) {
+                throw Error(`Stock with id ${stockId} is out of stock`);
+            }
+
+            return this.db.receiptEntry.create({
+                data: data,
+                include: {
+                    receipt: true,
+                    stock: { include: { product: true } },
+                },
+            });
         });
+
+        return ReceiptEntry;
     }
 
     async update(
