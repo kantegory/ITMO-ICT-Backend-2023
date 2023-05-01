@@ -3,6 +3,8 @@ import { Sequelize } from 'sequelize-typescript'
 import RefreshToken from '../models/auth/RefreshToken'
 import User from '../models/users/User'
 import dotenv from "dotenv"
+import Creater from '../models/creaters/Creater'
+import Event from '../models/events/Event'
 dotenv.config()
 
 const sequelize = new Sequelize({
@@ -15,7 +17,7 @@ const sequelize = new Sequelize({
 })
 
 
-sequelize.addModels([User, RefreshToken])
+sequelize.addModels([User, Creater, Event, RefreshToken])
 
 sequelize
     .sync()
