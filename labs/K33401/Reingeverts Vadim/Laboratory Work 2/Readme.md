@@ -17,7 +17,82 @@
 
 ![](https://i.imgur.com/GBXb3xs.png)
 
+
+### Routes
+
+<details>
+    <summary>Unfold to see the list of all API Routes</summary>
+
+    GET /users
+    POST /users
+
+    GET /users/:id
+    PATCH /users/:id
+    DELETE /users/:id
+
+    POST /users/register
+
+    POST /users/login
+
+    POST /users/refreshToken
+
+    POST /users/me
+
+    POST /users/resetPassword
+
+    GET /users/resetPassword/:id
+
+    GET /products
+    POST /products
+
+    GET /products/:id
+    PATCH /products/:id
+    DELETE /products/:id
+
+    GET /stocks
+    POST /stocks
+
+    GET /stocks/:id
+    PATCH /stocks/:id
+    DELETE /stocks/:id
+
+    GET /warehouses
+    POST /warehouses
+
+    GET /warehouses/:id
+    PATCH /warehouses/:id
+    DELETE /warehouses/:id
+
+    GET /receipts
+    POST /receipts
+
+    GET /receipts/:id
+    PATCH /receipts/:id
+    DELETE /receipts/:id
+
+    GET /receiptEntries
+    POST /receiptEntries
+
+    GET /receiptEntries/:id
+    PATCH /receiptEntries/:id
+    DELETE /receiptEntries/:id
+
+    GET /sales
+
+    GET /sales/category/
+
+    GET /sales/category/:category
+
+    GET /sales/products/:productId
+</details>
+
 ### JWT 
+
+[src/controllers/users/User.ts](src/controllers/users/User.ts#L81)
+
+[src/services/auth/Auth.ts](src/services/auth/Auth.ts)
+
+[src/utils/jwt.ts](src/utils/jwt.ts)
 
 #### Authentication
 > - **Refresh Token** ― allows for acquirement of new **Access Tokens**
@@ -43,10 +118,10 @@
 
 
 ### Stock quantity constraint
-> Made using Prisma's [interactive transaction](https://stackoverflow.com/a/74292933)
+> Was made using Prisma's [interactive transaction](https://stackoverflow.com/a/74292933)
 > 
 
-[src/services/receiptEntries/ReceiptEntry.ts](src/services/receiptEntries/ReceiptEntry.ts#L27)
+[src/services/receiptEntries/ReceiptEntry.ts](src/services/receiptEntries/ReceiptEntry.ts#L32)
 
 
 
@@ -67,6 +142,7 @@ npm run dev
 - Application entry point at [core/app.ts](./src/core/app.ts)
 - Models are defined at [db/schema.prisma](./src/db/schema.prisma)
 - Controllers are defined at [controllers/*](./src/controllers/users/User.ts)
+- Middlewares are defined at [middleware/*](./src/middleware/isAuthenticated.ts)
 - Routes are defined at [routes/*](./src/routes/users/User.ts)
 - Services are defined at [services/*](./src/services/users/User.ts)
 

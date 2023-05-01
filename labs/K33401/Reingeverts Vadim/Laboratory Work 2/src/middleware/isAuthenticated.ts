@@ -8,7 +8,7 @@ const isAuthenticated = (
     next: express.NextFunction
 ) => {
     const { authorization } = req.headers;
-    return next();
+    return next(); // TOREMOVE
 
     if (!authorization) {
         res.status(401).json({ message: "Unauthorized" });

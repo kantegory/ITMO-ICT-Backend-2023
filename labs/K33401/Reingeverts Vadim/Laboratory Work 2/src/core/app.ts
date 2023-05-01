@@ -1,6 +1,7 @@
 import express from "express";
 import routes from "~/routes";
 import bodyParserErrorHandler from "express-body-parser-error-handler";
+import listEndpoints from "express-list-endpoints";
 
 import { logger } from "~/middleware";
 
@@ -18,3 +19,14 @@ app.use(bodyParserErrorHandler());
 app.use(logger);
 
 app.use("/", rootRoutes);
+
+app.use("/endpoints", (req, res) => {
+    const endpoints = listEndpoints(app);
+    const endpointsStr = endpoints
+        .map((endpoint) =>
+            endpoint.methods.map((method) => `${method} ${endpoint.path}`).join("\n")
+        )
+        .join("\n\n");
+
+    res.send(endpointsStr);
+});

@@ -79,27 +79,26 @@ class ProductService extends DbService {
                     });
                 })
                 .flat();
-            const totalSoldCount = profits.length;
+            const soldCount = profits.length;
 
             let totalProfit = new Prisma.Decimal(0);
             if (profits.length) {
                 totalProfit = Prisma.Decimal.sum(...profits);
             }
 
-            const salesEntry = { ...productData, profits, totalSoldCount, totalProfit };
+            const salesEntry = { ...productData, profits, soldCount, totalProfit };
             return salesEntry;
         });
         return productSales;
     }
     async getDistinctValues(column: keyof Product) {
-        const distictCategories = await this.db.product.findMany({
+        const distinctObjects = await this.db.product.findMany({
             select: { [column]: true },
             where: {},
             distinct: [column],
         });
-        console.log("distictCategories", distictCategories);
 
-        return distictCategories.map((categoryObj) => Object.values(categoryObj)[0]);
+        return distinctObjects.map((obj) => Object.values(obj)[0]);
     }
 }
 
