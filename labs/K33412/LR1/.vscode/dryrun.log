@@ -1,0 +1,5 @@
+make.exe: Entering directory 'c:/Users/Alex/Desktop/rfnftv/LR1'
+npm i
+npm run build
+make.exe: Leaving directory 'c:/Users/Alex/Desktop/rfnftv/LR1'
+ 
