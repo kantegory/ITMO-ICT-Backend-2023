@@ -17,5 +17,3 @@ warehouseRoutes.route("/:id").patch(isAuthenticated, controller.patch);
 warehouseRoutes.route("/:id").delete(isAuthenticated, controller.delete);
 
 export default warehouseRoutes;
-
-// TODO

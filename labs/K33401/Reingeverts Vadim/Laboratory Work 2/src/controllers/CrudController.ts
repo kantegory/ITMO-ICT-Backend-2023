@@ -18,6 +18,7 @@ class CrudController extends BaseController {
             const item = await this.providerService.getById(id);
             if (!item) {
                 res.status(404).json({ message: `${this.name} with the id ${id} does not exist` });
+                return;
             }
             res.status(200).json(item);
         } catch (error) {

@@ -4,7 +4,11 @@ import DbService from "~/services/DbService";
 
 class WarehouseService extends DbService {
     async getAll(): Promise<Warehouse[]> {
-        return this.db.warehouse.findMany();
+        return this.db.warehouse.findMany({
+            include: {
+                stocks: { include: { product: true } },
+            },
+        });
     }
 
     async getById(id: Warehouse["id"]): Promise<Warehouse | null> {
@@ -12,12 +16,18 @@ class WarehouseService extends DbService {
             where: {
                 id,
             },
+            include: {
+                stocks: { include: { product: true } },
+            },
         });
     }
 
     async create(data: Prisma.WarehouseUncheckedCreateInput): Promise<Warehouse> {
         return this.db.warehouse.create({
             data: data,
+            include: {
+                stocks: { include: { product: true } },
+            },
         });
     }
 
@@ -32,6 +42,9 @@ class WarehouseService extends DbService {
                 id,
             },
             data: data,
+            include: {
+                stocks: { include: { product: true } },
+            },
         });
     }
 

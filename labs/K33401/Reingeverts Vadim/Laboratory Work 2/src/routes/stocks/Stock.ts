@@ -17,5 +17,3 @@ stockRoutes.route("/:id").patch(isAuthenticated, controller.patch);
 stockRoutes.route("/:id").delete(isAuthenticated, controller.delete);
 
 export default stockRoutes;
-
-// TODO

@@ -43,12 +43,35 @@ model Product {
     stocks      Stock[]
 }
 
-model Stock {
+model Receipt {
+    id             Int            @id @unique @default(autoincrement())
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+    receiptEntries ReceiptEntry[]
+}
+
+model ReceiptEntry {
     id        Int      @id @unique @default(autoincrement())
-    price     Decimal
-    quantity  Int
+    discount  Decimal  @default(0)
+    tax       Decimal  @default(0)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+
+    receipt   Receipt @relation(fields: [receiptId], references: [id])
+    receiptId Int // relation scalar field  (used in the `@relation` attribute above)
+
+    stock   Stock @relation(fields: [stockId], references: [id])
+    stockId Int // relation scalar field  (used in the `@relation` attribute above)
+}
+
+model Stock {
+    id             Int            @id @unique @default(autoincrement())
+    buyPrice       Decimal        @default(0)
+    sellPrice      Decimal        @default(0)
+    quantity       Int            @default(1)
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+    receiptEntries ReceiptEntry[]
 
     product   Product @relation(fields: [productId], references: [id])
     productId Int // relation scalar field  (used in the `@relation` attribute above)

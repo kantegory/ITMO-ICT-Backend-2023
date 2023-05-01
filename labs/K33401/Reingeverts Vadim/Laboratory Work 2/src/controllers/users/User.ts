@@ -26,12 +26,13 @@ class UserController extends BaseController {
 
         try {
             const user = await this.userService.getById(id);
-            if (user) {
-                const userWithoutPass = this.userService.exclude(user, ["password"]);
-                res.status(200).json(userWithoutPass);
-            } else {
+            if (!user) {
                 res.status(404).json({ message: `${this.name} with the id ${id} does not exist` });
+                return;
             }
+
+            const userWithoutPass = this.userService.exclude(user, ["password"]);
+            res.status(200).json(userWithoutPass);
         } catch (error) {
             this.handleError(error, res, `Failed to get ${this.name}`);
         }
