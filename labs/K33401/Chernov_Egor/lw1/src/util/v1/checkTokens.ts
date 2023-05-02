@@ -2,15 +2,12 @@ import * as dotenv from "dotenv"
 import jwt from "jsonwebtoken"
 
 export default (token: string) => {
-    const status = {
-        valid: true,
-        userId: ""
-    }
-    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
-        if (err) {
-            status.valid = false
+    try {
+        return { payload: jwt.verify(token, process.env.SECRET_KEY), isExpired: false }
+    } catch (error) {
+        if ((error as Error).name == "TokenExpiredError") {
+            return { payload: jwt.decode(token), isExpired: true }
         }
-        status.userId = decoded.sub.toString()
-    })
-    return status
+        throw error
+    }
 }
