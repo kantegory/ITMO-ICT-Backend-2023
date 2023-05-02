@@ -18,11 +18,11 @@ class RefreshTokenService {
                     user: user
                 }})
             if (refreshToken) {
-                const status = checkTokens(refreshToken.token)
-                if (status.valid) {
-                    return generateTokens(user.id, Date.now(), refreshToken.token)
+                const { isExpired } = checkTokens(refreshToken.token)
+                if (isExpired) {
+                    return generateTokens(user.id)
                 }
-                return generateTokens(user.id, Date.now())
+                return generateTokens(user.id, refreshToken.token)
             }
             throw "Error of getting tokens"
         } catch (e: any) {
@@ -32,7 +32,7 @@ class RefreshTokenService {
 
     async create(user: any) {
         try {
-            const tokens = generateTokens(user.id, Date.now())
+            const tokens = generateTokens(user.id)
             const refreshToken = new RefreshToken()
             refreshToken.token = tokens.refreshToken
             refreshToken.user = user

@@ -16,17 +16,12 @@ class UserService {
         return await this.userRepository.find()
     }
 
-    async getUser(accessToken: string) : Promise<User> {
+    async getUser(userId: string) {
         try {
-            const status = checkTokens(accessToken)
-            const userId = status.userId
-            if (status.valid) {
-                return await this.userRepository.findOne({
-                    where: {
-                        id: userId
-                    }})
-            }
-
+            return await this.userRepository.findOne({
+                where: {
+                    id: userId
+                }})
         } catch (e: any) {
             console.log(e)
             throw "Error of getting user"

@@ -2,6 +2,7 @@ import { Request, Response } from "express"
 import UserService from "../../service/v1/UserService"
 import PortfolioService from "../../service/v1/PortfolioService"
 import RefreshTokenService from "../../service/v1/RefreshTokenService"
+import checkTokens from "../../util/v1/checkTokens"
 
 class UserController {
     private userService: UserService
@@ -20,10 +21,15 @@ class UserController {
     }
 
     getUser = async (request: Request, response: Response) => {
-        // todo: get user by access token
-        const { authorization } = request.headers
-        const user = await this.userService.getUser(authorization)
-        return response.send("user")
+        const accessToken = request.headers.authorization.split(" ")[1]
+        const decoded = checkTokens(accessToken)
+        const userId = decoded.payload.sub.toString()
+        const user = await this.userService.getUser(userId)
+        if (!decoded.isExpired) {
+            return response.send(user)
+        }
+        await this.refreshTokenService.get(user)
+        return response.send(user)
     }
 
     postSignupUser = async (request: Request, response: Response) => {
@@ -43,8 +49,8 @@ class UserController {
     postLoginUser = async (request: Request, response: Response) => {
         const { body } = request
         const { email, password } = body
-        const user = this.userService.login(email, password)
-        const tokens = this.refreshTokenService.get(user)
+        const user = await this.userService.login(email, password)
+        const tokens = await this.refreshTokenService.get(user)
         return response.send(tokens)
     }
 
