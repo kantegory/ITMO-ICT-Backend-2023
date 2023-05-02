@@ -6,7 +6,7 @@ export class Coin {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_coin)
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.coin)
     portfolios: Portfolio[]
 
     @Column({

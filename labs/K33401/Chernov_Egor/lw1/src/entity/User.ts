@@ -1,12 +1,13 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm"
-import {Portfolio} from "./Portfolio";
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany, BeforeInsert, BeforeUpdate} from "typeorm"
+import {Portfolio} from "./Portfolio"
+import hashPassword from "../util/v1/hashPassword"
 
 @Entity("user_c")
 export class User {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_user)
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.user)
     portfolios: Portfolio[]
 
     @Column({
@@ -37,7 +38,13 @@ export class User {
 
     @Column({
         type: "character varying",
-        length: 50
+        length: 100
     })
     password: string
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword() {
+        this.password = hashPassword(this.password)
+    }
 }

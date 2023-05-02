@@ -12,18 +12,19 @@ export class Portfolio {
         cascade: true,
         onDelete: "CASCADE"
     })
-    id_user: User
+    user: User
 
     // @PrimaryColumn()
     @ManyToOne(() => Coin, (coin) => coin.portfolios, {
         cascade: true,
         onDelete: "SET NULL"
     })
-    id_coin: Coin
+    coin: Coin
 
     @Column({
         type: "character varying",
-        length: 20
+        length: 20,
+        nullable: true
     })
     category: string
 }
