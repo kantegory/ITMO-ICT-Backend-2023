@@ -8,7 +8,7 @@ export class RefreshToken {
 
     @OneToOne(() => User, {
         cascade: true,
-        onDelete: "SET NULL"
+        onDelete: "CASCADE"
     })
     user: User
 }

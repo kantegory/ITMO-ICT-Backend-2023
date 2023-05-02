@@ -1,7 +1,9 @@
+import * as dotenv from "dotenv"
 import {Repository} from "typeorm"
-import {AppDataSource} from "../../data-source";
+import {AppDataSource} from "../../data-source"
 import {User} from "../../entity/User"
-
+import checkPassword from "../../util/v1/checkPassword"
+import checkTokens from "../../util/v1/checkTokens"
 
 class UserService {
     private userRepository: Repository<User>
@@ -14,34 +16,54 @@ class UserService {
         return await this.userRepository.find()
     }
 
-    async getByEmail(email: string) : Promise<User> {
-        return await this.userRepository.findOne({where: {
-            email: email,
-        }})
+    async getUser(accessToken: string) : Promise<User> {
+        try {
+            const status = checkTokens(accessToken)
+            const userId = status.userId
+            if (status.valid) {
+                return await this.userRepository.findOne({
+                    where: {
+                        id: userId
+                    }})
+            }
+
+        } catch (e: any) {
+            console.log(e)
+            throw "Error of getting user"
+        }
     }
 
     async create(userData: object) {
         try {
-            userData = await this.userRepository.create(userData)
-            const newUser = await this.userRepository.save(userData)
-            // todo: check if exist and after create portfolio
-            return newUser
+            const user = await this.userRepository.create(userData)
+            return await this.userRepository.save(user)
         } catch (e: any) {
             // const errors = e.errors.map((error: any) => error.message)
-            console.log(e)
-
             // throw new UserError(errors)
-            throw "Error1"
+            console.log(e)
+            throw "Error of creating user"
         }
     }
 
-    // async checkPassword(email: string, password: string) : Promise<any> {
-    //     const user = await User.findOne({ where: { email } })
-    //
-    //     if (user) return { user: user.toJSON(), checkPassword: checkPassword(user, password) }
-    //
-    //     throw new UserError('Incorrect login/password!')
-    // }
+    async login(email, password) {
+        try {
+            const user = await this.userRepository.findOne({
+                where:{
+                    email: email
+                }})
+            const isMatch = checkPassword(password, user.password)
+            if (isMatch) {
+                return user
+            }
+            throw "Error of user login"
+        } catch (e: any) {
+            console.log(e)
+        }
+    }
+
+    async delete(user) {
+
+    }
 }
 
 export default UserService

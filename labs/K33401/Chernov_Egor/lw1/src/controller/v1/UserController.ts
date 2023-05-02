@@ -1,11 +1,17 @@
 import { Request, Response } from "express"
 import UserService from "../../service/v1/UserService"
+import PortfolioService from "../../service/v1/PortfolioService"
+import RefreshTokenService from "../../service/v1/RefreshTokenService"
 
 class UserController {
     private userService: UserService
+    private portfolioService: PortfolioService
+    private refreshTokenService: RefreshTokenService
 
     constructor() {
         this.userService = new UserService()
+        this.portfolioService = new PortfolioService()
+        this.refreshTokenService = new RefreshTokenService()
     }
 
     getAll = async (request: Request, response: Response) => {
@@ -14,23 +20,32 @@ class UserController {
     }
 
     getUser = async (request: Request, response: Response) => {
-        const { body } = request
-        const user = await this.userService.getByEmail(body.email)
-        return response.send(user)
+        // todo: get user by access token
+        const { authorization } = request.headers
+        const user = await this.userService.getUser(authorization)
+        return response.send("user")
     }
 
-    postCreateUser = async (request: Request, response: Response) => {
-        const todo = "create user in Service, create jwt, create portfolio in Service"
+    postSignupUser = async (request: Request, response: Response) => {
         const { body } = request
         const user = await this.userService.create(body)
-
-        return response.send(user)
+        try {
+            const tokens = await this.refreshTokenService.create(user)
+            await this.portfolioService.create(user)
+            return response.send(tokens)
+        } catch (e: any) {
+            await this.userService.delete(user)
+            console.log(e)
+            throw "Error of registration"
+        }
     }
 
     postLoginUser = async (request: Request, response: Response) => {
-        const todo = "auth and get user from DB, auth jwt"
-
-        return response.send(todo)
+        const { body } = request
+        const { email, password } = body
+        const user = this.userService.login(email, password)
+        const tokens = this.refreshTokenService.get(user)
+        return response.send(tokens)
     }
 
     deleteUser = async (request: Request, response: Response) => {
