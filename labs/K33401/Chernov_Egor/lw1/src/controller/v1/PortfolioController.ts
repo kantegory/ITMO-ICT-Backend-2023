@@ -1,28 +1,92 @@
 import { Request, Response } from "express"
+import PortfolioService from "../../service/v1/PortfolioService"
+import UserService from "../../service/v1/UserService"
+import CoinService from "../../service/v1/CoinService"
+import checkToken from "../../util/v1/checkToken";
 
 class PortfolioController {
-    get_all = async (request: Request, response: Response) => {
-        const todo = "get all rows by id_user from Portfolio table of Service"
+    private portfolioService: PortfolioService
+    private userService: UserService
+    private coinService: CoinService
 
-        return response.send(todo)
+    constructor() {
+        this.portfolioService = new PortfolioService()
+        this.userService = new UserService()
+        this.coinService = new CoinService()
     }
 
-    get = async (request: Request, response: Response) => {
-        const todo = "get specific row by id_user, id_coin from Portfolio table of Service"
-
-        return response.send(todo)
+    getAllPortfolios = async (request: Request, response: Response) => {
+        try {
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const portfolios = await this.portfolioService.getAll()
+            if (portfolios.length !== 0) {
+                response.status(200).send(portfolios)
+            } else {
+                response.status(204).send(portfolios)
+            }
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
     }
 
-    post = async (request: Request, response: Response) => {
-        const todo = "create row with specific coin, check on validation"
-
-        return response.send(todo)
+    getAllPortfoliosByUser = async (request: Request, response: Response) => {
+        try {
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const userId = decoded.payload.sub.toString()
+            const user = await this.userService.get(userId)
+            const portfolios = await this.portfolioService.getAllByUser(user)
+            if (portfolios.length !== 0) {
+                response.status(200).send(portfolios)
+            } else {
+                response.status(204).send(portfolios)
+            }
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
     }
 
-    delete = async (request: Request, response: Response) => {
-        const todo = "delete row by id_user, id_coin from DB"
+    getPortfolio = async (request: Request, response: Response) => {
+        try {
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const { coinId } = request.query
+            const userId = decoded.payload.sub
+            const user = await this.userService.get(String(userId))
+            const coin = await this.coinService.get(String(coinId))
+            const portfolio = await this.portfolioService.get(user, coin)
+            response.status(200).send(portfolio)
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
+    }
 
-        return response.send(todo)
+    deletePortfolio = async (request: Request, response: Response) => {
+        try {
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const { coinId } = request.query
+            const userId = decoded.payload.sub
+            const user = await this.userService.get(String(userId))
+            const coin = await this.coinService.get(String(coinId))
+            await this.portfolioService.delete(user, coin)
+            response.status(200).send("Success")
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
     }
 }
 

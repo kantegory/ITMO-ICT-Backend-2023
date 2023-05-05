@@ -17,7 +17,7 @@ export class Portfolio {
     // @PrimaryColumn()
     @ManyToOne(() => Coin, (coin) => coin.portfolios, {
         cascade: true,
-        onDelete: "SET NULL"
+        onDelete: "CASCADE"
     })
     coin: Coin
 

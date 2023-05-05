@@ -10,12 +10,33 @@ class PortfolioService {
         this.portfolioRepository = AppDataSource.getRepository(Portfolio)
     }
 
-    async create(user) {
-        try {
-            return await this.portfolioRepository.save({user: user})
-        } catch (e: any) {
-            throw "Error of creating portfolio"
-        }
+    async getAll() {
+        return await this.portfolioRepository.find()
+    }
+
+    async getAllByUser(user: object) {
+        return await this.portfolioRepository.findBy({
+            user: user
+        })
+    }
+
+    async get(user: object, coin: object) {
+        return await this.portfolioRepository.findOneBy({
+            user: user,
+            coin: coin
+        })
+    }
+
+    async create(portfolioData: object) {
+        const portfolio = await this.portfolioRepository.create(portfolioData)
+        return await this.portfolioRepository.save(portfolio)
+    }
+
+    async delete(user: object, coin: object) {
+        return await this.portfolioRepository.delete({
+            user: user,
+            coin: coin
+        })
     }
 }
 
