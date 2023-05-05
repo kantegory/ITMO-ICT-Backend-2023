@@ -3,7 +3,13 @@ import User from '../models/user'
 require("dotenv").config();
 import generateToken from '../utils/tokenCreater';
 import checkPassword from '../utils/checkPassword';
-import mealTable from '../models/mealTable'
+import mealTable from '../models/personalCabin'
+import feedback from '../models/feedback';
+import Ingredient from '../models/ingredients';
+import MealIngredient from '../models/MealIngredient';
+import Meal from '../models/mealDb';
+
+
 export class userControllers{
     
 
@@ -134,8 +140,98 @@ public static addFav = async (req: express.Request, res: express.Response) => {
       return res.status(500).json({ message: 'Internal server error.' });
     }
   };
-  
-  
 
+
+  public static saveFeedback = async (req: express.Request, res: express.Response) => {
+            const {name, email, subject,message} =  req.body;
+            try {      
+                const fb = new feedback();
+                fb.name = name;
+                fb.email = email;
+                fb.subject = subject;
+                fb.message = message;
+                await fb.save()
+                res.json({message:"Your feedback is saved, Thanks for feedback"})
+            } catch (error) {
+                console.log(error);
+                res.status(500).json({message:"Server Error"});
+            }
+  }
+
+  public static getFeedback = async (req: express.Request, res: express.Response) => {
+        try {
+            const allfed =await feedback.findAll();
+            res.json({message:allfed})
+
+        } catch (error) {
+            
+        }
+  }
+  
+  public static postmeal = async (req: express.Request, res: express.Response) => {
+    try {
+      // Extract the meal data from the request body
+      const { mealName, mealImage, instructions, ingredients } = req.body;
+    
+      // Check if meal already exists in the database
+      const existingMeal = await Meal.findOne({ where: { mealName } });
+      if (existingMeal) {
+        return res.status(400).json({ error: 'Meal already exists in the database' });
+      }
+    
+      // Create a new Meal record
+      const meal = new Meal();
+      meal.mealName = mealName;
+      meal.mealImage = mealImage;
+      meal.instructions = instructions;
+      await meal.save();
+    
+      // Create a new MealIngredient record for each ingredient in the meal
+      for (const { name, quantity, unit } of ingredients) {
+        let ingredient = await Ingredient.findOne({ where: { name } });
+    
+        if (!ingredient) {
+          // If ingredient doesn't exist, create a new one
+          ingredient = new Ingredient();
+          ingredient.name = name;
+          await ingredient.save();
+        }
+    
+        const mealIngredient = new MealIngredient();
+        mealIngredient.meal_id = meal.id;
+        mealIngredient.ingredient_id = ingredient.id;
+        mealIngredient.quantity = quantity;
+        mealIngredient.unit = unit;
+        await mealIngredient.save();
+      }
+    
+      // Return the created meal record
+      res.status(201).json(meal);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
+
+  public static findMealByName = async (req: express.Request, res: express.Response) => {
+    const mealName = req.params.name;
+
+    try {
+        const mealInDb = await Meal.findOne({where:{
+          mealName: mealName
+        }})
+
+        if(!mealInDb) {
+          return res.status(404).json({ message: 'No meals found for the requested name.' });
+        }
+    
+        return res.json({ mealInDb });
+    } catch (error) {
+      
+    }
+  
+  }
+ 
 
 }
