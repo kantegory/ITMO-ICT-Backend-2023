@@ -1,6 +1,5 @@
 import express from "express"
 import UserController from "../../controller/v1/UserController"
-import portfolioRouter from "./PortfolioRouter";
 
 // Create router and controller
 const userRouter: express.Router = express.Router()
@@ -19,7 +18,10 @@ userRouter.route('/register')
 userRouter.route('/login')
     .post(userController.postLoginUser)
 
-portfolioRouter.route('/delete')
+userRouter.route('/update')
+    .post(userController.updateUser)
+
+userRouter.route('/delete')
     .get(userController.deleteUser)
 
 export default userRouter
