@@ -7,16 +7,22 @@ const coinController: CoinController = new CoinController()
 
 // Portfolio routes
 coinRouter.route('/list')
-    .get(coinController.get_all)
+    .get(coinController.getAllCoins)
 
 coinRouter.route('/specific')
-    .get(coinController.get)
+    .get(coinController.getCoin)
 
-coinRouter.route('/create_specific')
-    .get(coinController.post)
+coinRouter.route('/add')
+    .post(coinController.addCoin)
 
-coinRouter.route('/delete_specific')
-    .get(coinController.delete)
+coinRouter.route('/create')
+    .post(coinController.createCoin)
+
+coinRouter.route('/update')
+    .post(coinController.updateCoin)
+
+coinRouter.route('/delete')
+    .get(coinController.deleteCoin)
 
 
 export default coinRouter

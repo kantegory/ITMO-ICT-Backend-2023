@@ -15,7 +15,9 @@ export class Coin {
     })
     name: string
 
-    @Column("money")
+    @Column({
+        type: "double precision"
+    })
     price: number
 
     @Column({
