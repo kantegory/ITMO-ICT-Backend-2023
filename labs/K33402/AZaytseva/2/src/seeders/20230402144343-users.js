@@ -9,6 +9,7 @@ module.exports = {
         lastName: 'User',
         email: 'first@example.com',
         password: 'Testtest123',
+        role: 1,
         dob: new Date('2002-02-02'),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -18,6 +19,7 @@ module.exports = {
         lastName: 'User',
         email: 'second@example.com',
         password: 'Testtest123',
+        role: 2,
         dob: new Date('2002-02-02'),
         createdAt: new Date(),
         updatedAt: new Date()
@@ -27,6 +29,7 @@ module.exports = {
         lastName: 'User',
         email: 'third@example.com',
         password: 'Testtest123',
+        role: 3,
         dob: new Date('2002-02-02'),
         createdAt: new Date(),
         updatedAt: new Date()

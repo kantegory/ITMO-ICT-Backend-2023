@@ -119,7 +119,7 @@ class SupplyRepository {
             sales = await Sale.findAll({
                 attributes: [
                     'dateOfSale',
-                    [fn('sum', col('quantity')), 'amouny'],
+                    [fn('sum', col('quantity')), 'amount'],
                 ],
                 group: 'dateOfSale',
                 where: {
@@ -134,7 +134,7 @@ class SupplyRepository {
             sales = await Sale.findAll({
                 attributes: [
                     'dateOfSale',
-                    [fn('sum', col('quantity')), 'amouny'],
+                    [fn('sum', col('quantity')), 'amount'],
                 ],
                 group: 'dateOfSale',
                 where: {

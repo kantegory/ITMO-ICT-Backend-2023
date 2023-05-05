@@ -24,16 +24,12 @@ class UserController {
 
     post = async (request: any, response: any) => {
         try {
-            if (!request.user) {
-                throw new Error('Not authorized')
-            }
-
             const { body } = request
 
             if (body.id) {
                 const user = await this.userRepository.getById(body.id)
 
-                if (request.role >= user.role) {
+                if (!request.user || request.role >= user.role) {
                     throw new Error('Not authorized')
                 }
 
