@@ -3,7 +3,6 @@ import {Repository} from "typeorm"
 import {AppDataSource} from "../../data-source"
 import {User} from "../../entity/User"
 import checkPassword from "../../util/v1/checkPassword"
-import checkTokens from "../../util/v1/checkTokens"
 
 class UserService {
     private userRepository: Repository<User>
@@ -17,47 +16,35 @@ class UserService {
     }
 
     async getUser(userId: string) {
-        try {
-            return await this.userRepository.findOne({
-                where: {
-                    id: userId
-                }})
-        } catch (e: any) {
-            console.log(e)
-            throw "Error of getting user"
-        }
+        return await this.userRepository.findOne({
+            where: {
+                id: userId
+            }})
     }
 
     async create(userData: object) {
-        try {
-            const user = await this.userRepository.create(userData)
-            return await this.userRepository.save(user)
-        } catch (e: any) {
-            // const errors = e.errors.map((error: any) => error.message)
-            // throw new UserError(errors)
-            console.log(e)
-            throw "Error of creating user"
-        }
+        const user = await this.userRepository.create(userData)
+        return await this.userRepository.save(user)
     }
 
     async login(email, password) {
-        try {
-            const user = await this.userRepository.findOne({
-                where:{
-                    email: email
-                }})
-            const isMatch = checkPassword(password, user.password)
-            if (isMatch) {
-                return user
-            }
-            throw "Error of user login"
-        } catch (e: any) {
-            console.log(e)
+        const user = await this.userRepository.findOne({
+            where:{
+                email: email
+            }})
+        const isMatch = checkPassword(password, user.password)
+        if (isMatch) {
+            return user
         }
+        throw new Error("Password isn't correct")
     }
 
-    async delete(user) {
+    async update(userId: string, userData: object) {
+        return await this.userRepository.update({id: userId}, userData)
+    }
 
+    async delete(userId) {
+        return await this.userRepository.delete(userId)
     }
 }
 

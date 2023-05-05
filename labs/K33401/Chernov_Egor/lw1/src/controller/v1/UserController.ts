@@ -2,7 +2,8 @@ import { Request, Response } from "express"
 import UserService from "../../service/v1/UserService"
 import PortfolioService from "../../service/v1/PortfolioService"
 import RefreshTokenService from "../../service/v1/RefreshTokenService"
-import checkTokens from "../../util/v1/checkTokens"
+import checkToken from "../../util/v1/checkToken"
+import generateTokens from "../../middleware/v1/generateTokens"
 
 class UserController {
     private userService: UserService
@@ -16,58 +17,96 @@ class UserController {
     }
 
     getAll = async (request: Request, response: Response) => {
-        const users = await this.userService.getAll()
-        return response.send(users)
+        try {
+            const users = await this.userService.getAll()
+            if (users) {
+                response.status(200).send(users)
+            } else {
+                response.status(204).send(users)
+            }
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
     }
 
     getUser = async (request: Request, response: Response) => {
-        const accessToken = request.headers.authorization.split(" ")[1]
-        const decoded = checkTokens(accessToken)
-        const userId = decoded.payload.sub.toString()
-        const user = await this.userService.getUser(userId)
-        if (!decoded.isExpired) {
-            return response.send(user)
+        try {
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const userId = decoded.payload.sub.toString()
+            const user = await this.userService.getUser(userId)
+            response.status(200).send(user)
+        } catch (error) {
+            response.status(500).send({ error: error.message })
         }
-        await this.refreshTokenService.get(user)
-        return response.send(user)
     }
 
     postSignupUser = async (request: Request, response: Response) => {
-        const { body } = request
-        const user = await this.userService.create(body)
         try {
-            const tokens = await this.refreshTokenService.create(user)
-            await this.portfolioService.create(user)
-            return response.send(tokens)
-        } catch (e: any) {
-            await this.userService.delete(user)
-            console.log(e)
-            throw "Error of registration"
+            const { body } = request
+            const user = await this.userService.create(body)
+            const tokens = generateTokens(user.id)
+            await this.refreshTokenService.create(user, tokens.refreshToken)
+            console.log("Create access and refresh tokens")
+            response.status(201).send(tokens)
+        } catch (error) {
+            response.status(500).send({ error: error.message })
         }
     }
 
     postLoginUser = async (request: Request, response: Response) => {
-        const { body } = request
-        const { email, password } = body
-        const user = await this.userService.login(email, password)
-        const tokens = await this.refreshTokenService.get(user)
-        return response.send(tokens)
+        try {
+            const { body } = request
+            const { email, password } = body
+            const user = await this.userService.login(email, password)
+            const refreshToken = await this.refreshTokenService.get(user)
+            const { isExpired } = checkToken(refreshToken)
+            if (isExpired) {
+                const tokens = generateTokens(user.id)
+                await this.refreshTokenService.update(user, tokens.refreshToken)
+                console.log("Update refresh token and create access token")
+                return response.status(200).send(tokens)
+            }
+            const tokens = generateTokens(user.id, refreshToken)
+            console.log("Create access token")
+            response.status(200).send(tokens)
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
+    }
+
+    updateUser = async (request: Request, response: Response) => {
+        try {
+            const { body } = request
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const userId = decoded.payload.sub.toString()
+            await this.userService.update(userId, body)
+            response.status(200).send("Success")
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
     }
 
     deleteUser = async (request: Request, response: Response) => {
-        const todo = "drop row from DB"
-
-        return response.send(todo)
-    }
-
-    get_current_user = async (request: any, response: any) => {
-        return response.send(request.user)
-    }
-
-    refreshToken = async (request: any, response: any) => {
-        const todo = "check user, generate new refresh jwt token"
-
-        return response.send(todo)
+        try {
+            const accessToken = request.headers.authorization.split(" ")[1]
+            const decoded = checkToken(accessToken)
+            if (decoded.isExpired) {
+                return response.status(401).send("Access token was expired")
+            }
+            const userId = decoded.payload.sub.toString()
+            await this.userService.delete(userId)
+            response.status(200).send("Success")
+        } catch (error) {
+            response.status(500).send({ error: error.message })
+        }
     }
 }
 
