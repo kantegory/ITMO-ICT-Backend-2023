@@ -7,7 +7,7 @@ const userController: UserController = new UserController()
 
 // User routes
 userRouter.route('/list')
-    .get(userController.getAll)
+    .get(userController.getAllUsers)
 
 userRouter.route('/specific')
     .get(userController.getUser)
@@ -22,6 +22,6 @@ userRouter.route('/update')
     .post(userController.updateUser)
 
 userRouter.route('/delete')
-    .get(userController.deleteUser)
+    .delete(userController.deleteUser)
 
 export default userRouter

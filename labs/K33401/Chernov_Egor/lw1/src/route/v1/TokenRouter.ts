@@ -5,7 +5,7 @@ import TokenController from "../../controller/v1/TokenController";
 const tokenRouter: express.Router = express.Router()
 const tokenController: TokenController = new TokenController()
 
-// User routes
+// Token routes
 tokenRouter.route('/update')
     .get(tokenController.update)
 

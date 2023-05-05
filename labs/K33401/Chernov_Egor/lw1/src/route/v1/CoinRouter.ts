@@ -22,7 +22,7 @@ coinRouter.route('/update')
     .post(coinController.updateCoin)
 
 coinRouter.route('/delete')
-    .get(coinController.deleteCoin)
+    .delete(coinController.deleteCoin)
 
 
 export default coinRouter

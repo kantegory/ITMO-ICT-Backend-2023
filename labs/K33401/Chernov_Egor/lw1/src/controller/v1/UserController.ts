@@ -16,10 +16,10 @@ class UserController {
         this.refreshTokenService = new RefreshTokenService()
     }
 
-    getAll = async (request: Request, response: Response) => {
+    getAllUsers = async (request: Request, response: Response) => {
         try {
             const users = await this.userService.getAll()
-            if (users) {
+            if (users.length !== 0) {
                 response.status(200).send(users)
             } else {
                 response.status(204).send(users)
@@ -37,7 +37,7 @@ class UserController {
                 return response.status(401).send("Access token was expired")
             }
             const userId = decoded.payload.sub.toString()
-            const user = await this.userService.getUser(userId)
+            const user = await this.userService.get(userId)
             response.status(200).send(user)
         } catch (error) {
             response.status(500).send({ error: error.message })

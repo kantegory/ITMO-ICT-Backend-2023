@@ -1,4 +1,3 @@
-import * as dotenv from "dotenv"
 import {Repository} from "typeorm"
 import {AppDataSource} from "../../data-source"
 import {User} from "../../entity/User"
@@ -15,11 +14,10 @@ class UserService {
         return await this.userRepository.find()
     }
 
-    async getUser(userId: string) {
-        return await this.userRepository.findOne({
-            where: {
+    async get(userId: string) {
+        return await this.userRepository.findOneBy({
                 id: userId
-            }})
+        })
     }
 
     async create(userData: object) {
@@ -28,10 +26,9 @@ class UserService {
     }
 
     async login(email, password) {
-        const user = await this.userRepository.findOne({
-            where:{
+        const user = await this.userRepository.findOneBy({
                 email: email
-            }})
+        })
         const isMatch = checkPassword(password, user.password)
         if (isMatch) {
             return user

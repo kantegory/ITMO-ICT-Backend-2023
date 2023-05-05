@@ -7,7 +7,7 @@ import tokenRouter from "./TokenRouter";
 const router: express.Router = express.Router()
 
 router.use('/users', userRouter)
-router.use('/portfolio', portfolioRouter)
+router.use('/portfolios', portfolioRouter)
 router.use('/coins', coinRouter)
 router.use('/token', tokenRouter)
 
