@@ -14,7 +14,7 @@ interface SoldRequestParams {
     dateTo?: Date;
 }
 
-class SupplyRepository {
+class SaleRepository {
     async getAll() : Promise<Sale[]> {
         const sales = await Sale.findAll()
 
@@ -180,4 +180,4 @@ class SupplyRepository {
     }
 }
 
-export default SupplyRepository
+export default SaleRepository
