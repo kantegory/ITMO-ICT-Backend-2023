@@ -15,7 +15,7 @@ class RoomController {
 
     post = async (request: Request, response: Response) => {
         const { body } = request
-        const hotelId = Number(request.params.id)
+        const hotelId = Number(request.body.hotelId)
 
         const roomData = { ...body, hotelId: hotelId }
 

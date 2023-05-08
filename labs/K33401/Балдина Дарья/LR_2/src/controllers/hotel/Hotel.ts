@@ -1,6 +1,5 @@
 import HotelService from '../../services/hotel/Hotel'
 import { Request, Response } from 'express'
-import Hotel from "../../models/hotel/Hotel"
 
 class HotelController {
     private hotelService: HotelService

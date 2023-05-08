@@ -9,16 +9,16 @@ class BookingService {
         const roomId = bookingData['roomId']
         const { arrivalDate, departureDate } = bookingData
         if (!roomId) throw new BookingError('roomId must be specified')
-        if (!arrivalDate || !departureDate) throw new BookingError('dateFrom and dateTo must be specified')
+        if (!arrivalDate || !departureDate) throw new BookingError('arrivalDate and departureDate must be specified')
 
         const arrivalDateTime = new Date(arrivalDate).getTime()
         const departureDateTime = new Date(departureDate).getTime()
 
-        const room = await Room.findByPk(roomId)
+        const room = await Room.findOne({where: {roomNumber: roomId}})
 
         if (!room) throw new BookingError('Such room not found!')
 
-        const roomBookings = await Booking.findAll({ where: { roomId: room.id } })
+        const roomBookings = await Booking.findAll({ where: { roomId: room.roomNumber } })
 
         let possible = true
         roomBookings.forEach((booking) => {
@@ -45,9 +45,7 @@ class BookingService {
 
             return booking.toJSON()
         } catch (e: any) {
-            const errors = e.errors.map((error: any) => error.message)
-
-            throw new BookingError(errors)
+            throw new BookingError(e)
         }
     }
 
@@ -58,20 +56,24 @@ class BookingService {
 
         throw new BookingError('Not found!')
     }
-    
-    async updateBooking(newBookingData: any) {
-        await Booking.update(newBookingData, {
-            where: {
-                id: newBookingData.id
-            }
-        })
-        console.log(newBookingData.id)
-        return this.getById(newBookingData.id)
+
+    async updateBooking(id: number, newBookingData: any){
+        const booking = await Booking.findByPk(id)
+        
+        if (!booking) {
+            throw new BookingError('Hotel not found');
+          }
+        
+          Object.assign(booking, newBookingData)
+          return await booking.save()
     }
 
     async deleteBooking(id: number) {
-        const booking: Booking = await this.getById(id)
-        booking.destroy()
+        const booking = await Booking.findByPk(id)
+        if (booking == null) {
+            throw new Error("Invalid identifier")
+        }
+        return await booking.destroy()
     }
 }
 

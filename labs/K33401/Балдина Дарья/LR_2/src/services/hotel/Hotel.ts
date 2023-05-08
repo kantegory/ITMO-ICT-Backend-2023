@@ -44,8 +44,12 @@ class HotelService {
     }
 
     async deleteHotel(id: number) {
-        const hotel: Hotel = await this.getById(id)
-        hotel.destroy()
+        const hotel: Hotel | null = await Hotel.findByPk(id)
+        if (hotel == null) {
+            throw new Error("Invalid identifier")
+        }
+
+        return await hotel.destroy()
     }
 }
 

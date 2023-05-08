@@ -35,19 +35,6 @@ class Booking extends Model {
     @Column
     price: number
 
-    get duration(): number {
-        return (this.departureDate.getTime() - this.arrivalDate.getTime()) / (1000 * 60 * 60 * 24);
-      }
-    async save(): Promise<this> {
-        // Check that start < end
-        if (this.arrivalDate >= this.departureDate) {
-          throw new Error("Duration date must be greater than start date");
-        }
-        this.price = this.room.priceOfNight * this.duration;
-
-    // Save changes to the database
-    return super.save();
-}
 }
 
 export default Booking

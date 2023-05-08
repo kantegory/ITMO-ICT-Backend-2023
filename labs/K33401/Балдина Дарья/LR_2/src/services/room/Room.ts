@@ -7,9 +7,9 @@ class RoomService {
         return await Room.findAll({ where: { hotelId: id } })
     }
 
-    async create(hotelData: Optional<string, any>): Promise<Room | RoomError> {
+    async create(roomData: Optional<string, any>): Promise<Room | RoomError> {
         try {
-            const room = await Room.create(hotelData)
+            const room = await Room.create(roomData)
 
             return room.toJSON()
         } catch (e: any) {
@@ -27,10 +27,9 @@ class RoomService {
     }
 
     async updateRoom(roomNumber: number, newRoomData: any){
-        const room = await this.getByRoomNumber(roomNumber)
-        
+        const room = await Room.findOne({where: {roomNumber: roomNumber}})
         if (!room) {
-            throw new RoomError('Hotel not found');
+            throw new RoomError('Room not found');
           }
         
           Object.assign(room, newRoomData)
@@ -38,9 +37,13 @@ class RoomService {
     }
 
     async deleteRoom(roomNumber: number) {
-        const room: Room = await this.getByRoomNumber(roomNumber)
-        room.destroy()
+            const room = await Room.findOne({where: {roomNumber: roomNumber}})
+            if (room == null) {
+                throw new Error("Invalid identifier")
+            }
+    
+            return await room.destroy()
+        }
     }
-}
 
 export default RoomService

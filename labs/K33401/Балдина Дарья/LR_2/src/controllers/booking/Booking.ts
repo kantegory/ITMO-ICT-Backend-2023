@@ -21,7 +21,7 @@ class BookingController {
         const { body } = request
 
         const userId = (request.user as any)?.id
-
+        
         if (!userId) return response.status(401).send({ error: 'Only for auth' })
 
         try {
