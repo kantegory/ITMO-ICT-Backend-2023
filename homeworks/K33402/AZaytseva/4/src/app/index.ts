@@ -8,6 +8,7 @@ import bodyParser from "body-parser"
 import passport from "../middlewares/passport"
 import { parseConfig, ConfigModule } from "../utils/configParser"
 import path from 'path'
+import swaggerUi from 'swagger-ui-express'
 
 const configPath = path.resolve(__dirname, "../config/settings.ini")
 const serverConfig = parseConfig(configPath, ConfigModule.SERVER)
@@ -35,6 +36,11 @@ class App {
         app.use(bodyParser.json())
         app.use(passport.initialize())
         app.use('/v1', routes)
+
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        const swaggerDoc = require('../swagger.json')
+        app.use('/docs', swaggerUi.serve)
+        app.use('/docs', swaggerUi.setup(swaggerDoc))
 
         return app
       }

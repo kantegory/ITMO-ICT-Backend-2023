@@ -69,7 +69,11 @@ class UserController {
     }
 
     me = async (request: any, response: any) => {
-        response.send(request.user)
+        if (!request.user) {
+            response.status(401).send({ "error": "Not authorized" })
+        } else {
+            response.send(request.user)
+        }
     }
 
     auth = async (request: any, response: any) => {
