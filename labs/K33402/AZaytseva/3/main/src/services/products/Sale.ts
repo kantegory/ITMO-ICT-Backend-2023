@@ -15,10 +15,18 @@ interface SoldRequestParams {
 }
 
 class SaleRepository {
-    async getAll() : Promise<Sale[]> {
-        const sales = await Sale.findAll()
-
-        return sales
+    async getAll(productId?: number) : Promise<Sale[]> {
+        if (productId) {
+            const sales = await Sale.findAll({
+                where: {
+                    productId,
+                }
+            })
+            return sales
+        } else {
+            const sales = await Sale.findAll()
+            return sales
+        }
     }
 
     async getSoldRevenue(params: Partial<SoldRequestParams>): Promise<number> {

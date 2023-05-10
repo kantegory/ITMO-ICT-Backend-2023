@@ -22,9 +22,13 @@ class SaleController {
 
                 response.send(sale)
             } else {
-                const sales = await this.saleRepository.getAll()
-
-                response.send(sales)
+                if (request.query['product-id']) {
+                    const sales = await this.saleRepository.getAll(Number(request.query['product-id']))
+                    response.send(sales)
+                } else {
+                    const sales = await this.saleRepository.getAll()
+                    response.send(sales)
+                }
             }
         } catch (error: any) {
             response.status(404).send({ "error": error.message })
