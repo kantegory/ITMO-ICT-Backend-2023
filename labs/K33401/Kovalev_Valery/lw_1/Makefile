@@ -11,3 +11,7 @@ build:
 start:
 	yarn prisma migrate dev
 	yarn run start
+
+.PHONE: init
+init:
+	yarn init
