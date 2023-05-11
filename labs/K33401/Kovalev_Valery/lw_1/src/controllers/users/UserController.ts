@@ -1,5 +1,5 @@
 import UserService from "../../services/users/UserService";
-import {Request, response, Response} from "express";
+import {Request, Response} from "express";
 
 class UserController{
     private userService: UserService
@@ -11,19 +11,24 @@ class UserController{
     get = async (request: Request, response: Response) => {
         try {
             const user = await this.userService.getById(Number(request.params.id))
-            console.log(user)
-            response.send(user)
+            return response.json(user)
         } catch (e:any) {
-            response.status(404).send({ "error": e.name })
+         return response.status(404).json({ "error": e.name })
         }
     }
 
-    getAll = async (request: Request, respone: Response) => {
+    getAll = async (request: Request, response: Response) => {
         try {
+            const {email} = request.query
+            if(email){
+                const {email} = request.query
+                const user = await this.userService.getByEmail(String(email))
+                return response.json([user])
+            }
             const users = await this.userService.getUsers()
-            respone.send(users)
+            return response.json(users)
         } catch (e: any) {
-            response.status(404).send({"error": e.message})
+            return response.status(404).json({"error": e.message})
         }
     }
 
@@ -31,9 +36,9 @@ class UserController{
         try {
             const {email, name} = request.body
             const user = await this.userService.createUser({email, name})
-            response.send(user)
+            return response.json(user)
         } catch (e:any) {
-            response.status(404).send({"error": e.message})
+            return response.status(404).json({"error": e.message})
         }
     }
 }

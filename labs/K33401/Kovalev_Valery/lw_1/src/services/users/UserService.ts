@@ -11,6 +11,9 @@ class UserService {
     getById(id: number) {
         return prisma.user.findUniqueOrThrow({where: {id}})
     }
+    getByEmail(email: string){
+        return prisma.user.findUniqueOrThrow({where:{email}})
+    }
     getUsers() {
         return prisma.user.findMany()
     }
