@@ -8,4 +8,10 @@ const controller: UserController = new UserController()
 router.route('/:id')
     .get(controller.get)
 
+router.route('/')
+    .post(controller.post)
+
+router.route('/')
+    .get(controller.getAll)
+
 export default router;
