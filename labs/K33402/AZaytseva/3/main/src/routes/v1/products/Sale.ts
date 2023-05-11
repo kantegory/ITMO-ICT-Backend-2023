@@ -14,12 +14,6 @@ router.route('/amount')
 router.route('/revenue')
     .get(controller.getSoldRevenue)
 
-router.route('/stat/amount')
-    .get(controller.getAmountStat)
-
-router.route('/stat/revenue')
-    .get(controller.getRevenueStat)
-
 router.route('/sale')
     .get(controller.get)
     .post(controller.post)

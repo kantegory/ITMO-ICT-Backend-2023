@@ -1,5 +1,5 @@
-all: node_modules build migrate seed
-.PHONY: all build migrate seed start clean
+all: node_modules build
+.PHONY: all build start clean
 
 # Установка зависимостей и сборка приложения
 node_modules: package.json

@@ -16,7 +16,9 @@ class StatController {
                 ? `?product-id=${request.query['product-id']}`
                 : '';
 
-            const salesResponse = await fetch(`http://${process.env.MAIN_HOST}:${process.env.MAIN_PORT}/v1/sales/sale${productIdFilter}`);
+            const salesResponse = await fetch(
+                `http://${process.env.MAIN_HOST}:${process.env.MAIN_PORT}/v1/sales/sale${productIdFilter}`
+            );
             const sales = await salesResponse.json() as Array<Sale>;
             const groupedSalesByDate = sales.reduce((groupedSales, sale) => {
                 if (!(sale.dateOfSale in groupedSales)) {

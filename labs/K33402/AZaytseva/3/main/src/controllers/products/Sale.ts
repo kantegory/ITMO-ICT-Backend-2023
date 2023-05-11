@@ -103,34 +103,6 @@ class SaleController {
         }
     }
 
-    getRevenueStat = async (request: any, response: any) => {
-        try {
-            const sales = await this.saleRepository.getSalesRevenueGroupedByDay({
-                productId: request.query['product-id'],
-                dateFrom: request.query['date-from'],
-                dateTo: request.query['date-to'],
-            })
-
-            response.send(sales)
-            } catch (error: any) {
-                response.status(404).send({ "error": error.message })
-            }
-        }
-
-    getAmountStat = async (request: any, response: any) => {
-        try {
-            const sales = await this.saleRepository.getSalesAmountGroupedByDay({
-                productId: request.query['product-id'],
-                dateFrom: request.query['date-from'],
-                dateTo: request.query['date-to'],
-            })
-
-            response.send(sales)
-        } catch (error: any) {
-            response.status(404).send({ "error": error.message })
-        }
-  }
-
     post = async (request: any, response: any) => {
         const { body } = request
 
