@@ -1,31 +1,49 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, BeforeInsert, BeforeUpdate } from "typeorm"
+import { Portfolio } from "./Portfolio"
 import hashPassword from "../utils/hashPassword"
 
-@Entity({ name: "user" })
+@Entity({name: "user"})
 export class User {
-  @PrimaryGeneratedColumn('uuid')
-  id: number;
+  @PrimaryGeneratedColumn("uuid")
+  id: string
 
-  @Column({ type: "varchar", length: 20 })
-  name: string;
+  @OneToMany(() => Portfolio, (portfolio) => portfolio.user)
+  portfolios: Portfolio[]
 
-  @Column({ type: "varchar", length: 20 })
-  surname: string;
+  @Column({
+    type: "character varying",
+    length: 20
+  })
+  name: string
+  @Column({
+    type: "character varying",
+    length: 20
+  })
+  surname: string
 
-  @Column({ type: "varchar", length: 20, unique: true })
-  phone: string;
+  @Column({
+    type: "character varying",
+    length: 20,
+    nullable: true
+  })
+  phone: string
 
-  @Column({ type: "varchar", length: 20, nullable: true, unique: true })
-  email: string;
+  @Column({
+    type: "character varying",
+    length: 20,
+    unique: true
+  })
+  email: string
 
-  @Column({ type: "varchar", length: 50 })
-  password: string;
+  @Column({
+    type: "character varying",
+    length: 100
+  })
+  password: string
 
   @BeforeInsert()
   @BeforeUpdate()
-  async hashPassword() {
-    if (this.password) {
-      this.password = await hashPassword(this.password);
-    }
+  hashPassword() {
+    this.password = hashPassword(this.password)
   }
-}
+} 
