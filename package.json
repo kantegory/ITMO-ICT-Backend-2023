@@ -1,0 +1,17 @@
+{
+  "name": "itmo-ict-backend-2023",
+  "version": "1.0.0",
+  "description": "Курс по бэкенд-разработке в среде Node.JS для Университета ИТМО",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "rme": "npm uninstall express",
+    "postrme": "echo 'Express framework is uninstalled'"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0"
+  }
+}
