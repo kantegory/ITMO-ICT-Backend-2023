@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  gateway-service:
+    container_name: gateway-service
+    env_file:
+      - gateway-service/.env
+    build:
+      context: ./gateway-service
+    volumes:
+      - ./gateway-service:/app
+      - /app/node_modules
+    command: yarn run dev
+    ports:
+      - 8000:8000
+      - 9229:9229
+    restart: always
+  auth-service:
+    container_name: auth-service
+    build:
+      context: ./auth-service
+    volumes:
+      - ./auth-service:/app
+      - /app/node_modules
+    ports:
+      - 8001:80
+      - 9230:9229
+    restart: always
+    games-service:
+      container_name: games-service
+      build:
+        context: ./games-service
+      volumes:
+        - ./games-service:/app
+        - /app/node_modules
+      ports:
+        - 8002:80
+        - 9231:9229
+      restart: always
+

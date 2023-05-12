@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Genre {
+  id            Int             @id @default(autoincrement())
+  name          String
+  GenresOnGames GenresOnGames[]
+}
+
+model Category {
+  id               Int                @id @default(autoincrement())
+  name             String
+  CategoriesOnGame CategoriesOnGame[]
+}
+
+model CategoriesOnGame {
+  game       Game     @relation(fields: [gameId], references: [id])
+  gameId     Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int
+
+  @@id([gameId, categoryId])
+}
+
+model GenresOnGames {
+  game    Game  @relation(fields: [gameId], references: [id])
+  gameId  Int
+  genre   Genre @relation(fields: [genreId], references: [id])
+  genreId Int
+
+  @@id([gameId, genreId])
+}
+
+model Game {
+  id          Int                @id @default(autoincrement())
+  name        String
+  releaseDate DateTime
+  developer   String
+  publisher   String
+  price       Float
+  category    CategoriesOnGame[]
+  genres      GenresOnGames[]
+  Like        Like[]
+}
+
+model Like {
+  id     Int  @id @default(autoincrement())
+  game   Game @relation(fields: [gameId], references: [id])
+  gameId Int
+  userId Int
+}
