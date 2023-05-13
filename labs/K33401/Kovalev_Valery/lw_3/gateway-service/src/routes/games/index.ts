@@ -16,7 +16,7 @@ router.route('/*')
                     const response = await axios({
                         method: req.method,
                         url: GAMES_SERVICE_URL + req.url,
-                        headers: {Authorization: authorization},
+                        headers: user.id ? {"user-id": user.id} : {},
                         data: req.body ? {...req.body, user: user} : undefined
                     })
                     return res.json(response.data)

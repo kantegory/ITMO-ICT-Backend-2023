@@ -72,7 +72,6 @@ class GamesService {
         return prisma.game.findMany({where: {developer: developer.toUpperCase()}})
     }
 
-
 }
 
 export default GamesService;

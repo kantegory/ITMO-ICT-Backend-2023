@@ -9,19 +9,7 @@ class GamesController {
         this.gamesService = new GamesService()
     }
 
-    getUser = async (token: string) => {
-        try {
-            const response =  await axios.get("http://gateway-service:8000/auth/users/me", {headers: {Authorization: token}})
-            return response.data
-        } catch (e) {
-            return response.status(401).send("Unauthorized")
-        }
-    }
-
     getAll = async (req: Request, res: Response) => {
-        const token = req.headers.authorization
-        const user = await this.getUser(String(token))
-        console.log("USER", user)
         let {offset, count, developer, publisher, sortByPrice} = req.query
         offset = offset ? offset : "0"
         count = count ? count : "10"
