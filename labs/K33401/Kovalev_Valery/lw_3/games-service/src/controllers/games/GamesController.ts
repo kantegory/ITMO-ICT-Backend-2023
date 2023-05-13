@@ -1,12 +1,43 @@
-import GamesService from "../../services/users/UserService";
-import {Request, Response} from "express";
+import GamesService from "../../services/users/GamesService";
+import {Request, response, Response} from "express";
+import axios from "axios";
 
-class GamesController{
-    private userService: GamesService
+class GamesController {
+    private gamesService: GamesService
 
     constructor() {
-        this.userService = new GamesService()
+        this.gamesService = new GamesService()
     }
+
+    getUser = async (token: string) => {
+        try {
+            const response =  await axios.get("http://gateway-service:8000/auth/users/me", {headers: {Authorization: token}})
+            return response.data
+        } catch (e) {
+            return response.status(401).send("Unauthorized")
+        }
+    }
+
+    getAll = async (req: Request, res: Response) => {
+        const token = req.headers.authorization
+        const user = await this.getUser(String(token))
+        console.log("USER", user)
+        let {offset, count, developer, publisher, sortByPrice} = req.query
+        offset = offset ? offset : "0"
+        count = count ? count : "10"
+        sortByPrice = ["desc", "asc"].includes(String(sortByPrice)) ? String(sortByPrice) : undefined
+        developer = developer ? String(developer) : undefined
+        publisher = publisher ? String(publisher) : undefined
+        const {
+            total,
+            result
+        } = await this.gamesService.getAll(Number(count), Number(offset), developer, publisher, sortByPrice)
+        res.json({total, offset, count, result})
+    }
+
+    deleteGame = async (req: Request, res: Response) => {
+    }
+
 }
 
 export default GamesController;

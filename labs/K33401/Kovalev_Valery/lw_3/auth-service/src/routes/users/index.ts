@@ -19,6 +19,6 @@ router.route('/')
 
 router.route(('/jwt/create')).post(controller.createJWT)
 
-router.route("/games/me").get(controller.me)
+router.route("/users/me").get(controller.me)
 
 export default router;

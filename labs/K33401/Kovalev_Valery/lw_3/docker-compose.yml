@@ -26,15 +26,15 @@ services:
       - 8001:80
       - 9230:9229
     restart: always
-    games-service:
-      container_name: games-service
-      build:
-        context: ./games-service
-      volumes:
-        - ./games-service:/app
-        - /app/node_modules
-      ports:
-        - 8002:80
-        - 9231:9229
-      restart: always
+  games-service:
+    container_name: games-service
+    build:
+      context: ./games-service
+    volumes:
+      - ./games-service:/app
+      - /app/node_modules
+    ports:
+      - 8002:80
+      - 9231:9229
+    restart: always
 

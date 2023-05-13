@@ -1,12 +1,12 @@
 import express from "express"
-import UserController from "../../controllers/games/GamesController"
+import GamesController from "../../controllers/games/GamesController"
 
 const router: express.Router = express.Router()
 
-const controller: UserController = new UserController()
+const controller: GamesController = new GamesController()
 
-// router.route('/:id')
-//     .get(controller.get)
+router.route('/')
+    .get(controller.getAll)
 //
 // router.route('/register')
 //     .post(controller.register)

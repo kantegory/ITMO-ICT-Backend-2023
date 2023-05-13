@@ -8,44 +8,26 @@ datasource db {
 }
 
 model Genre {
-  id            Int             @id @default(autoincrement())
-  name          String
-  GenresOnGames GenresOnGames[]
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  games Game[]
 }
 
 model Category {
-  id               Int                @id @default(autoincrement())
-  name             String
-  CategoriesOnGame CategoriesOnGame[]
-}
-
-model CategoriesOnGame {
-  game       Game     @relation(fields: [gameId], references: [id])
-  gameId     Int
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-
-  @@id([gameId, categoryId])
-}
-
-model GenresOnGames {
-  game    Game  @relation(fields: [gameId], references: [id])
-  gameId  Int
-  genre   Genre @relation(fields: [genreId], references: [id])
-  genreId Int
-
-  @@id([gameId, genreId])
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  games Game[]
 }
 
 model Game {
-  id          Int                @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   releaseDate DateTime
   developer   String
   publisher   String
   price       Float
-  category    CategoriesOnGame[]
-  genres      GenresOnGames[]
+  categories  Category[]
+  genres      Genre[]
   Like        Like[]
 }
 
