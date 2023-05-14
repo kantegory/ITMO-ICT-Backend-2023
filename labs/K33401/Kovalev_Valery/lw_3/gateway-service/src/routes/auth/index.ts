@@ -9,7 +9,12 @@ router.route('/*')
     .all(async (req: Request, res: Response) => {
         try {
             const authorization = req.headers.authorization
-            const response = await axios({method: req.method, url: AUTH_SERVICE_URL + req.url, headers: authorization ? {"Authorization": authorization}: undefined, data: req.body ? req.body : undefined} )
+            const response = await axios({
+                method: req.method,
+                url: AUTH_SERVICE_URL + req.url,
+                headers: authorization ? {"Authorization": authorization} : undefined,
+                data: req.body ? req.body : undefined
+            })
             return res.json(response.data)
         } catch (e) {
             if (isAxiosError(e) && e.response) {

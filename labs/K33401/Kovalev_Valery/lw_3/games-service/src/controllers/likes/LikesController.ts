@@ -10,29 +10,42 @@ class LikesController {
     }
 
     get = async (req: Request, res: Response) => {
-        const {"user-id": userId} = req.headers
-        if (userId) {
-            return res.json(await this.LikesService.get(Number(userId)))
+        try {
+            const {"user-id": userId} = req.headers
+            if (userId) {
+                return res.json(await this.LikesService.get(Number(userId)))
+            }
+            return res.status(412).json({error: "User ID not in headers"})
+        } catch (e: any) {
+            return res.status(404).json({error: e.message})
         }
-        return res.status(412).json({error: "User ID not in headers"})
     }
 
     post = async (req: Request, res: Response) => {
-        const {"user-id": userId} = req.headers
-        const {gameId} = req.body
-        if (userId) {
-            return res.json(await this.LikesService.post(Number(gameId), Number(userId)))
+        try {
+            const {"user-id": userId} = req.headers
+            const {gameId} = req.body
+            if (userId) {
+                return res.json(await this.LikesService.post(Number(gameId), Number(userId)))
+            }
+            return res.status(412).json({error: "User ID not in headers"})
+        } catch (e: any) {
+            return res.status(404).json({error: e.message})
         }
-        return res.status(412).json({error: "User ID not in headers"})
     }
 
     delete = async (req: Request, res: Response) => {
-        const {"user-id": userId} = req.headers
-        const {id: likeId} = req.params
-        if (userId) {
-            return res.json(await this.LikesService.delete(Number(likeId)))
+        try {
+            const {"user-id": userId} = req.headers
+            const {id: likeId} = req.params
+            if (userId) {
+                return res.json(await this.LikesService.delete(Number(likeId)))
+            }
+            return res.status(412).json({error: "User ID not in headers"})
+        } catch (e: any) {
+            return res.status(404).json({error: e.message})
         }
-        return res.status(412).json({error: "User ID not in headers"})
+
     }
 }
 

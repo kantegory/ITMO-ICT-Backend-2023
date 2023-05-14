@@ -16,8 +16,16 @@ model User {
 }
 
 model JWTAccess {
-  id         String   @id @default(uuid())
-  createTime DateTime @default(now())
-  user       User     @relation(fields: [userId], references: [id])
-  userId     Int      @unique
+  id         String      @id @default(uuid())
+  createTime DateTime    @default(now())
+  user       User        @relation(fields: [userId], references: [id])
+  userId     Int         @unique
+  JWTRefresh JWTRefresh?
+}
+
+model JWTRefresh {
+  id          String    @id @default(uuid())
+  createTime  DateTime  @default(now())
+  access      JWTAccess @relation(fields: [jwtAccessId], references: [id], onDelete: Cascade)
+  jwtAccessId String    @unique
 }

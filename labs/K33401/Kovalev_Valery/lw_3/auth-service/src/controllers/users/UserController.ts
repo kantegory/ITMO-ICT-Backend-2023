@@ -46,8 +46,18 @@ class UserController{
     createJWT = async (request: Request, response: Response) => {
         try {
             const {email, password} = request.body
-            const jwt = await this.userService.jwtCreate(email, password)
-            return response.json({access: jwt.id})
+            const {access, refresh} = await this.userService.jwtCreate(email, password)
+            return response.json({access: access.id, refresh: refresh.id})
+        } catch (e: any) {
+            return response.status(404).json({"error": e.message})
+        }
+    }
+
+    refresh = async (request: Request, response: Response) => {
+        try {
+            const {refresh: bodyRefresh} = request.body
+            const {access, refresh} = await this.userService.jwtRefresh(bodyRefresh)
+            return response.json({access: access.id, refresh: refresh.id})
         } catch (e: any) {
             return response.status(404).json({"error": e.message})
         }

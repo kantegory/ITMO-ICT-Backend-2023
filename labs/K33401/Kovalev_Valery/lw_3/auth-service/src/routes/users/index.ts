@@ -14,10 +14,9 @@ router.route('/register')
 router.route('/')
     .get(controller.getAll)
 
-// router.route('/register')
-//     .post(controller.getAll)
-
 router.route(('/jwt/create')).post(controller.createJWT)
+
+router.route(('/jwt/refresh')).post(controller.refresh)
 
 router.route("/users/me").get(controller.me)
 
