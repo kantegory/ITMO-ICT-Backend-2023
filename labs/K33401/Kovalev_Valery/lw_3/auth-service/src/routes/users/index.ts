@@ -5,6 +5,8 @@ const router: express.Router = express.Router()
 
 const controller: UserController = new UserController()
 
+router.route("/users/me").get(controller.me)
+
 router.route('/users/:id')
     .get(controller.get)
 
@@ -24,6 +26,6 @@ router.route(('/jwt/create')).post(controller.createJWT)
 
 router.route(('/jwt/refresh')).post(controller.refresh)
 
-router.route("/users/me").get(controller.me)
 
+router.route("/test").get(controller.testFunc)
 export default router;
