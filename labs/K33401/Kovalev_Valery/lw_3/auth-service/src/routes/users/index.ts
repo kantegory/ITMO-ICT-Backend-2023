@@ -5,13 +5,19 @@ const router: express.Router = express.Router()
 
 const controller: UserController = new UserController()
 
-router.route('/:id')
+router.route('/users/:id')
     .get(controller.get)
+
+router.route('/users/:id')
+    .delete(controller.deleteUser)
+
+router.route('/users/:id')
+    .patch(controller.changeName)
 
 router.route('/register')
     .post(controller.register)
 
-router.route('/')
+router.route('/users')
     .get(controller.getAll)
 
 router.route(('/jwt/create')).post(controller.createJWT)
