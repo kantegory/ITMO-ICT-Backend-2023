@@ -22,10 +22,6 @@ class GamesController {
         } = await this.gamesService.getAll(Number(count), Number(offset), developer, publisher, sortByPrice)
         res.json({total, offset, count, result})
     }
-
-    deleteGame = async (req: Request, res: Response) => {
-    }
-
 }
 
 export default GamesController;

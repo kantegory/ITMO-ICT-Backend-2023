@@ -19,6 +19,10 @@ class UserController{
         }
     }
 
+    testFunc = async (request: Request, response: Response) => {
+        return response.json({cool:"COOLLLL"})
+    }
+
 
     get = async (request: Request, response: Response) => {
         try {

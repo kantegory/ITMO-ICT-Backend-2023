@@ -4,7 +4,7 @@ services:
   gateway-service:
     container_name: gateway-service
     env_file:
-      - gateway-service/.env
+      - ./gateway-service/.env
     build:
       context: ./gateway-service
     volumes:
