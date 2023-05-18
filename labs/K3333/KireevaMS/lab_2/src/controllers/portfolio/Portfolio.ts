@@ -1,5 +1,7 @@
 import PortfolioService from "../../services/portfolio/Portfolio";
 import {response} from "express";
+import Currency from "../../models/currency/Currency";
+import CurrencyError from "../../errors/currency/Currency";
 
 class PortfolioController {
     private portfolioService: PortfolioService;
@@ -11,8 +13,8 @@ class PortfolioController {
     buyCurrency = async (request: any, response: any) => {
         try {
             const { user_id, currency_id, amount } = request.query;
-            await this.portfolioService.buyCurrency(user_id, currency_id, amount);
-            response.status(200).json({ message: 'Currency added to portfolio successfully.' });
+            const currency : Currency|CurrencyError = await this.portfolioService.buyCurrency(user_id, currency_id, amount);
+            response.status(200).send(currency)
         } catch (error) {
             response.status(500).json({ error: 'Failed to add currency to portfolio.' });
         }
@@ -63,9 +65,15 @@ class PortfolioController {
             if (!user_id || !currency_id || !amount) {
                 return response.status(400).send('Params are required.');
             }
-            await this.portfolioService.sell(user_id, currency_id, amount);
+            const [currency] = await Promise.all([this.portfolioService.sell(user_id, currency_id, amount)]);
 
-            response.send('Currency has been sold successfully.');
+            //response.status(200).send(currency)
+            if (currency) {
+                response.status(200).send(currency);
+            } else {
+                response.status(404).send({ message: 'Currency successfully sold' });
+            }
+
         } catch (error) {
             response.status(500).send('An error occurred during selling.');
         }

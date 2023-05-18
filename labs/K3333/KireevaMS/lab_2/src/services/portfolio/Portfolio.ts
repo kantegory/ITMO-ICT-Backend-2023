@@ -12,7 +12,7 @@ class PortfolioService {
             });
 
             if (existingCurrency) {
-                existingCurrency.sum += amount;
+                existingCurrency.sum = +existingCurrency.sum + +amount;
                 await existingCurrency.save();
             } else {
                 existingCurrency = await Portfolio.create({
@@ -69,7 +69,7 @@ class PortfolioService {
     };
 
 
-    sell = async (userId: string, currencyId: string, amount: number): Promise<void> => {
+    sell = async (userId: string, currencyId: string, amount: number): Promise<null> => {
         try {
             const currency = await Portfolio.findOne({
                 where: {
@@ -84,12 +84,16 @@ class PortfolioService {
                 if (newSum > 0) {
                     currency.sum = newSum;
                     await currency.save();
+                    return currency.toJSON();
+
                 } else {
                     await currency.destroy();
+                    return null
                 }
             } else {
                 throw new Error('Currency not found.');
             }
+
         } catch (error) {
             throw new Error('Failed to sell currency.');
         }
