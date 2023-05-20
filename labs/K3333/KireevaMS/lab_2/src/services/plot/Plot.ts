@@ -1,11 +1,11 @@
 import PlotError from "../../errors/plot/Plot";
 import { Op } from 'sequelize';
-import CurrencyPrice from "../../models/plotData/CurrencyPrice";
+import Currency from "../../models/currency/Currency";
 
 class PlotService {
-    byDate = async (startDate: Date, endDate: Date, currency_id: number): Promise<CurrencyPrice[]> => {
+    byDate = async (startDate: Date, endDate: Date, currency_id: number): Promise<Currency[]> => {
         try {
-            const prices = await CurrencyPrice.findAll({
+            const prices = await Currency.findAll({
                 where: {
                     currencyId:  currency_id,
                     createdAt: {
@@ -19,17 +19,6 @@ class PlotService {
         }
     };
 
-    async create(currencyData: Partial<CurrencyPrice>): Promise<CurrencyPrice> {
-        try {
-            const price = await CurrencyPrice.create(currencyData)
-
-            return price.toJSON()
-        } catch (e: any) {
-            const errors = e.errors.map((error: any) => error.message)
-
-            throw new PlotError(errors)
-        }
-    }
 }
 
 export default PlotService

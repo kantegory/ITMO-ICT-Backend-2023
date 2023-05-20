@@ -1,7 +1,7 @@
 import PlotService from "../../services/plot/Plot";
-import Plot from "../../models/plotData/CurrencyPrice";
+import Plot from "../../models/currency/Currency";
 import PlotError from "../../errors/plot/Plot";
-import CurrencyPrice from "../../models/plotData/CurrencyPrice";
+import Currency from "../../models/currency/Currency";
 
 class PlotController {
     private plotService: PlotService;
@@ -9,36 +9,6 @@ class PlotController {
     constructor() {
         this.plotService = new PlotService()
     }
-
-    addPrice = async (request: any, response: any) => {
-        const { body } = request
-
-        try {
-            const price : Plot|PlotError = await this.plotService.create(body)
-
-            response.status(201).send(price)
-        } catch (error: any) {
-            response.status(400).send({ "error": error.message })
-        }
-    }
-
-    deletePrice = async (request: any, response: any) => {
-        try {
-            const { id } = request.params;
-
-            const deletedCount = await CurrencyPrice.destroy({
-                where: { id: id }
-            });
-
-            if (deletedCount === 0) {
-                throw new PlotError(`Currency price with id ${id} not found`);
-            } else {
-                response.status(200).send(`Currency price with id ${id} was deleted`);
-            }
-        } catch (error: any) {
-            response.status(404).send({ error: error.message });
-        }
-    };
 
 
     oneYear = async (request: any, response: any) => {

@@ -13,12 +13,4 @@ router.route('/year')
 router.route('/month')
     .get(controller.oneMonth)
 
-//Добавление информации о цене валюты
-router.route('/add_price')
-    .post(controller.addPrice)
-
-//Удаление информации о цене валюты
-router.route('/delete_price/:id')
-    .delete(controller.deletePrice)
-
 export default router

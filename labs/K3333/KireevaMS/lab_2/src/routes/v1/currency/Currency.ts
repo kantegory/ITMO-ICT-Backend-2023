@@ -13,19 +13,15 @@ router.route('/add_currency')
 router.route('/delete/:id')
     .delete(controller.deleteById)
 
-//Информация о валюте
-router.route('/find/:id')
-    .get(controller.get)
-
 //Все валюты на бирже
 router.route('/all')
     .get(controller.getAll)
 
 //Фильрация по дате
 router.route('/date_filter')
-    .get(controller.ByDate)
+    .get(controller.byDate)
 
-//Фильрация по имени
+//Информация о валюте
 router.route('/name_filter')
     .get(controller.ByName)
 

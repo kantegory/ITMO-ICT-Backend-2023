@@ -3,9 +3,8 @@ import { Sequelize } from 'sequelize-typescript'
 import RefreshToken from '../models/auth/RefreshToken'
 import User from '../models/users/User'
 import dotenv from "dotenv"
-import Currency from "../models/currency/Currency";
 import Portfolio from "../models/portfolio/Portfolio";
-import CurrencyPrice from "../models/plotData/CurrencyPrice";
+import Currency from "../models/currency/Currency";
 dotenv.config()
 
 const sequelize = new Sequelize({
@@ -18,7 +17,7 @@ const sequelize = new Sequelize({
 })
 
 
-const models = [User, RefreshToken, Currency, Portfolio, CurrencyPrice]
+const models = [User, RefreshToken, Currency, Portfolio]
 
 sequelize.addModels(models)
 
@@ -48,7 +47,6 @@ async function testConnection() {
     }
 }
 */
-
 testConnection()
 //dropDatabase()
 export default sequelize

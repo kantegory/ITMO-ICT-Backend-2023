@@ -2,6 +2,7 @@ import Currency from "../../models/currency/Currency";
 import CurrencyError from "../../errors/currency/Currency";
 import currency from "../../errors/currency/Currency";
 import { Op } from 'sequelize';
+import {Sequelize} from "sequelize-typescript";
 
 class CurrencyService {
     async getById(id: number) : Promise<Currency> {
@@ -46,20 +47,26 @@ class CurrencyService {
         }
     };
 
-    ByDate = async (startDate: Date, endDate:Date): Promise<Currency[]> => {
+
+    async byDate(startDate: Date, endDate: Date): Promise<Currency[]> {
         try {
             const currencies = await Currency.findAll({
+                attributes: ['name', 'price', [Sequelize.fn('MIN', Sequelize.col('createdAt')), 'firstCreatedAt']],
+                group: ['name'],
                 where: {
                     createdAt: {
-                        [Op.between]: [startDate, endDate]
+                        [Op.between]: [startDate, endDate],
                     },
                 },
+                order: [[Sequelize.fn('MIN', Sequelize.col('createdAt')), 'ASC']],
             });
             return currencies;
         } catch (error) {
-            throw new Error('Failed to fetch currencies by date.');
+            throw new Error('Failed to retrieve currencies.');
         }
-    };
+    }
+
+
 
 }
 

@@ -79,18 +79,19 @@ class CurrencyController {
         }
     };
 
-    ByDate = async (request: any, response: any) => {
+
+    byDate = async (request: any, response: any) => {
         try {
             const { startDate,endDate } = request.query;
-            if (!startDate) {
-                return response.status(400).send('Currency name is required.');
+            if (!startDate || !endDate) {
+                return response.status(400).send('Params are required required.');
             }
             const startDateObj = new Date(startDate as string);
             const endDateObj = new Date(endDate as string);
-            const currencies = await this.currencyService.ByDate(startDateObj,endDateObj);
+            const currencies = await this.currencyService.byDate(startDateObj,endDateObj);
             response.send(currencies);
         } catch (error) {
-            response.status(500).send('An error occurred while fetching currencies by name.');
+            response.status(500).send('An error occurred while filtering data by date.');
         }
     };
 }
