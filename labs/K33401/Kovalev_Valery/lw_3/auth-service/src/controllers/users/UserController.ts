@@ -1,5 +1,6 @@
 import UserService from "../../services/users/UserService";
 import {Request, Response} from "express";
+import crypto from 'crypto';
 
 class UserController{
     private userService: UserService
@@ -11,8 +12,7 @@ class UserController{
     register = async (request: Request, response: Response) => {
         try {
             const {email, name, password} = request.body
-            console.log(email, name, password)
-            const user = await this.userService.createUser({email, name, password})
+            const user = await this.userService.createUser({email, name, password: crypto.createHash("sha256", password).digest('base64')})
             return response.json({id:user.id, email: user.email, name: user.name})
         } catch (e:any) {
             return response.status(404).json({"error": e.message})
@@ -79,7 +79,7 @@ class UserController{
     createJWT = async (request: Request, response: Response) => {
         try {
             const {email, password} = request.body
-            const {access, refresh} = await this.userService.jwtCreate(email, password)
+            const {access, refresh} = await this.userService.jwtCreate(email,  crypto.createHash("sha256", password).digest("base64"))
             return response.json({access: access.id, refresh: refresh.id})
         } catch (e: any) {
             return response.status(404).json({"error": e.message})

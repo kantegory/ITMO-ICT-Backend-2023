@@ -31,7 +31,7 @@ class GamesService {
         });
     }
 
-    async getAll(count: number = 10, offset: number = 0, developer?: string, publisher?: string, orderByPrice?: string) {
+    async getAll(count: number = 10, offset: number = 0, developer?: string, publisher?: string, orderByPrice?: string, name?:string) {
 
         let gameWhere: any = {}
         if (publisher) {
@@ -39,6 +39,10 @@ class GamesService {
         }
         if (developer) {
             gameWhere["developer"] = {contains: developer}
+        }
+
+        if(name){
+            gameWhere["name"] = {contains: name}
         }
 
         let gameOrderBy: any = {}
