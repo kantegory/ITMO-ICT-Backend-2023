@@ -1,6 +1,6 @@
 import {NextFunction, Request, Response} from "express";
-import axios, {isAxiosError} from "axios";
-import {AUTH_SERVICE_URL, GAMES_SERVICE_URL} from "../index";
+import axios from "axios";
+import {AUTH_SERVICE_URL} from "../index";
 
 export const authMiddleware = async (req: Request, res: Response, next: NextFunction) => {
     try {
