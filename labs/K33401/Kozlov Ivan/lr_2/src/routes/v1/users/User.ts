@@ -6,8 +6,6 @@ const router: express.Router = express.Router()
 
 const controller: UserController = new UserController()
 
-router.route('/').post(controller.post)
-
 router.route('/h').get(controller.hello)
 
 router.route('/profile').get(passport.authenticate('jwt', { session: false }), controller.me)

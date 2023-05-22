@@ -59,7 +59,7 @@ class GoodsController {
     }
 
     delete = async (request: any, response: any) => {
-        const refreshToken = request.headers["refreshtoken"];
+        const refreshToken = request.headers["token"];
         if (!refreshToken) {
             response.status(400).send({ "error": "Missing refreshToken header" });
             return;

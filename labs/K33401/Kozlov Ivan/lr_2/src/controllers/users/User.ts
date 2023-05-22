@@ -62,8 +62,10 @@ class UserController {
 
                 const refreshToken = await refreshTokenService.generateRefreshToken()
 
-                response.send({ 'Answer' : `You successfully logged in as ${user.firstName} ${user.lastName}`, 
-                accessToken, refreshToken })
+                response.send({
+                    'Answer': `You successfully logged in as ${user.firstName} ${user.lastName}`,
+                    accessToken, refreshToken
+                })
             } else {
                 throw new Error('Login or password is incorrect!')
             }
@@ -75,7 +77,7 @@ class UserController {
     refreshToken = async (request: any, response: any) => {
         const { body } = request
 
-        const refreshToken = body.refreshToken
+        const refreshToken = request.headers["refreshtoken"];
 
         const refreshTokenService = new RefreshTokenService()
 
@@ -119,28 +121,28 @@ class UserController {
     update = async (request: any, response: any) => {
         const { body } = request
         const refreshToken = request.headers["refreshtoken"]
-        
+
         if (!refreshToken) {
             response.status(400).send({ "error": "Missing refreshToken header", "req": request.headers })
             return
         }
-        
-        const refreshTokenService = new RefreshTokenService() 
+
+        const refreshTokenService = new RefreshTokenService()
         const { userId, isExpired } = await refreshTokenService.isRefreshTokenExpired(refreshToken)
-    
-        if(isExpired){
+
+        if (isExpired) {
             response.status(401).send({ "error": "Unauthorized, u need new refreshToken" })
             return
         }
-        
+
         try {
             const user = await this.userService.update(Number(userId), body)
             response.send(user)
         } catch (error: any) {
-            response.status(400).send({ "error": "incorrect token"})
+            response.status(400).send({ "error": "incorrect token" })
         }
     }
-    
+
     delete = async (request: any, response: any) => {
         const refreshToken = request.headers["refreshtoken"];
         if (!refreshToken) {
@@ -149,7 +151,7 @@ class UserController {
         }
         const refreshTokenService = new RefreshTokenService();
         const { userId, isExpired } = await refreshTokenService.isRefreshTokenExpired(refreshToken);
-        if(isExpired){
+        if (isExpired) {
             response.status(401).send({ "error": "Unauthorized, u need new refreshToken" });
             return;
         }
@@ -160,10 +162,10 @@ class UserController {
             response.status(400).send({ "error": "Incorrect token" });
         }
     }
-    
-    
-    
-    
+
+
+
+
 }
 
 export default UserController
