@@ -1,24 +1,24 @@
 import express from "express"
 import SellController from "../../../controllers/sells/Sell"
-
+import passport from "../../../middleware/passport"
 
 const router: express.Router = express.Router()
 
 const controller: SellController = new SellController()
 
 router.route('/')
-    .post(controller.post)
+    .post(passport.authenticate('bearer', { session: false }), controller.post)
 
 router.route('/:id')
-    .patch(controller.patch)
+    .patch(passport.authenticate('bearer', { session: false }), controller.patch)
 
 router.route("/earning")
-    .get(controller.earning)
+    .get(passport.authenticate('bearer', { session: false }), controller.earning)
 
 router.route('/')
-    .get(controller.get)
+    .get(passport.authenticate('bearer', { session: false }), controller.get)
 
 router.route('/count')
-    .get(controller.count)
+    .get(passport.authenticate('bearer', { session: false }), controller.count)
 
 export default router

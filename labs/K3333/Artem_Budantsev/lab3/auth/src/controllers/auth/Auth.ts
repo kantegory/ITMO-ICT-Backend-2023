@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import {Request, Response} from "express";
 import { jwtOptions } from '../../middleware/passport'
 import AuthService from '../../services/auth/Auth'
 
@@ -50,6 +51,27 @@ class AuthController {
             response.status(401).send({ "error": e.message })
         }
     }
+
+    me = async (request: Request, response: Response) => {
+        try {
+            response.send({"user": request.user, "msg": "ok" })
+        } catch (e:any) {
+            return response.status(404).json({"error": e.message})
+        }
+    }
+
+    validateToken = async (request: any, response: any) => {
+        const {body} = request
+        const {accessToken} = body
+        try {
+            const payload = jwt.verify(accessToken, jwtOptions.secretOrKey)
+            // @ts-ignore
+            const user = await this.authService.get(payload.id)
+            response.send({'valid': true, 'user': user})
+        } catch (e: any) {
+            response.status(401).send({'valid': false})
+        }
+}
 
 }
 
