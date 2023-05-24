@@ -34,7 +34,7 @@ class CurrencyService {
     }
 
 
-    ByName = async (name: string): Promise<Currency[]> => {
+    byName = async (name: string): Promise<Currency[]> => {
         try {
             const currencies = await Currency.findAll({
                 where: {

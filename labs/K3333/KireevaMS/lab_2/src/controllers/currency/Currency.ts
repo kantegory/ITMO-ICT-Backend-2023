@@ -65,14 +65,14 @@ class CurrencyController {
         }
     }
 
-    ByName = async (request: any, response: any) => {
+    byName = async (request: any, response: any) => {
         try {
             const { name } = request.query;
             if (!name) {
                 return response.status(400).send('Currency name is required.');
             }
 
-            const currencies = await this.currencyService.ByName(name as string);
+            const currencies = await this.currencyService.byName(name as string);
             response.send(currencies);
         } catch (error) {
             response.status(500).send('An error occurred while fetching currencies by name.');

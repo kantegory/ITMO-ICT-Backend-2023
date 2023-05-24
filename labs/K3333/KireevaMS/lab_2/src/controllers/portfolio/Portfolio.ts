@@ -12,13 +12,14 @@ class PortfolioController {
 
     buyCurrency = async (request: any, response: any) => {
         try {
-            const { user_id, currency_id, amount } = request.query;
-            const currency : Currency|CurrencyError = await this.portfolioService.buyCurrency(user_id, currency_id, amount);
-            response.status(200).send(currency)
+            const { user_id, currency_id, amount } = request.body;
+            const currency: Currency | CurrencyError = await this.portfolioService.buyCurrency(user_id, currency_id, amount);
+            response.status(200).send(currency);
         } catch (error) {
             response.status(500).json({ error: 'Failed to add currency to portfolio.' });
         }
     };
+
 
     findByUser = async (request: any, response: any) => {
         try {
@@ -61,7 +62,7 @@ class PortfolioController {
 
     sell = async (request: any, response: any) => {
         try {
-            const { user_id, currency_id, amount } = request.query;
+            const { user_id, currency_id, amount } = request.body;
             if (!user_id || !currency_id || !amount) {
                 return response.status(400).send('Params are required.');
             }
