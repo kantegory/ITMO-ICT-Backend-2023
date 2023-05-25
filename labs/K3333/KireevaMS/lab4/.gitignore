@@ -1,0 +1,3 @@
+gateway/node_modules/
+dist/
+.env
