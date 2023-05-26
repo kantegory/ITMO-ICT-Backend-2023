@@ -9,8 +9,8 @@ export const AppDataSource = new DataSource({
     username: String(process.env.DB_USERNAME),
     password: String(process.env.DB_PASSWORD),
     database: String(process.env.DB_DATABASE),
-    synchronize: false,
+    synchronize: true,
     logging: false,
-    entities: ["dist/entity/*.js"],
-    migrations: ["dist/migration/*.js"]
+    entities: ["dist/entity/*.js", "src/entity/*.ts"],
+    migrations: ["src/migration/*.js"]
 })

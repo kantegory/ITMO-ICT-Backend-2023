@@ -1,5 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from "typeorm"
-
+import {Entity, Column, PrimaryGeneratedColumn, BeforeInsert, BeforeUpdate} from "typeorm"
+import hashPassword from "../util/hashPassword"
 
 @Entity("user_c")
 export class User {
@@ -20,20 +20,27 @@ export class User {
 
     @Column({
         type: "character varying",
-        length: 20
+        length: 20,
+        nullable: true
     })
     phone: string
 
     @Column({
         type: "character varying",
         length: 20,
-        nullable: true
+        unique: true
     })
     email: string
 
     @Column({
         type: "character varying",
-        length: 50
+        length: 100
     })
     password: string
+
+    @BeforeInsert()
+    @BeforeUpdate()
+    hashPassword() {
+        this.password = hashPassword(this.password)
+    }
 }

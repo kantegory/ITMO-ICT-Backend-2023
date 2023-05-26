@@ -1,4 +1,4 @@
-import {Entity, PrimaryColumn, OneToOne} from "typeorm"
+import {Entity, PrimaryColumn, OneToOne, JoinColumn} from "typeorm"
 import {User} from "./User";
 
 @Entity("refresh_token")
@@ -7,8 +7,8 @@ export class RefreshToken {
     token: string
 
     @OneToOne(() => User, {
-        cascade: true,
-        onDelete: "SET NULL"
+        onDelete: "CASCADE"
     })
+    @JoinColumn()
     user: User
 }
