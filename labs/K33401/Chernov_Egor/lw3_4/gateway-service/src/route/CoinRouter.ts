@@ -1,19 +1,19 @@
 import axios, {isAxiosError} from "axios"
 import express, {Request, Response} from "express"
 import {COINS_SERVICE_URL} from "../index";
-import {authMiddleware} from "../middlewares/authMiddleware";
 
 
 const coinRouter: express.Router = express.Router()
 
 coinRouter.route('/*')
-    .all(authMiddleware, async (req: Request, res: Response) => {
+    .all(async (req: Request, res: Response) => {
         try {
+            const authorization = req.headers.authorization
             const response = await axios({
                 method: req.method,
                 url: COINS_SERVICE_URL + req.url,
-                headers: {"user-id": req.user?.id},
-                data: req.body ? {...req.body, user: req.user} : undefined
+                headers: authorization ? {"Authorization": authorization} : undefined,
+                data: req.body ? {...req.body} : undefined
             })
             return res.json(response.data)
         } catch (e) {
