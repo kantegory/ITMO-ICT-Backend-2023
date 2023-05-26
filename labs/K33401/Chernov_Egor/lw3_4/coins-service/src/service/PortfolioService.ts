@@ -15,15 +15,15 @@ class PortfolioService {
         return await this.portfolioRepository.find()
     }
 
-    async getAllByUser(user: object) {
+    async getAllByUser(userId: string) {
         return await this.portfolioRepository.findBy({
-            user: user
+            userId: userId
         })
     }
 
-    async get(user: object, coin: object) {
+    async get(userId: string, coin: object) {
         return await this.portfolioRepository.findOneBy({
-            user: user,
+            userId: userId,
             coin: coin
         })
     }
@@ -33,9 +33,9 @@ class PortfolioService {
         return await this.portfolioRepository.save(portfolio)
     }
 
-    async delete(user: object, coin: object) {
+    async delete(userId: string, coin: object) {
         return await this.portfolioRepository.delete({
-            user: user,
+            userId: userId,
             coin: coin
         })
     }

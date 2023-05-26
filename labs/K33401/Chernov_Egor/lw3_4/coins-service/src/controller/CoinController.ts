@@ -3,6 +3,7 @@ import CoinService from "../service/CoinService"
 import PortfolioService from "../service/PortfolioService"
 import checkToken from "../util/checkToken"
 
+
 class CoinController {
     private coinService: CoinService
     private portfolioService: PortfolioService
@@ -44,12 +45,11 @@ class CoinController {
             const userId = decoded.payload.sub.toString()
             const { body } = request
             const coinId = body.coin
-            const user = await this.userService.get(userId)
             const coin = await this.coinService.get(coinId)
-            body.user = userId
-            const portfolioCoin = await this.portfolioService.get(user, coin)
+            body.userId = userId
+            const portfolioCoin = await this.portfolioService.get(userId, coin)
             if (portfolioCoin) {
-                return response.status(406).send("The coin has already been added")
+                return response.status(406).send(portfolioCoin)
             }
             const portfolio = await this.portfolioService.create(body)
             response.status(200).send(portfolio)

@@ -39,8 +39,7 @@ class PortfolioController {
                 return response.status(401).send("Access token was expired")
             }
             const userId = decoded.payload.sub.toString()
-            const user = await this.userService.get(userId)
-            const portfolios = await this.portfolioService.getAllByUser(user)
+            const portfolios = await this.portfolioService.getAllByUser(userId)
             if (portfolios.length !== 0) {
                 response.status(200).send(portfolios)
             } else {
@@ -59,10 +58,9 @@ class PortfolioController {
                 return response.status(401).send("Access token was expired")
             }
             const { coinId } = request.query
-            const userId = decoded.payload.sub
-            const user = await this.userService.get(String(userId))
+            const userId = decoded.payload.sub.toString()
             const coin = await this.coinService.get(String(coinId))
-            const portfolio = await this.portfolioService.get(user, coin)
+            const portfolio = await this.portfolioService.get(userId, coin)
             response.status(200).send(portfolio)
         } catch (error) {
             response.status(500).send({ error: error.message })
@@ -77,10 +75,9 @@ class PortfolioController {
                 return response.status(401).send("Access token was expired")
             }
             const { coinId } = request.query
-            const userId = decoded.payload.sub
-            const user = await this.userService.get(String(userId))
+            const userId = decoded.payload.sub.toString()
             const coin = await this.coinService.get(String(coinId))
-            await this.portfolioService.delete(user, coin)
+            await this.portfolioService.delete(userId, coin)
             response.status(200).send("Success")
         } catch (error) {
             response.status(500).send({ error: error.message })

@@ -24,7 +24,7 @@ class RefreshTokenService {
     async create(user: any, token: string) {
         const refreshToken = new RefreshToken()
         refreshToken.token = token
-        refreshToken.user = user
+        refreshToken.user = user.id
         await this.refreshTokenRepository.save(refreshToken)
         return token
     }

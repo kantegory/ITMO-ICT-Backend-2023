@@ -58,6 +58,7 @@ class UserController {
     postLoginUser = async (request: Request, response: Response) => {
         try {
             const { body } = request
+            // console.log(body)
             const { email, password } = body
             const user = await this.userService.login(email, password)
             const refreshToken = await this.refreshTokenService.get(user)
