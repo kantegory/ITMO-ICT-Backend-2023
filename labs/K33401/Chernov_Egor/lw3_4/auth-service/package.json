@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "prestart": "npm run build",
+    "start": "nodemon",
+    "start:prod": "npm run build && node -r dotenv/config dist/index.js",
+    "build": "npx tsc"
   },
   "author": "",
   "license": "ISC",
