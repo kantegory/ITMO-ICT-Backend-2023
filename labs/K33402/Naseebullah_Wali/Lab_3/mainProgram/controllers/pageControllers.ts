@@ -13,7 +13,7 @@ export class userControllers{
   public static addFav = async (req: express.Request, res: express.Response) => {
     const { mealId } = req.body;
     const userId = req.headers.userid; // Access the userId from the response headers
-    console.log(userId)
+    // console.log(userId)
     try {
       // Check if the user exists in the User table
       // Make the necessary request to the user microservice to validate the user existence

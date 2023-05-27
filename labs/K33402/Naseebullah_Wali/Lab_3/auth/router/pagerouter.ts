@@ -23,6 +23,6 @@ rout.post('/login',[
     body('password').not().isEmpty().withMessage('password is Required')
 ],userControllers.Login)
 
-
+rout.post('/verifyToken', userControllers.verifyToken)
 
 export default rout;
