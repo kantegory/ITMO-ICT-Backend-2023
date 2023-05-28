@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  mainprogram:
+    container_name: mainprogram
+    image: mainprogram
+    build:
+      context: mainProgram
+    environment:
+      NODE_ENV: production
+    command: npm start  
+    ports:
+      - 9002:9002
+    restart: always  
+
+
+  auth:
+    env_file:
+      - ./auth/.env
+    container_name: auth 
+    image: auth
+    build:
+      context: auth
+    environment:
+      NODE_ENV: production
+    ports:
+      - 9001:9001
+    restart: always 
+
+  bridge:
+    container_name: bridge 
+    image: bridge
+    build:
+      context: bridge
+    environment:
+      NODE_ENV: production
+    ports:
+      - 9000:9000
+    restart: always 
+
