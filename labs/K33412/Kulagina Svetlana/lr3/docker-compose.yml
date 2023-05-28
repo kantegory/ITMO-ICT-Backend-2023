@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/app
+      - /app/node_modules
+    command: npx nodemon index.js
+    ports:
+      - 3000:3000
+    restart: always
+  dogs_of_company:
+    container_name: dogs_of_company
+    build:
+      context: ./dogs_of_company
+    volumes:
+      - ./dogs_of_company:/app
+      - /app/node_modules
+    depends_on:
+      - gateway
+    command: npx nodemon dist/index.js
+    ports:
+      - 9001:9001
+    restart: always
+  auth:
+    container_name: auth
+    build:
+      context: ./auth
+    depends_on:
+      - gateway
+    command: npx nodemon dist/index.js
+    volumes:
+      - ./auth:/app
+      - /app/node_modules
+    ports:
+      - 8000:8000 
+    restart: always
