@@ -1,0 +1,76 @@
+version: '3.8'
+services:
+  gateway-service:
+    build:
+      context: ./gateway-service
+    container_name: cryptocoin-gateway-service
+    restart: always
+    ports:
+      - '8000:8000'
+    environment:
+      AUTH_SERVICE: auth-service:8008
+      COINS_SERVICE: coins-service:8005
+    depends_on:
+      - auth-service
+      - coins-service
+    volumes:
+      - ./gateway-service:/cryptocoin_backend/gateway-service
+      - ./gateway-service/node_modules:/cryptocoin_backend/gateway-service/node_modules
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: cryptocoin-auth-service
+    restart: always
+    expose:
+      - 8008
+    environment:
+      DB_HOST: auth-db
+      DB_PORT: 5432
+    depends_on:
+      - auth-db
+    volumes:
+      - ./auth-service:/cryptocoin_backend/auth-service
+      - /cryptocoin_backend/auth-service/node_modules
+  coins-service:
+    build:
+      context: ./coins-service
+    container_name: cryptocoin-coins-service
+    restart: always
+    expose:
+      - 8005
+    environment:
+      DB_HOST: coins-db
+      DB_PORT: 5432
+    depends_on:
+      - coins-db
+    volumes:
+      - ./coins-service:/cryptocoin_backend/coins-service
+      - /cryptocoin_backend/coins-service/node_modules
+  auth-db:
+    image: postgres
+    container_name: cryptocoin-auth-db
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_AUTH}
+    volumes:
+      - ./cryptocoin_backend/auth_data:/var/lib/postgresql/data
+  coins-db:
+    image: postgres
+    container_name: cryptocoin-coins-db
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_COINS}
+    volumes:
+      - ./cryptocoin_backend/coins_data:/var/lib/postgresql/data
