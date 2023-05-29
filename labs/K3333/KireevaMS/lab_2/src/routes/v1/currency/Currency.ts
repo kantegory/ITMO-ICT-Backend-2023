@@ -23,6 +23,6 @@ router.route('/date_filter')
 
 //Информация о валюте
 router.route('/name_filter')
-    .get(controller.ByName)
+    .get(controller.byName)
 
 export default router
