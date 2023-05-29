@@ -5,7 +5,7 @@ class GoodsController {
     try {
       const redirectedResponse = await axios.request({
         method: request.method,
-        url: `http://localhost:9091${request.originalUrl}`,
+        url: `http://localhost:3000${request.originalUrl}`,
         data: request.body,
       });
 
