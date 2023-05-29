@@ -8,16 +8,23 @@ export class Portfolio {
     id: string
 
     // @PrimaryColumn()
-    @ManyToOne(() => User, (user) => user.portfolios)
-    id_user: User
+    @ManyToOne(() => User, (user) => user.portfolios, {
+        cascade: true,
+        onDelete: "CASCADE"
+    })
+    user: User
 
     // @PrimaryColumn()
-    @ManyToOne(() => Coin, (coin) => coin.portfolios)
-    id_coin: Coin
+    @ManyToOne(() => Coin, (coin) => coin.portfolios, {
+        cascade: true,
+        onDelete: "CASCADE"
+    })
+    coin: Coin
 
     @Column({
         type: "character varying",
-        length: 20
+        length: 20,
+        nullable: true
     })
     category: string
 }

@@ -6,10 +6,7 @@ export class Coin {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @OneToMany(() => Portfolio, (portfolio) => portfolio.id_coin, {
-        cascade: true,
-        onDelete: "SET NULL"
-    })
+    @OneToMany(() => Portfolio, (portfolio) => portfolio.coin)
     portfolios: Portfolio[]
 
     @Column({
@@ -18,7 +15,9 @@ export class Coin {
     })
     name: string
 
-    @Column("money")
+    @Column({
+        type: "double precision"
+    })
     price: number
 
     @Column({

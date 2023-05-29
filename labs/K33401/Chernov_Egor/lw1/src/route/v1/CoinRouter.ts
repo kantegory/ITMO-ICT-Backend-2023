@@ -1,14 +1,5 @@
 import express from "express"
-// import TestController from "../../controller/test/index"
 import CoinController from "../../controller/v1/CoinController"
-// import passport from "../../../middleware/passport"
-
-// Test
-// const router: express.Router = express.Router()
-// const testController = new TestController()
-//
-// router.route('/test')
-//     .get(testController.get)
 
 // Create router and controller
 const coinRouter: express.Router = express.Router()
@@ -16,16 +7,22 @@ const coinController: CoinController = new CoinController()
 
 // Portfolio routes
 coinRouter.route('/list')
-    .get(coinController.get_all)
+    .get(coinController.getAllCoins)
 
 coinRouter.route('/specific')
-    .get(coinController.get)
+    .get(coinController.getCoin)
 
-coinRouter.route('/create_specific')
-    .get(coinController.post)
+coinRouter.route('/add')
+    .post(coinController.addCoin)
 
-coinRouter.route('/delete_specific')
-    .get(coinController.delete)
+coinRouter.route('/create')
+    .post(coinController.createCoin)
+
+coinRouter.route('/update')
+    .post(coinController.updateCoin)
+
+coinRouter.route('/delete')
+    .delete(coinController.deleteCoin)
 
 
 export default coinRouter
