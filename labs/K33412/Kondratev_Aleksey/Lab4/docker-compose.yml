@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/app
+      - /app/node_modules
+    command: make start
+    ports:
+      - 3000:3000
+    restart: always
+
+  user:
+    container_name: user
+    build:
+      context: ./user
+    volumes:
+      - ./user:/app
+      - /app/node_modules
+    command: make start
+    depends_on:
+      - gateway
+    ports:
+      - 3001:5000
+    restart: always
+
+  creater-event:
+    container_name: creater-event
+    build:
+      context: ./creater-event
+    depends_on:
+      - gateway
+    volumes:
+      - ./creater-event:/app
+      - /app/node_modules
+    command: make start
+    ports:
+      - 3002:9091
+    restart: always
