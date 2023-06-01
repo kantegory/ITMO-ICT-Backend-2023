@@ -17,7 +17,7 @@ class App {
     private server: Server;
     private sequelize: Sequelize;
 
-    constructor(port = 8020, host = "localhost") {
+    constructor(port = 8002, host = "localhost") {
         this.port = parseInt(process.env.PORT!) || port;
         this.host = process.env.HOST || host;
 
