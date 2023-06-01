@@ -5,7 +5,7 @@ import axios from "axios";
 
 const customJwtStrategy = new Strategy(async (token: any, done: any) => {
     axios.post(
-        `http://localhost:8001/users/validate`,
+        `http://auth:8001/users/validate`,
         {'accessToken': token}
     ).then((resp) => {
         if (resp.data.valid) {
