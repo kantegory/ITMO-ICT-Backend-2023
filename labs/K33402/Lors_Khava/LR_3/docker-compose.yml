@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/gateway
+      - /gateway/node_modules
+    ports:
+      - 8000:8000
+    restart: always
+    networks:
+      - mynetwork
+  user:
+    container_name: user
+    build:
+      context: ./user
+    volumes:
+      - ./user:/user
+      - /user/node_modules
+    depends_on:
+      - gateway
+    ports:
+      - 8001:8001
+    restart: always
+    networks:
+      - mynetwork
+  shop:
+    container_name: shop
+    build:
+       context: ./shop
+    depends_on:
+      - gateway
+    volumes:
+      - ./shop:/shop
+      - /shop/node_modules
+    ports:
+      - 8002:8002
+    restart: always
+    networks:
+      - mynetwork
+    
+networks:
+  mynetwork:
+    driver: bridge
