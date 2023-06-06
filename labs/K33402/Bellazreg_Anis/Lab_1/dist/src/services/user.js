@@ -14,7 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_1 = __importDefault(require("../errors/users/user"));
 const index_1 = __importDefault(require("../models/index"));
+// Define a UserService class that encapsulates the business logic for the User model
 class UserService {
+    // Define a method to retrieve a user by ID from the database
     getById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield index_1.default.findByPk(id);
@@ -23,6 +25,7 @@ class UserService {
             throw new user_1.default('Not found!');
         });
     }
+    // Define a method to create a new user in the database
     create(user) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -35,6 +38,7 @@ class UserService {
             }
         });
     }
+    // Define a method to retrieve a list of all users from the database
     listUsers() {
         return __awaiter(this, void 0, void 0, function* () {
             const users = yield index_1.default.findAll();
@@ -43,6 +47,7 @@ class UserService {
             throw new user_1.default('Not found!');
         });
     }
+    // Define a method to update an existing user in the database
     updateUser(id, data) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
@@ -58,6 +63,7 @@ class UserService {
             }
         });
     }
+    // Define a method to delete a user from the database
     deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {

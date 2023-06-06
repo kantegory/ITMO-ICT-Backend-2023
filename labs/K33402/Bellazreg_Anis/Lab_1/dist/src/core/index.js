@@ -15,14 +15,14 @@ class App {
         this.server = this.createServer();
     }
     createApp() {
-        const app = (0, express_1.default)();
-        app.use(express_1.default.json());
-        app.use('/v1', index_1.default);
-        return app;
+        const app = (0, express_1.default)(); // Create a new express application
+        app.use(express_1.default.json()); // Parse incoming JSON requests
+        app.use('/v1', index_1.default); // Use the routes from the ../routes/index module with a base route of /v1
+        return app; // Return the express application
     }
     createServer() {
-        const server = (0, http_1.createServer)(this.app);
-        return server;
+        const server = (0, http_1.createServer)(this.app); // Create a new HTTP server with the express application as the handler
+        return server; // Return the HTTP server
     }
     start() {
         config_1.default.sync().then(() => {

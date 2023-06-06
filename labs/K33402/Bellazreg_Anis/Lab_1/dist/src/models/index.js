@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const config_1 = __importDefault(require("../config/config"));
+// Define a User model that extends the Sequelize Model class with the Attributes interface
 class User extends sequelize_1.Model {
 }
+// Initialize the User model with its attributes and options
 User.init({
     id: {
         type: sequelize_1.DataTypes.UUIDV4,
