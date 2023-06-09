@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  other:
+    container_name: other
+    image: other
+    build:
+      context: other
+    environment:
+      NODE_ENV: production
+    command: npm start  
+    ports:
+      - 9002:9002
+    restart: always  
+
+
+  login:
+    env_file:
+      - ./login/.env
+    container_name: login
+    image: login
+    build:
+      context: login
+    environment:
+      NODE_ENV: production
+    ports:
+      - 9001:9001
+    restart: always 
+
+  bridge:
+    container_name: bridge 
+    image: bridge
+    build:
+      context: bridge
+    environment:
+      NODE_ENV: production
+    ports:
+      - 9000:9000
+    restart: always 
+
