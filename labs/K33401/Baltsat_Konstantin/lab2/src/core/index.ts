@@ -1,8 +1,9 @@
 import * as dotenv from "dotenv";
 import express from "express"
-import { createServer, Server } from "http"
-import router from "../routes/index"
-import { AppDataSource } from "../data-source";
+import bodyParser from "body-parser"
+import {createServer, Server} from "http"
+import routes from "../route/v1/index"
+import {AppDataSource} from "../data-source";
 
 
 AppDataSource
@@ -22,7 +23,7 @@ class App {
     private readonly app: express.Application
     private server: Server
 
-    constructor(port = parseInt(process.env.PORT), host = String(process.env.HOST)) {
+    constructor(port=parseInt(process.env.PORT), host=String(process.env.HOST)) {
         this.port = port
         this.host = host
 
@@ -32,7 +33,8 @@ class App {
 
     private createApp(): express.Application {
         const app = express()
-        app.use(router)
+        app.use(bodyParser.json())
+        app.use("/", routes)
 
         return app
     }
@@ -49,16 +51,3 @@ class App {
 }
 
 export default App
-
-
-
-// import express from "express";
-// import { json } from "body-parser";
-// import { userRouter } from "../routes/UserRouter";
-
-// const app = express();
-// app.use(json());
-
-// app.use("/users", userRouter);
-
-// export default app;
