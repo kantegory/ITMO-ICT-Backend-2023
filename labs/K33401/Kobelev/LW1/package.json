@@ -1,0 +1,36 @@
+{
+    "name": "express-boilerplate",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "prestart": "npm run build",
+        "start": "nodemon dist/index.js",
+        "build": "npx tsc",
+        "format": "prettier --write ."
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "class-validator": "^0.14.0",
+        "dotenv": "^16.0.3",
+        "express": "^4.18.2",
+        "jsonwebtoken": "^9.0.0",
+        "reflect-metadata": "^0.1.13",
+        "sqlite3": "^5.1.6",
+        "ts-node": "^10.9.1",
+        "typeorm": "^0.3.13"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/express": "^4.17.17",
+        "@types/jsonwebtoken": "^9.0.1",
+        "@typescript-eslint/eslint-plugin": "^5.59.0",
+        "@typescript-eslint/parser": "^5.59.0",
+        "eslint": "^8.38.0",
+        "nodemon": "^2.0.22",
+        "prettier": "2.8.7",
+        "typescript": "^5.0.4"
+    }
+}
