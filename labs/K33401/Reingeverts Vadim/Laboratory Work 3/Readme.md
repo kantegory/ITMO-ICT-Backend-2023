@@ -1,13 +1,11 @@
 # Laboratory Work 3
 > K33401 - Рейнгеверц В.А.
 
-# TODO
-- Make utils & middleware a library
-### Requirements
+## Requirements
 
 Необходимо реализовать отдельный микросервис, выполняющий какую-либо содержательную функцию из всего арсенала функций вашего приложения.
 
-### Description
+## Description
 > Вариант 4 - Сайт администратора интернет-магазина
 
 - Вход
@@ -16,15 +14,17 @@
 - Графики по продажам тех или иных товаров, по общей выручке предприятия
 - Управление сотрудниками
 
-### ER Diagram
+## ER Diagram
 
-![](https://i.imgur.com/GBXb3xs.png)
+![](https://i.imgur.com/iFGWh4B.png)
 
 
-### Routes
+## Microservices
+
+### Main Service
 
 <details>
-    <summary>Unfold to see the list of all API Routes</summary>
+    <summary>Unfold to see the list of all API Routes of Main Service</summary>
 
     GET /users
     POST /users
@@ -44,6 +44,12 @@
     POST /users/resetPassword
 
     GET /users/resetPassword/:id
+</details>
+
+### Depot Service
+
+<details>
+    <summary>Unfold to see the list of all API Routes of Main Service</summary>
 
     GET /products
     POST /products
@@ -89,25 +95,33 @@
     GET /sales/products/:productId
 </details>
 
-
-### Running
+## Running
 
 ```bash
-npm run migrate
+sh run.sh
 ```
 
 ```bash
-npm run dev
+sh run.sh migrate
 ```
 
 
-### Structure
+## Structure
 > Repository design pattern
 
-- Application entry point at [core/app.ts](./src/core/app.ts)
-- Models are defined at [db/schema.prisma](./src/db/schema.prisma)
-- Controllers are defined at [controllers/*](./src/controllers/users/User.ts)
-- Middlewares are defined at [middleware/*](./src/middleware/isAuthenticated.ts)
-- Routes are defined at [routes/*](./src/routes/users/User.ts)
-- Services are defined at [services/*](./src/services/users/User.ts)
-- Utility functions are defined at [utils/*](./src/utils/jwt.ts)
+Two microservices:
+- [mainService](./mainService)
+  - Handles registration, loggin in, password recovery of a user
+  - Proxies authenticated requests to depotService
+- [depotService](./mainService)
+  - Provides warehouse, product, stock information
+
+
+Microservice structure:
+- Microservice entry point at [<ServiceName>/core/app.ts](./mainService/src/core/app.ts)
+- Models are defined at [<ServiceName>/db/schema.prisma](./mainService/src/db/schema.prisma)
+- Controllers are defined at [<ServiceName>/controllers/*](./mainService/src/controllers/users/User.ts)
+- Middlewares are defined at [<ServiceName>/middleware/*](./mainService/src/middleware/isAuthenticated.ts)
+- Routes are defined at [<ServiceName>/routes/*](./mainService/src/routes/users/User.ts)
+- Services are defined at [<ServiceName>/services/*](./mainService/src/services/users/User.ts)
+- Utility functions are defined at [<ServiceName>/utils/*](./mainService/src/utils/jwt.ts)

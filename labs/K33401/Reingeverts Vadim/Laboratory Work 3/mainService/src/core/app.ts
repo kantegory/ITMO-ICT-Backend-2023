@@ -23,10 +23,6 @@ app.use(correctContentType);
 
 app.use("/", rootRoutes);
 
-const depotRoutes = express.Router();
-depotRoutes.use("/depot", proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`));
-app.use(isAuthenticated, depotRoutes);
-
 app.use("/endpoints", (req, res) => {
     const endpoints = listEndpoints(app);
     const endpointsStr = endpoints
@@ -37,3 +33,7 @@ app.use("/endpoints", (req, res) => {
 
     res.send(endpointsStr);
 });
+
+const depotRoutes = express.Router();
+depotRoutes.use("/depot", proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`));
+app.use(isAuthenticated, depotRoutes);
