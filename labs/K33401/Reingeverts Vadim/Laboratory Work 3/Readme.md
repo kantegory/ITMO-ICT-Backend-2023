@@ -19,12 +19,44 @@
 ![](https://i.imgur.com/iFGWh4B.png)
 
 
-## Microservices
 
-### Main Service
+## Running
+
+
+```bash
+sh run.sh
+```
+
+```bash
+sh run.sh migrate
+```
+
+
+Port and host can be specified in [run.sh](run.sh):
+```bash
+# <...>
+
+# Main microservice
+export MAIN_HOST="127.0.0.1"
+export MAIN_PORT=3010
+
+# Depot microservice
+export DEPOT_HOST="127.0.0.1"
+export DEPOT_PORT=3020
+
+# <...>
+```
+
+
+
+## Structure
+> Repository design pattern
+
+
+### [Main Microservice](./mainService)
 
 <details>
-    <summary>Unfold to see the list of all API Routes of Main Service</summary>
+    <summary>Unfold to see the list of all API Routes of Main Microservice</summary>
 
     GET /users
     POST /users
@@ -46,10 +78,14 @@
     GET /users/resetPassword/:id
 </details>
 
-### Depot Service
+  
+- Handles registration, loggin in, password recovery of a user
+- Proxies requests to depotService
+
+### [Depot Microservice](./depotService)
 
 <details>
-    <summary>Unfold to see the list of all API Routes of Depot Service</summary>
+    <summary>Unfold to see the list of all API Routes of Depot Microservice</summary>
 
     GET /products
     POST /products
@@ -95,33 +131,19 @@
     GET /sales/products/:productId
 </details>
 
-## Running
-
-```bash
-sh run.sh
-```
-
-```bash
-sh run.sh migrate
-```
+- Provides warehouse, product, stock information
 
 
-## Structure
-> Repository design pattern
-
-Two microservices:
-- [mainService](./mainService)
-  - Handles registration, loggin in, password recovery of a user
-  - Proxies authenticated requests to depotService
-- [depotService](./mainService)
-  - Provides warehouse, product, stock information
+### Gateway
+- Main Service proxies authenticated `/depot/*` requests to Depot Service's `/*`
+- Gateway is at [mainService/src/core/app.ts](./mainService/src/core/app.ts#L37)
 
 
-Microservice structure:
-- Microservice entry point at [<ServiceName>/core/app.ts](./mainService/src/core/app.ts)
-- Models are defined at [<ServiceName>/db/schema.prisma](./mainService/src/db/schema.prisma)
-- Controllers are defined at [<ServiceName>/controllers/*](./mainService/src/controllers/users/User.ts)
-- Middlewares are defined at [<ServiceName>/middleware/*](./mainService/src/middleware/isAuthenticated.ts)
-- Routes are defined at [<ServiceName>/routes/*](./mainService/src/routes/users/User.ts)
-- Services are defined at [<ServiceName>/services/*](./mainService/src/services/users/User.ts)
-- Utility functions are defined at [<ServiceName>/utils/*](./mainService/src/utils/jwt.ts)
+### Microservice structure:
+- Microservice entry point at [<ServiceName>/src/core/app.ts](./mainService/src/core/app.ts)
+- Models are defined at [<ServiceName>/src/db/schema.prisma](./mainService/src/db/schema.prisma)
+- Controllers are defined at [<ServiceName>/src/controllers/*](./mainService/src/controllers/users/User.ts)
+- Middlewares are defined at [<ServiceName>/src/middleware/*](./mainService/src/middleware/isAuthenticated.ts)
+- Routes are defined at [<ServiceName>/src/routes/*](./mainService/src/routes/users/User.ts)
+- Services are defined at [<ServiceName>/src/services/*](./mainService/src/services/users/User.ts)
+- Utility functions are defined at [<ServiceName>/src/utils/*](./mainService/src/utils/jwt.ts)
