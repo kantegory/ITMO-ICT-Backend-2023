@@ -49,7 +49,7 @@
 ### Depot Service
 
 <details>
-    <summary>Unfold to see the list of all API Routes of Main Service</summary>
+    <summary>Unfold to see the list of all API Routes of Depot Service</summary>
 
     GET /products
     POST /products
