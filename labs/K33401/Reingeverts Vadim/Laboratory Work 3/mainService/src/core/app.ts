@@ -4,7 +4,7 @@ import bodyParserErrorHandler from "express-body-parser-error-handler";
 import listEndpoints from "express-list-endpoints";
 import proxy from "express-http-proxy";
 
-import { logger, correctContentType } from "~/middleware";
+import { isAuthenticated, logger, correctContentType } from "~/middleware";
 
 export const app = express();
 
@@ -23,7 +23,9 @@ app.use(correctContentType);
 
 app.use("/", rootRoutes);
 
-app.use("/depot", proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`));
+const depotRoutes = express.Router();
+depotRoutes.use("/depot", proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`));
+app.use(isAuthenticated, depotRoutes);
 
 app.use("/endpoints", (req, res) => {
     const endpoints = listEndpoints(app);
