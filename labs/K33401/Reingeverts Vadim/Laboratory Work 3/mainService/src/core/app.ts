@@ -2,6 +2,7 @@ import express from "express";
 import routes from "~/routes";
 import bodyParserErrorHandler from "express-body-parser-error-handler";
 import listEndpoints from "express-list-endpoints";
+import proxy from "express-http-proxy";
 
 import { logger, correctContentType } from "~/middleware";
 
@@ -16,11 +17,13 @@ app.use(express.json());
 /* Handle json body parsing errors */
 app.use(bodyParserErrorHandler());
 
-app.use(logger);
+app.use(logger("Main"));
 
 app.use(correctContentType);
 
 app.use("/", rootRoutes);
+
+app.use("/depot", proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`));
 
 app.use("/endpoints", (req, res) => {
     const endpoints = listEndpoints(app);
