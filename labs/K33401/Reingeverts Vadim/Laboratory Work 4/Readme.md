@@ -230,10 +230,10 @@ export DEPOT_PORT=3020
 
 
 ### Microservice structure:
-- Microservice entry point at [<ServiceName>/src/core/app.ts](./mainService/src/core/app.ts)
-- Models are defined at [<ServiceName>/src/db/schema.prisma](./mainService/src/db/schema.prisma)
-- Controllers are defined at [<ServiceName>/src/controllers/*](./mainService/src/controllers/users/User.ts)
-- Middlewares are defined at [<ServiceName>/src/middleware/*](./mainService/src/middleware/isAuthenticated.ts)
-- Routes are defined at [<ServiceName>/src/routes/*](./mainService/src/routes/users/User.ts)
-- Services are defined at [<ServiceName>/src/services/*](./mainService/src/services/users/User.ts)
-- Utility functions are defined at [<ServiceName>/src/utils/*](./mainService/src/utils/jwt.ts)
+- Microservice entry point at [\<ServiceName\>/src/core/app.ts](./mainService/src/core/app.ts)
+- Models are defined at [\<ServiceName\>/src/db/schema.prisma](./mainService/src/db/schema.prisma)
+- Controllers are defined at [\<ServiceName\>/src/controllers/*](./mainService/src/controllers/users/User.ts)
+- Middlewares are defined at [\<ServiceName\>/src/middleware/*](./mainService/src/middleware/isAuthenticated.ts)
+- Routes are defined at [\<ServiceName\>/src/routes/*](./mainService/src/routes/users/User.ts)
+- Services are defined at [\<ServiceName\>/src/services/*](./mainService/src/services/users/User.ts)
+- Utility functions are defined at [\<ServiceName\>/src/utils/*](./mainService/src/utils/jwt.ts)
