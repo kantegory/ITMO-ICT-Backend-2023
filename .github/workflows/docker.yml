@@ -35,3 +35,12 @@ jobs:
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG homeworks/K33402/AZaytseva/6/stat-service
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG
+          
+      - name: executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: docker run -dp 8000:8000 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG
