@@ -1,0 +1,35 @@
+name: Docker deploy to Yandex Container Registry
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "hw6" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Login to Yandex Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          CR_REGISTRY: ajem3acc4t5bed9h1p11
+          CR_REPOSITORY: backend
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG ./homeworks/K33402/AZaytseva/6/main
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG ./homeworks/K33402/AZaytseva/6/stat-service
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG
