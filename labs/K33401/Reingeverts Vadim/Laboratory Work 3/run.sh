@@ -13,7 +13,7 @@ export DEPOT_PORT=3020
 
 if [ -z "$1" ] # https://stackoverflow.com/a/19486205
 then
-    # 'CTRL + C' (or 'q') kills only one of 
+    # Frees up ports, since 'CTRL + C' (or 'q') kills only one of 
     # the vite servers when bash's '&' is used
     npx kill-port $MAIN_PORT
     npx kill-port $DEPOT_PORT
