@@ -28,6 +28,13 @@ then
 
     echo -e "\n\nMigrating depotService..."
     cd "$script_path/depotService" && npm run migrate
+elif [ $1 == "install" ]
+then
+    echo -e "\n\n'npm install' for mainService..."
+    cd "$script_path/mainService" && npm install
+
+    echo -e "\n\n'npm install' for depotService..."
+    cd "$script_path/depotService" && npm install
 else
     echo "Unkown argument: $1"
 fi

@@ -22,13 +22,16 @@
 
 ## Running
 
-
 ```bash
-sh run.sh
+sh run.sh install
 ```
 
 ```bash
 sh run.sh migrate
+```
+
+```bash
+sh run.sh
 ```
 
 
