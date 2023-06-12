@@ -12,8 +12,8 @@ ENV DATABASE_URL="file:./data/dev.db"
 
 RUN npm run migrate
 
-ENV MAIN_HOST="0.0.0.0"
-ENV MAIN_PORT=3020
+ENV HOST="0.0.0.0"
+ENV PORT=3020
 
 EXPOSE 3020
 

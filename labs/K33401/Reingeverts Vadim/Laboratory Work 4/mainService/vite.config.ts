@@ -2,8 +2,8 @@ import { defineConfig } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
 import { resolve } from "path";
 
-const host = process.env.MAIN_HOST ?? "0.0.0.0";
-const port = parseInt(process.env.MAIN_PORT ?? "") || 3010;
+const host = process.env.HOST ?? "0.0.0.0";
+const port = parseInt(process.env.PORT ?? "") || 3010;
 
 export default defineConfig({
     // ...vite configures
