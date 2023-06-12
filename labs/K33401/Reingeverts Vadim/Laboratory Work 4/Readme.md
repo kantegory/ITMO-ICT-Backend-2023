@@ -24,15 +24,17 @@
 
 ## Running
 
-
 ```bash
-sh run.sh
+sh run.sh install
 ```
 
 ```bash
 sh run.sh migrate
 ```
 
+```bash
+sh run.sh
+```
 
 Port and host can be specified in [run.sh](run.sh):
 ```bash
