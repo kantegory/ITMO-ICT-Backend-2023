@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Переходим в корень аткуального состояния ветки
+      # Переходим в корень актуального состояния ветки
       - uses: actions/checkout@v2
 
       # Авторизация в сервисе Yandex Cloud Container Registry
