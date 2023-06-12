@@ -1,5 +1,5 @@
 {
-    "name": "labrotory-work-1",
+    "name": "laboratory-work-4-main",
     "private": true,
     "version": "0.0.0",
     "type": "module",
@@ -10,7 +10,7 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "migrate": "npx prisma migrate dev && npx prisma generate"
+        "migrate": "npx prisma migrate dev --name ' ' && npx prisma generate"
     },
     "devDependencies": {
         "@types/express": "^4.17.17",

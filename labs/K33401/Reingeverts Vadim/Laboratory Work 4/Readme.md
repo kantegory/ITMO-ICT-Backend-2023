@@ -56,13 +56,26 @@ docker build --tag liprikon/lab4-main-service:1.0 ./mainService
 ##### Image -> Container
 
 ```bash
-docker run -t -i -p 3333:3010 --rm --name main --network lab4 liprikon/lab4-main-service:1.0
+docker run -t -i -p 3333:3010 \
+    --rm --name main \
+    --network lab4 \
+    --volume dbMain:/container/src/db/data \
+    liprikon/lab4-main-service:1.0
 ```
+
+- `-p` forwards container's `3010` port to `3333` port of host machine
+- `-ti` allows `CTRL + C` to stop container
+- `--rm` removes container after exit
+- `--name` becomes hostname for containers
+- `--network` adds container to network
+- `--volume` makes database data persistent by [creating a named volume](https://github.com/moby/moby/issues/30647#issuecomment-276882545)
+
 
 #### Depot Microservice
 > [Dockerfile](./depotService/Dockerfile)
 
 ##### Dockerfile -> Image
+
 ```bash
 docker build --tag liprikon/lab4-depot-service:1.0 ./depotService
 ```
@@ -70,8 +83,19 @@ docker build --tag liprikon/lab4-depot-service:1.0 ./depotService
 ##### Image -> Container
 
 ```bash
-docker run -t -i --rm --name depot --network lab4 liprikon/lab4-depot-service:1.0
+docker run -t -i \
+    --rm --name depot \
+    --network lab4 \
+    --volume dbDepot:/container/src/db/data \
+    liprikon/lab4-depot-service:1.0
 ```
+
+- `-ti` allows `CTRL + C` to stop container
+- `--rm` removes container after exit
+- `--name` becomes hostname for containers
+- `--network` adds container to network
+- `--volume` makes database data persistent by [creating a named volume](https://github.com/moby/moby/issues/30647#issuecomment-276882545)
+
 ### With `docker-compose`
 
 > [docker-compose.yaml](./docker-compose.yaml)

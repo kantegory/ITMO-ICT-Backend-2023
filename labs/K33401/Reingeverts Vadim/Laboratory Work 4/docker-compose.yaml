@@ -4,5 +4,13 @@ services:
     build: ./mainService
     ports: 
       - "3333:3010"
+    volumes:
+      - dbMain:/container/src/db/data
   depot:
     build: ./depotService
+    volumes:
+      - dbDepot:/container/src/db/data
+
+volumes:
+  dbMain:
+  dbDepot:

@@ -1,12 +1,14 @@
 FROM node:16
 
-WORKDIR /src
+WORKDIR /container
 
 COPY package*.json ./
 
 RUN npm install
 
 COPY . .
+
+ENV DATABASE_URL="file:./data/dev.db"
 
 RUN npm run migrate
 
