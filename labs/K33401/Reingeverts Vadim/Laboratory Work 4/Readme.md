@@ -45,6 +45,7 @@ docker network inspect lab4
 ```
 
 #### Main Microservice
+> [Dockerfile](./mainService/Dockerfile)
 
 ##### Dockerfile -> Image
 
@@ -59,10 +60,11 @@ docker run -t -i -p 3333:3010 --rm --name main --network lab4 liprikon/lab4-main
 ```
 
 #### Depot Microservice
+> [Dockerfile](./depotService/Dockerfile)
 
 ##### Dockerfile -> Image
 ```bash
-docker build --tag liprikon/lab4-depot-service:1.0 ./depotService/
+docker build --tag liprikon/lab4-depot-service:1.0 ./depotService
 ```
 
 ##### Image -> Container
@@ -71,6 +73,8 @@ docker build --tag liprikon/lab4-depot-service:1.0 ./depotService/
 docker run -t -i --rm --name depot --network lab4 liprikon/lab4-depot-service:1.0
 ```
 ### With `docker-compose`
+
+> [docker-compose.yaml](./docker-compose.yaml)
 
 ```bash
 docker-compose build && docker-compose up
