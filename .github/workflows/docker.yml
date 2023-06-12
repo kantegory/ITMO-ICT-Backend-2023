@@ -29,7 +29,7 @@ jobs:
           CR_REPOSITORY: backend
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG ./homeworks/K33402/AZaytseva/6/main
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG homeworks/K33402/AZaytseva/6/main
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG ./homeworks/K33402/AZaytseva/6/stat-service
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG homeworks/K33402/AZaytseva/6/stat-service
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG
