@@ -21,37 +21,64 @@
 ![](https://i.imgur.com/iFGWh4B.png)
 
 
-## Docker
+## Running in Docker
 
-### Main Microservice
+Delete all containers
+```bash
+docker rm $(docker ps -a -q)
+```
 
-#### Dockerfile -> Image
+### Without `docker-compose`
+
+#### Creating a network
+
+```bash
+docker network create lab4
+```
+
+```bash
+docker network ls
+```
+
+```bash
+docker network inspect lab4
+```
+
+#### Main Microservice
+
+##### Dockerfile -> Image
 
 ```bash
 docker build --tag liprikon/lab4-main-service:1.0 ./mainService
 ```
 
-#### Image -> Container
+##### Image -> Container
 
 ```bash
-docker run -t -i -p 3333:3010 liprikon/lab4-main-service:1.0
+docker run -t -i -p 3333:3010 --rm --name main --network lab4 liprikon/lab4-main-service:1.0
 ```
 
-### Depot Microservice
+#### Depot Microservice
 
-#### Dockerfile -> Image
+##### Dockerfile -> Image
 ```bash
 docker build --tag liprikon/lab4-depot-service:1.0 ./depotService/
 ```
 
-#### Image -> Container
+##### Image -> Container
 
 ```bash
-docker run -t -i -p 3020:3020 liprikon/lab4-depot-service:1.0
+docker run -t -i --rm --name depot --network lab4 liprikon/lab4-depot-service:1.0
+```
+### With `docker-compose`
+
+```bash
+docker-compose build && docker-compose up
 ```
 
+- Main Microservice available at http://localhost:3333
 
-## Running
+## Running without Docker
 
 ```bash
 sh run.sh install
@@ -64,6 +91,9 @@ sh run.sh migrate
 ```bash
 sh run.sh
 ```
+
+- Main Microservice available at http://localhost:3010
+- Depot Microservice available at http://localhost:3020
 
 Port and host can be specified in [run.sh](run.sh):
 ```bash
