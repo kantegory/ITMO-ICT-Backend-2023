@@ -2,14 +2,15 @@ import { defineConfig } from "vite";
 import { VitePluginNode } from "vite-plugin-node";
 import { resolve } from "path";
 
-// const port = parseInt(process.env.MAIN_PORT ?? "") || 3020;
-// const host = process.env.MAIN_HOST ?? "127.0.0.1";
+const host = process.env.MAIN_HOST ?? "0.0.0.0";
+const port = parseInt(process.env.MAIN_PORT ?? "") || 3020;
 
 export default defineConfig({
     // ...vite configures
     server: {
         // vite server configs, for details see [vite doc](https://vitejs.dev/config/#server-host)
-        // port,
+        host,
+        port,
         strictPort: true,
     },
 

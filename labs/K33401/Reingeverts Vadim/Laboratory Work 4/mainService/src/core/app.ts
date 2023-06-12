@@ -35,5 +35,14 @@ app.use("/endpoints", (req, res) => {
 });
 
 const depotRoutes = express.Router();
-depotRoutes.use("/depot", proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`));
+depotRoutes.use(
+    "/depot",
+    proxy(`${process.env.DEPOT_HOST}:${process.env.DEPOT_PORT}`, {
+        proxyErrorHandler: (error, res, next) => {
+            if (error && error.code) {
+                res.status(500).json({ message: "Depot unavaliable: " + error.code });
+            }
+        },
+    })
+);
 app.use(isAuthenticated, depotRoutes);

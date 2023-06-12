@@ -23,16 +23,31 @@
 
 ## Docker
 
-### Dockerfile -> Image
+### Main Microservice
+
+#### Dockerfile -> Image
 
 ```bash
-docker build --tag liprikon/backend-lab-4:1.0 .
+docker build --tag liprikon/lab4-main-service:1.0 ./mainService
 ```
 
-### Image -> Container
+#### Image -> Container
 
 ```bash
-docker run -t -i -p 3333:3010 liprikon/backend-lab-4:1.0
+docker run -t -i -p 3333:3010 liprikon/lab4-main-service:1.0
+```
+
+### Depot Microservice
+
+#### Dockerfile -> Image
+```bash
+docker build --tag liprikon/lab4-depot-service:1.0 ./depotService/
+```
+
+#### Image -> Container
+
+```bash
+docker run -t -i -p 3020:3020 liprikon/lab4-depot-service:1.0
 ```
 
 
