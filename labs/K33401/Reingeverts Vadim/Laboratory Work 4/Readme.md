@@ -21,6 +21,20 @@
 ![](https://i.imgur.com/iFGWh4B.png)
 
 
+## Docker
+
+### Dockerfile -> Image
+
+```bash
+docker build --tag liprikon/backend-lab-4:1.0 .
+```
+
+### Image -> Container
+
+```bash
+docker run -t -i -p 3333:3010 liprikon/backend-lab-4:1.0
+```
+
 
 ## Running
 
