@@ -47,4 +47,4 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          script: sudo docker run -dp 8000:8000 cr.yandex/crpf3tvmfa4lot7gl4jg/backend:main${{ github.sha }}
+          script: sudo docker run -dp 8000:8000 cr.yandex/crpf3tvmfa4lot7gl4jg/backend:main${{ github.sha }} && sudo docker run -dp 8008:8008 cr.yandex/crpf3tvmfa4lot7gl4jg/backend:stat${{ github.sha }}
