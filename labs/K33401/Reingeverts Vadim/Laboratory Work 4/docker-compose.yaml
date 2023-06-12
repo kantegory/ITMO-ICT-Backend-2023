@@ -4,8 +4,5 @@ services:
     build: ./mainService
     ports: 
       - "3333:3010"
-    environment:
-      - DEPOT_HOST=depot
-      - DEPOT_PORT=3020
   depot:
     build: ./depotService
