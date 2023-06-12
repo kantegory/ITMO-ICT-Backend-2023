@@ -38,6 +38,10 @@ jobs:
           
       - name: executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@v0.1.10
+        env:
+          CR_REGISTRY: crpf3tvmfa4lot7gl4jg
+          CR_REPOSITORY: backend
+          IMAGE_TAG: ${{ github.sha }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
