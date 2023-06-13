@@ -12,17 +12,6 @@ class UserController {
         this.userService = new UserService()
     }
 
-    // get = async (request: any, response: any) => {
-    //     try {
-    //         const user: User | APIError = await this.userService.getById(
-    //             Number(request.params.id)
-    //         )
-    //         response.send(user)
-    //     } catch (error: any) {
-    //         response.status(404).send({'detail': error.message})
-    //     }
-    // }
-
     post = async (request: any, response: any) => {
         const {body} = request
         try {
@@ -33,7 +22,6 @@ class UserController {
         }
     }
 
-    // Get only allowed for myself
     get = async (request: any, response: any) => {
         const {user} = request
         if (user) {
@@ -43,7 +31,6 @@ class UserController {
         }
     }
 
-    // Put only allowed for myself
     put = async (request: any, response: any) => {
         const {body, user} = request
         if (user) {
