@@ -11,3 +11,4 @@ router
   .post(exampleController.post)
 
 export default router
+

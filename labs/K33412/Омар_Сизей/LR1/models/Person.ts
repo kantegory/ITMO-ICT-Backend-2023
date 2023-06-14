@@ -11,3 +11,4 @@ export class Person extends Model {
   @Column
   gmail: number
 }
+
