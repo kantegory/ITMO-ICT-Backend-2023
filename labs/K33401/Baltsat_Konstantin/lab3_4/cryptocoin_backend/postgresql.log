@@ -1,0 +1,50 @@
+2023-06-10 15:03:26.464 MSK [29367] LOG:  starting PostgreSQL 15.3 on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2023-06-10 15:03:26.467 MSK [29367] LOG:  listening on IPv6 address "::1", port 5432
+2023-06-10 15:03:26.467 MSK [29367] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-06-10 15:03:26.469 MSK [29367] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-06-10 15:03:26.478 MSK [29370] LOG:  database system was shut down at 2023-06-10 15:03:26 MSK
+2023-06-10 15:03:26.488 MSK [29367] LOG:  database system is ready to accept connections
+2023-06-10 15:06:47.407 MSK [29436] ERROR:  syntax error at or near "psql" at character 1
+2023-06-10 15:06:47.407 MSK [29436] STATEMENT:  psql -U postgres -h localhost -p 5434
+	CREATE DATABASE cryptocoin_auth_ms;
+2023-06-10 15:08:26.486 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 15:08:45.283 MSK [29635] FATAL:  database "cryptocoin_auth_ms" does not exist
+2023-06-10 15:10:05.344 MSK [29368] LOG:  checkpoint complete: wrote 978 buffers (6.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=98.840 s, sync=0.009 s, total=98.858 s; sync files=266, longest=0.006 s, average=0.001 s; distance=4592 kB, estimate=4592 kB
+2023-06-10 15:19:09.772 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 15:26:31.235 MSK [29368] LOG:  checkpoint complete: wrote 945 buffers (5.8%); 0 WAL file(s) added, 0 removed, 1 recycled; write=441.432 s, sync=0.018 s, total=441.464 s; sync files=251, longest=0.001 s, average=0.001 s; distance=4334 kB, estimate=4566 kB
+2023-06-10 15:31:31.892 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 15:31:32.840 MSK [29368] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.928 s, sync=0.008 s, total=0.949 s; sync files=6, longest=0.006 s, average=0.002 s; distance=53 kB, estimate=4115 kB
+2023-06-10 15:36:31.847 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 15:36:33.142 MSK [29368] LOG:  checkpoint complete: wrote 13 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.284 s, sync=0.002 s, total=1.296 s; sync files=9, longest=0.001 s, average=0.001 s; distance=4 kB, estimate=3704 kB
+2023-06-10 15:41:31.150 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 15:41:31.367 MSK [29368] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.206 s, sync=0.001 s, total=0.218 s; sync files=3, longest=0.001 s, average=0.001 s; distance=1 kB, estimate=3333 kB
+2023-06-10 16:01:31.421 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 16:03:05.930 MSK [29368] LOG:  checkpoint complete: wrote 940 buffers (5.7%); 0 WAL file(s) added, 0 removed, 0 recycled; write=94.499 s, sync=0.006 s, total=94.509 s; sync files=252, longest=0.001 s, average=0.001 s; distance=4291 kB, estimate=4291 kB
+2023-06-10 16:21:31.947 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 16:21:39.303 MSK [29368] LOG:  checkpoint complete: wrote 72 buffers (0.4%); 0 WAL file(s) added, 0 removed, 0 recycled; write=7.334 s, sync=0.007 s, total=7.357 s; sync files=51, longest=0.001 s, average=0.001 s; distance=300 kB, estimate=3892 kB
+2023-06-10 16:31:31.319 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 16:31:32.776 MSK [29368] LOG:  checkpoint complete: wrote 14 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.437 s, sync=0.010 s, total=1.458 s; sync files=11, longest=0.006 s, average=0.001 s; distance=64 kB, estimate=3509 kB
+2023-06-10 16:36:31.783 MSK [29368] LOG:  checkpoint starting: time
+2023-06-10 16:36:32.426 MSK [29368] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.616 s, sync=0.008 s, total=0.643 s; sync files=7, longest=0.006 s, average=0.002 s; distance=2 kB, estimate=3158 kB
+2023-06-10 17:14:03.599 MSK [29367] LOG:  received fast shutdown request
+2023-06-10 17:14:03.601 MSK [29367] LOG:  aborting any active transactions
+2023-06-10 17:14:03.604 MSK [29367] LOG:  background worker "logical replication launcher" (PID 29373) exited with exit code 1
+2023-06-10 17:14:03.604 MSK [29368] LOG:  shutting down
+2023-06-10 17:14:03.606 MSK [29368] LOG:  checkpoint starting: shutdown immediate
+2023-06-10 17:14:03.616 MSK [29368] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.012 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=2842 kB
+2023-06-10 17:14:03.626 MSK [29367] LOG:  database system is shut down
+2023-06-10 17:18:43.415 MSK [34780] LOG:  starting PostgreSQL 15.3 on aarch64-apple-darwin21.6.0, compiled by Apple clang version 14.0.0 (clang-1400.0.29.102), 64-bit
+2023-06-10 17:18:43.417 MSK [34780] LOG:  listening on IPv6 address "::1", port 5432
+2023-06-10 17:18:43.417 MSK [34780] LOG:  listening on IPv4 address "127.0.0.1", port 5432
+2023-06-10 17:18:43.418 MSK [34780] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2023-06-10 17:18:43.436 MSK [34783] LOG:  database system was shut down at 2023-06-10 17:14:03 MSK
+2023-06-10 17:18:43.449 MSK [34780] LOG:  database system is ready to accept connections
+2023-06-10 17:23:43.445 MSK [34781] LOG:  checkpoint starting: time
+2023-06-10 17:23:44.475 MSK [34781] LOG:  checkpoint complete: wrote 13 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.010 s, sync=0.010 s, total=1.030 s; sync files=11, longest=0.006 s, average=0.001 s; distance=6 kB, estimate=6 kB
+2023-06-10 17:27:47.726 MSK [34780] LOG:  received fast shutdown request
+2023-06-10 17:27:47.727 MSK [34780] LOG:  aborting any active transactions
+2023-06-10 17:27:47.731 MSK [34780] LOG:  background worker "logical replication launcher" (PID 34786) exited with exit code 1
+2023-06-10 17:27:47.732 MSK [34781] LOG:  shutting down
+2023-06-10 17:27:47.733 MSK [34781] LOG:  checkpoint starting: shutdown immediate
+2023-06-10 17:27:47.739 MSK [34781] LOG:  checkpoint complete: wrote 0 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.003 s, sync=0.001 s, total=0.007 s; sync files=0, longest=0.000 s, average=0.000 s; distance=0 kB, estimate=5 kB
+2023-06-10 17:27:47.743 MSK [34780] LOG:  database system is shut down

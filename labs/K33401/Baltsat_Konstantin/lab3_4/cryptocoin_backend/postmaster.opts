@@ -1,0 +1,1 @@
+/Applications/Postgres.app/Contents/Versions/15/bin/postgres "-D" "/Users/konstantinbaltsat/ITMO/ITMO-ICT-Backend-2023/labs/K33401/Baltsat_Konstantin/lab3_4/pg_backend" "-p" "5432"
