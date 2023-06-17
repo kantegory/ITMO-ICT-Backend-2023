@@ -31,7 +31,7 @@ class App {
         app.use(cors())
         app.use(bodyParser.json())
         app.use(passport.initialize())
-        app.use('/v1', routes)
+        app.use('/api/v1', routes)
     
         return app
       }
