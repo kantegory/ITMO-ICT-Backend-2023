@@ -20,10 +20,10 @@ const isAuthenticated = (
         req.payload = payload;
     } catch (err) {
         if (err instanceof Error && err.name === "TokenExpiredError") {
-            res.status(401).json({ message: err.name });
+            res.status(401).json({ message: "Unauthorized: " + err.name });
             return;
         }
-        res.status(401).json({ message: "Unauthorized" });
+        res.status(403).json({ message: "Forbidden" });
         return;
     }
 

@@ -149,24 +149,24 @@ class UserController extends BaseController {
             const savedRefreshToken = await this.authService.getRefreshTokenById(jwtId!);
 
             if (!savedRefreshToken || savedRefreshToken.revoked === true) {
-                res.status(401).json({
-                    message: "Unauthorized",
+                res.status(403).json({
+                    message: "Forbidden",
                 });
                 return;
             }
 
             const hashedToken = hashToken(refreshToken);
             if (hashedToken !== savedRefreshToken.hashedToken) {
-                res.status(401).json({
-                    message: "Unauthorized",
+                res.status(403).json({
+                    message: "Forbidden",
                 });
                 return;
             }
 
             const user = await this.userService.getById(userId);
             if (!user) {
-                res.status(401).json({
-                    message: "Unauthorized",
+                res.status(403).json({
+                    message: "Forbidden",
                 });
                 return;
             }
@@ -198,8 +198,8 @@ class UserController extends BaseController {
 
             const user = await this.userService.getById(userId);
             if (!user) {
-                res.status(401).json({
-                    message: "Unauthorized",
+                res.status(403).json({
+                    message: "Forbidden",
                 });
                 return;
             }
