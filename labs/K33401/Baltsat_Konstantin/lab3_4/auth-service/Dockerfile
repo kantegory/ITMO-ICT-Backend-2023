@@ -1,5 +1,5 @@
 FROM node:18.14.1-alpine
-WORKDIR /cryptocoin_backend/auth-service
+WORKDIR /pg_backend/auth-service
 COPY package*.json ./
 RUN npm install
 COPY . .

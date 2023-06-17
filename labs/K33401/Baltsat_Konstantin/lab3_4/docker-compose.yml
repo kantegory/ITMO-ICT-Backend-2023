@@ -8,14 +8,14 @@ services:
     ports:
       - '8000:8000'
     environment:
-      AUTH_SERVICE: auth-service:8008
-      COINS_SERVICE: coins-service:8005
+      AUTH_SERVICE: auth-service:8010
+      COINS_SERVICE: coins-service:8015
     depends_on:
       - auth-service
       - coins-service
     volumes:
-      - ./gateway-service:/cryptocoin_backend/gateway-service
-      - ./gateway-service/node_modules:/cryptocoin_backend/gateway-service/node_modules
+      - ./gateway-service:/pg_backend/gateway-service
+      - ./gateway-service/node_modules:/pg_backend/gateway-service/node_modules
   auth-service:
     build:
       context: ./auth-service
@@ -29,8 +29,8 @@ services:
     depends_on:
       - auth-db
     volumes:
-      - ./auth-service:/cryptocoin_backend/auth-service
-      - /cryptocoin_backend/auth-service/node_modules
+      - ./auth-service:/pg_backend/auth-service
+      - /pg_backend/auth-service/node_modules
   coins-service:
     build:
       context: ./coins-service
@@ -44,8 +44,8 @@ services:
     depends_on:
       - coins-db
     volumes:
-      - ./coins-service:/cryptocoin_backend/coins-service
-      - /cryptocoin_backend/coins-service/node_modules
+      - ./coins-service:/pg_backend/coins-service
+      - /pg_backend/coins-service/node_modules
   auth-db:
     image: postgres
     container_name: cryptocoin-auth-db
@@ -56,10 +56,11 @@ services:
       - 5432
     environment:
       POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      # POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
       POSTGRES_DB: ${DB_AUTH}
     volumes:
-      - ./cryptocoin_backend/auth_data:/var/lib/postgresql/data
+      - ./pg_backend/auth_data:/var/lib/postgresql/data
   coins-db:
     image: postgres
     container_name: cryptocoin-coins-db
@@ -70,7 +71,8 @@ services:
       - 5432
     environment:
       POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      # POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
       POSTGRES_DB: ${DB_COINS}
     volumes:
-      - ./cryptocoin_backend/coins_data:/var/lib/postgresql/data
+      - ./pg_backend/coins_data:/var/lib/postgresql/data
