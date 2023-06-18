@@ -59,8 +59,9 @@ services:
       # POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_HOST_AUTH_METHOD: "trust"
       POSTGRES_DB: ${DB_AUTH}
+      PGDATA: /var/lib/postgresql/data/pg_auth_data/
     volumes:
-      - ./pg_backend/auth_data:/var/lib/postgresql/data
+      - ./pg_backend/auth_data:/var/lib/postgresql/data/pg_auth_data
   coins-db:
     image: postgres
     container_name: cryptocoin-coins-db
@@ -74,5 +75,6 @@ services:
       # POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_HOST_AUTH_METHOD: "trust"
       POSTGRES_DB: ${DB_COINS}
+      PGDATA: /var/lib/postgresql/data/pg_coins_data/
     volumes:
-      - ./pg_backend/coins_data:/var/lib/postgresql/data
+      - ./pg_backend/coins_data:/var/lib/postgresql/data/pg_coins_data
