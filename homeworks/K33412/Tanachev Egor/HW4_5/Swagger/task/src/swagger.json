@@ -1,0 +1,832 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "REST API",
+        "description": ""
+    },
+    "host": "localhost:8000",
+    "basePath": "/v1",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/users/": {
+            "post": {
+                "description": "Creat user",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "body",
+                        "description": "Данные пользователя",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Пользователь успешно добавлен",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "201": {
+                        "description": "Пользователь успешно изменен",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "400": {
+                        "description": "Незвестная ошибка",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/users/id/:id": {
+            "get": {
+                "description": "Show user (id)",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "UserId пользователя",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Пользователь не найден",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/users/email/:email": {
+            "get": {
+                "description": "Show user (email)",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email пользователя",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Пользователь не найден",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/users/all": {
+            "get": {
+                "description": "Show user (all)",
+                "parameters": [
+                    {
+                        "name": "all",
+                        "in": "path",
+                        "description": "Все пользователи",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Пользователь не найден",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/users/login": {
+            "post": {
+                "description": "Login user",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "body",
+                        "description": "Email пользователя",
+                        "required": true,
+                        "example": "e.tanachev@yandex.ru",
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "body",
+                        "description": "Пароль пользователя",
+                        "required": true,
+                        "example": "12345678",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Успешно проведен вход",
+                        "schema": {
+                            "$ref": "#/definitions/TokenResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Неверные данные",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/users/profile": {
+            "get": {
+                "description": "Auth user",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "JWT access token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "401": {
+                        "description": "Пользователь не авторизован",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/users/refresh": {
+            "post": {
+                "description": "Refresh token",
+                "parameters": [
+                    {
+                        "name": "refreshToken",
+                        "in": "body",
+                        "description": "refreshToken",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Токен успешно обновлен",
+                        "schema": {
+                            "$ref": "#/definitions/AuthResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Неверные данные",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["users"]
+            }
+        },
+        "/products": {
+            "post": {
+                "description": "Add product",
+                "parameters": [
+                    {
+                        "name": "product",
+                        "in": "body",
+                        "description": "Данные товара",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно добавлен",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    },
+                    "201": {
+                        "description": "Товар успешно изменен",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    },
+                    "400": {
+                        "description": "Незвестная ошибка",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["products"]
+            },
+            "get": {
+                "description": "Show products (all)",
+                "responses": {
+                    "200": {
+                        "description": "Успешно получен список всех товаров",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Product"
+                            }
+                        }
+                    }
+                },
+                "tags": ["products"]
+            }
+        },
+        "/products/:id": {
+            "get": {
+                "description": "Show products (id)",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "ProductId товара",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/Product"
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["products"]
+            },
+            "delete": {
+                "description": "Delete product",
+                "parameters": [
+                    {
+                        "name": "productId",
+                        "in": "path",
+                        "description": "ProductId товара",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Товар успешно удален"
+                    },
+                    "400": {
+                        "description": "Ошибка удаления товара",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["products"]
+            }
+        },
+        "/supplies/supply": {
+            "post": {
+                "description": "Add supply",
+                "parameters": [
+                    {
+                        "name": "supply",
+                        "in": "body",
+                        "description": "Данные поставки",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Supply"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Поставка успешно добавлена",
+                        "schema": {
+                            "$ref": "#/definitions/Supply"
+                        }
+                    },
+                    "201": {
+                        "description": "Поставка успешно изменена",
+                        "schema": {
+                            "$ref": "#/definitions/Supply"
+                        }
+                    },
+                    "400": {
+                        "description": "Незвестная ошибка",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["supplies"]
+            },
+            "get": {
+                "description": "Show supply (all)",
+                "responses": {
+                    "200": {
+                        "description": "Успешно получен список всех поставок",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Supply"
+                            }
+                        }
+                    }
+                },
+                "tags": ["supplies"]
+            }
+        },
+        "/supplies/supply/:id": {
+            "get": {
+                "description": "Show supply (id)",
+                "parameters": [
+                    {
+                        "name": "supplyId",
+                        "in": "path",
+                        "description": "SupplyId поставки",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/Supply"
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["supplies"]
+            },
+            "delete": {
+                "description": "Delte supply",
+                "parameters": [
+                    {
+                        "name": "supplyId",
+                        "in": "path",
+                        "description": "SupplyId поставки",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Поставка успешно удалена"
+                    },
+                    "400": {
+                        "description": "Ошибка удаления поставки",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["supplies"]
+            }
+        },
+        "/supplies/amount?product-id=:id": {
+            "get": {
+                "description": "Amount product",
+                "parameters": [
+                    {
+                        "name": "product-id",
+                        "in": "query",
+                        "description": "ProductId товара",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 3
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Count",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "amount": {
+                                    "type": "integer",
+                                    "example": "6"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден",
+                        "amount": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["supplies"]
+            }
+        },
+        "/realizations/realization": {
+            "post": {
+                "description": "Add realization",
+                "parameters": [
+                    {
+                        "name": "realization",
+                        "in": "body",
+                        "description": "Данные продажи",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Realization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Продажа успешно добавлена",
+                        "schema": {
+                            "$ref": "#/definitions/Realization"
+                        }
+                    },
+                    "201": {
+                        "description": "Продажа успешно изменена",
+                        "schema": {
+                            "$ref": "#/definitions/Realization"
+                        }
+                    },
+                    "400": {
+                        "description": "Незвестная ошибка",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["realizations"]
+            },
+            "get": {
+                "description": "Show realization (all)",
+                "responses": {
+                    "200": {
+                        "description": "Успешно получен список всех продаж",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Realization"
+                            }
+                        }
+                    }
+                },
+                "tags": ["realizations"]
+            }
+        },
+        "/realizations/realization/:id": {
+            "get": {
+                "description": "Show realization (id)",
+                "parameters": [
+                    {
+                        "name": "realizationId",
+                        "in": "path",
+                        "description": "RealizationId продажи",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Данные успешно получены",
+                        "schema": {
+                            "$ref": "#/definitions/Realization"
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["realizations"]
+            },
+            "delete": {
+                "description": "Delete realization",
+                "parameters": [
+                    {
+                        "name": "realizationId",
+                        "in": "path",
+                        "description": "RealizationId продажи",
+                        "required": true,
+                        "type": "integer",
+                        "minimum": 1
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Продажа успешно удалена"
+                    },
+                    "400": {
+                        "description": "Ошибка удаления продажи",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["realizations"]
+            }
+        },
+        "/realizations/amount": {
+            "get": {
+                "description": "Amount realization (all)",
+                "parameters": [
+                    {
+                        "name": "realization",
+                        "in": "body",
+                        "description": "Данные продажи",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Realization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Количество подсчитано",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "amount": {
+                                    "type": "integer",
+                                    "example": "30"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден",
+                        "amount": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["realizations"]
+            }
+        },
+        "/realizations/revenue": {
+            "get": {
+                "description": "Revenue realization (all)",
+                "parameters": [
+                    {
+                        "name": "realization",
+                        "in": "body",
+                        "description": "Данные продажи",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Realization"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Выручка подсчитана",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "revenue": {
+                                    "type": "integer",
+                                    "example": "10"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Товар не найден",
+                        "amount": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                },
+                "tags": ["realizations"]
+            }
+        }
+    },
+    "definitions": {
+        "User": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "Egor"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Tanachev"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "e.tanachev@yandex.ru"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "12345678"
+                }
+            },
+            "required": [
+                "email",
+                "password"
+            ]
+        },
+        "RefreshToken": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "token": {
+                    "type": "string",
+                    "example": "45ae6fe8-5b50-4deb-9ad1-4889755ab7fc"
+                },
+                "userId": {
+                    "type": "number",
+                    "example": 1
+                }
+            },
+            "required": [
+                "token",
+                "userId"
+            ]
+        },
+        "Product": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Компьютерная мышь Logitech"
+                },
+                "price": {
+                    "type": "number",
+                    "example": 3500
+                }
+            },
+            "required": [
+                "name"
+            ]
+        },
+        "Supply": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "count": {
+                    "type": "number",
+                    "example": 20
+                },
+                "productId": {
+                    "type": "number",
+                    "example": 2
+                },
+                "dateSupply": {
+                    "type": "string",
+                    "example": "2022-03-10T19:42:38.731Z"
+                }
+            },
+            "required": [
+                "count",
+                "productId",
+                "dateSupply"
+            ]
+        },
+        "Realization": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "count": {
+                    "type": "number",
+                    "example": 3
+                },
+                "price": {
+                    "type": "number",
+                    "example": 12500
+                },
+                "productId": {
+                    "type": "number",
+                    "example": 2
+                },
+                "dateRealization": {
+                    "type": "string",
+                    "example": "2022-05-13T19:42:38.731Z"
+                }
+            },
+            "required": [
+                "count",
+                "productId",
+                "price",
+                "dateRealization"
+            ]
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Unknown error"
+                }
+            }
+        },
+        "TokenResponse": {
+            "type": "object",
+            "properties": {
+                "accessToken": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjg2NzcwMTQxfQ.61PFsYLpG6vB-d5L9_eOSoQ4MJEclH7oyKfBR6isIKQ"
+                },
+                "refreshToken": {
+                    "type": "string",
+                    "example": "45ae6fe8-5b50-4deb-9ad1-4889755ab7fc"
+                }
+            },
+            "required": [
+                "accessToken",
+                "refreshToken"
+            ]
+        }
+    }
+}
+
+
