@@ -13,7 +13,7 @@ jobs:
         id: login-cr
         uses: yc-actions/yc-cr-login@v1
         with:
-          yc-sa-json-credentials: ${{ homeworks/K33412/Tanachev Egor/HW6/authorized_key.json }}
+          yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
 
       - name: Build image (Yandex Cloud)
         env:
