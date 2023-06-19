@@ -24,29 +24,31 @@ jobs:
       #     DB_AUTH: cryptocoin_auth_ms
 
 
-      - name: SSH into remote server and deploy
-        uses: appleboy/ssh-action@v0.1.10
+      # - name: SSH into remote server and deploy
+      #   uses: appleboy/ssh-action@v0.1.10
+      #   with:
+      #     host: ${{ secrets.REMOTE_HOST }}
+      #     username: ${{ secrets.REMOTE_USERNAME }}
+      #     key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+      #     script: |
+      #       git pull origin autodeploy
+      #       cd ITMO-ICT-Backend-2023/labs/K33401/Baltsat_Konstantin/lab3_4
+      #       docker-compose down
+      #       docker-compose up -d
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USERNAME }}
-          key: ${{ secrets.REMOTE_PRIVATE_KEY }}
-          script: |
-            git pull origin autodeploy
-            cd ITMO-ICT-Backend-2023/labs/K33401/Baltsat_Konstantin/lab3_4
-            docker-compose down
-            docker-compose up -d
+          ssh-private-key: ${{ secrets.REMOTE_PRIVATE_KEY }}
 
-    #   - name: Set up SSH
-    #     uses: webfactory/ssh-agent@v0.5.0
-    #     with:
-    #       ssh-private-key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+      # - name: Install dependencies and build
+      #   run: |
+      #     cd ITMO-ICT-Backend-2023
+      #     git pull origin autodeploy
+      #     cd /labs/K33401/Baltsat_Konstantin/lab3_4
+      #     docker-compose down
+      #     docker-compose up -d
 
-    #   - name: Install dependencies and build
-    #     run: |
-    #       cd auth-service
-    #       npm install
-    #       npm run build
-
-    #   - name: Deploy to remote server
-    #     run: |
-    #       ssh admin@${{ secrets.REMOTE_HOST }} "cd /deploy && git pull origin autodeploy && docker-compose up -d"
+      - name: Deploy to remote server
+        run: |
+          ssh admin@${{ secrets.REMOTE_HOST }} "cd /ITMO-ICT-Backend-2023 && git pull origin autodeploy && cd /labs/K33401/Baltsat_Konstantin/lab3_4 && docker-compose up -d"
