@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/app
+      - /app/node_modules
+    command: npm run start
+    ports:
+      - 8000:8000
+    restart: always
+  auth:
+    container_name: auth
+    build:
+      context: ./auth
+    volumes:
+      - ./auth:/app
+      - /app/node_modules
+    depends_on:
+      - gateway
+    network_mode: host
+    command: npm run start
+    ports:
+      - 8001:8001
+    restart: always
+  shop:
+    container_name: shop
+    build:
+      context: ./shop
+    depends_on:
+      - gateway
+    command: npm run start
+    volumes:
+      - ./shop:/app
+      - /app/node_modules
+    ports:
+      - 8002:8002
+    restart: always

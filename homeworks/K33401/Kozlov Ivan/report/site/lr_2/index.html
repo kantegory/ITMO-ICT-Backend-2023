@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>Лабораторная №2 - Отчеты по Backend</title>
+    
+
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">Отчеты по Backend</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Главная страница</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Лабораторные <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../lr_1/">Лабораторная №1</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Лабораторная №2</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Домашние задания <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../hw_1/">Задание №1</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_2/">Задание №2</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_3/">Задание №3</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_4_5/">Задание №4-5</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+		    <!--
+                    <li >
+                        <a rel="prev" href="../lr_1/">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../hw_1/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+		    -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#no-2">Лабораторная работа № 2</a></li>
+        <li class="first-level "><a href="#src">Структура src</a></li>
+        <li class="first-level "><a href="#_1">Модели</a></li>
+        <li class="first-level "><a href="#c">Cервисы для работы с моделями</a></li>
+        <li class="first-level "><a href="#_2">Контроллеры</a></li>
+        <li class="first-level "><a href="#routes">Маршруты (routes)</a></li>
+        <li class="first-level "><a href="#_3">Пример группировки данных</a></li>
+        <li class="first-level "><a href="#_4">Вывод</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="no-2">Лабораторная работа № 2</h1>
+<p><code>Описание:</code></p>
+<p>В рамках данной лабораторной работы Вам предложено выбрать один из нескольких вариантов. Выбранный вариант останется единым на весь курс и будет использоваться в последующих лабораторных работах.</p>
+<p>По выбранному варианту необходимо будет реализовать RESTful API средствами express + typescript (используя ранее написанный boilerplate).</p>
+<p><code>Вариант 4:</code>
+Сайт администратора интернет-магазина</p>
+<ul>
+<li>
+<p>Вход</p>
+</li>
+<li>
+<p>Регистрация</p>
+</li>
+<li>
+<p>Учёт товара на складе</p>
+</li>
+<li>
+<p>Графики по продажам тех или иных товаров</p>
+</li>
+<li>
+<p>Управление сотрудниками</p>
+</li>
+</ul>
+<hr>
+
+<h1 id="src">Структура src</h1>
+<ul>
+<li>
+<p><code>configs</code> - содержит файлы конфигурации, в данном случае файл для подключения к базе данных.</p>
+</li>
+<li>
+<p><code>controllers</code> - содержит контроллеры для каждого ресурса, в данном случае контроллер для пользователей.</p>
+</li>
+<li>
+<p><code>core</code> - содержит файлы ядра приложения, такие как файл, который инициализирует Express.</p>
+</li>
+<li>
+<p><code>index.ts</code> - точка входа для запуска приложения.</p>
+</li>
+<li>
+<p><code>middlewares</code> - содержит аутентификацию с использованием Passport.js.</p>
+</li>
+<li>
+<p><code>migrations</code> - содержит файлы миграций для базы данных.</p>
+</li>
+<li>
+<p><code>models</code> - содержит модели для каждой таблицы базы данных, в данном случае модели для пользователей, токенов, работников, товаров.</p>
+</li>
+<li>
+<p><code>providers</code> - содержит провайдеры, которые управляют зависимостями, в данном случае провайдер для создания и настройки подключения к базе данных.</p>
+</li>
+<li>
+<p><code>routes</code> - содержит маршруты для каждого ресурса API, в данном случае маршруты для пользователей.</p>
+</li>
+<li>
+<p><code>seeders</code> - содержит файлы начальных данных для базы данных.</p>
+</li>
+<li>
+<p><code>services</code> - содержит службы, которые обрабатывают бизнес-логику приложения, в данном случае служба для пользователей, токенов обновления, работников, товаров.</p>
+</li>
+<li>
+<p><code>utils</code> - содержит утилиты, которые используются во всем приложении, в данном случае утилиты для проверки и хэширования паролей.</p>
+</li>
+</ul>
+<pre><code class="language-bash">.
+├── configs
+│   └── db.mjs
+├── controllers
+│   ├── goods
+│   │   └── Goods.ts
+│   ├── users
+│   │   └── User.ts
+│   └── workers
+│       └── Workers.ts
+├── core
+│   └── index.ts
+├── index.ts
+├── middlewares
+│   └── passport.ts
+├── migrations
+├── models
+│   ├── auth
+│   │   └── RefreshToken.ts
+│   ├── goods
+│   │   └── Goods.ts
+│   ├── users
+│   │   └── User.ts
+│   └── workers
+│       └── Workers.ts
+├── providers
+│   └── db.ts
+├── routes
+│   └── v1
+│       ├── goods
+│       │   └── Goods.ts
+│       ├── index.ts
+│       ├── users
+│       │   └── User.ts
+│       └── workers
+│           └── Workers.ts
+├── seeders
+├── services
+│   ├── auth
+│   │   └── RefreshToken.ts
+│   ├── goods
+│   │   └── Goods.ts
+│   ├── users
+│   │   └── User.ts
+│   └── workers
+│       └── Workers.ts
+└── utils
+    ├── checkPassword.ts
+    └── hashPassword.ts
+
+</code></pre>
+<hr>
+
+<h1 id="_1">Модели</h1>
+<p><code>User.ts</code> - модель пользователя</p>
+<pre><code class="language-ts">import { AllowNull, BeforeCreate, BeforeUpdate, Column, Model, Table, Unique } from 'sequelize-typescript'
+import hashPassword from '../../utils/hashPassword'
+
+@Table
+class User extends Model {
+    @AllowNull(false)
+    @Column
+    firstName: string
+
+    @AllowNull(false)
+    @Column
+    lastName: string
+
+    @Unique
+    @Column
+    email: string
+
+    @AllowNull(false)
+    @Column
+    password: string
+
+    @BeforeCreate
+    @BeforeUpdate
+    static generatePasswordHash(instance: User) {
+        const { password } = instance
+
+        if (instance.changed('password')) {
+            instance.password = hashPassword(password)
+        }
+    }
+}
+
+export default User
+</code></pre>
+<p><code>RefreshToken.ts</code> - модель хранения токенов</p>
+<pre><code class="language-ts">import { Table, Column, Model, Unique, AllowNull, ForeignKey } from 'sequelize-typescript'
+import User from '../users/User'
+
+@Table
+class RefreshToken extends Model {
+    @Unique
+    @AllowNull(false)
+    @Column
+    token: string
+
+    @ForeignKey(() =&gt; User)
+    @Column
+    userId: number 
+}
+
+export default RefreshToken
+</code></pre>
+<p><code>Workers.ts</code> - модель работников</p>
+<pre><code class="language-ts">import { AllowNull, Column, Model, Table, Unique } from 'sequelize-typescript';
+
+@Table
+class Worker extends Model {
+  @AllowNull(false)
+  @Unique
+  @Column
+  passport: string;
+
+  @AllowNull(false)
+  @Column
+  name: string;
+
+  @AllowNull(false)
+  @Column
+  position: string;
+
+  @AllowNull(false)
+  @Column
+  salary: number;
+}
+
+export default Worker;
+
+</code></pre>
+<p><code>Goods.ts</code> - модель товаров</p>
+<pre><code class="language-ts">import { AllowNull, Column, Model, Table, Unique } from 'sequelize-typescript'
+
+@Table
+class Goods extends Model {
+    @AllowNull(false)
+    @Unique
+    @Column
+    articul: string
+
+    @AllowNull(false)
+    @Column
+    count: number
+
+    @AllowNull(false)
+    @Column
+    name: string
+}
+
+export default Goods
+
+</code></pre>
+<hr>
+
+<h1 id="c">Cервисы для работы с моделями</h1>
+<ul>
+<li><code>src/services/users/User.ts</code></li>
+</ul>
+<pre><code class="language-ts">import User from '../../models/users/User'
+import sequelize from '../../providers/db'
+import checkPassword from '../../utils/checkPassword'
+const userRepository = sequelize.getRepository(User)
+
+class UserService {
+
+    async getById(id: number): Promise&lt;User&gt; {
+        const user = await userRepository.findOne({ where: { 'id': id } })
+        if (user) return user
+        throw new Error(`User with id ${id} not found`)
+    }
+
+    async create(userData: Partial&lt;User&gt;): Promise&lt;User&gt; {
+        try {
+            const user = await userRepository.create(userData)
+            return user.toJSON()
+        }
+        catch (e: any) {
+            const errors = e.errors.map((error: any) =&gt; error.message)
+            throw console.log(errors)
+        }
+    }
+
+    async checkPassword(email: string, password: string): Promise&lt;any&gt; {
+        const user = await userRepository.findOne({ where: { 'email' : email } })
+
+        if (user) return { user: user.toJSON(), checkPassword: checkPassword(user.dataValues, password) }
+
+        throw console.log('Incorrect login/password!')
+    }
+}
+
+export default UserService
+
+</code></pre>
+<ul>
+<li><code>src/services/auth/RefreshToken.ts</code></li>
+</ul>
+<pre><code class="language-ts">import { randomUUID } from &quot;crypto&quot;
+import dotenv from &quot;dotenv&quot;
+import RefreshToken from '../../models/auth/RefreshToken'
+import User from '../../models/users/User'
+dotenv.config()
+
+class RefreshTokenService {
+    private user: User | null
+
+    constructor(user: User | null = null) {
+        this.user = user
+    }
+
+    generateRefreshToken = async (): Promise&lt;string&gt; =&gt; {
+        const token = randomUUID()
+
+        const userId = this.user?.id
+
+        await RefreshToken.create({ token, userId })
+
+        return token
+    }
+
+    isRefreshTokenExpired = async (token: string): Promise&lt;{ userId: number | null, isExpired: boolean }&gt; =&gt; {
+        const refreshToken = await RefreshToken.findOne({ where: { token } })
+
+        if (refreshToken) {
+            const tokenData = refreshToken.toJSON()
+
+            const currentDate = new Date()
+            const timeDelta = currentDate.getTime() - tokenData.createdAt.getTime()
+
+            if (timeDelta &gt; 0 &amp;&amp; timeDelta &lt; parseInt(process.env.REFRESH_TOKEN_LIFETIME!)) {
+                return { userId: tokenData.userId, isExpired: false }
+            }
+
+            return { userId: null, isExpired: true }
+        }
+
+        return { userId: null, isExpired: true }
+    }
+}
+
+export default RefreshTokenService
+</code></pre>
+<ul>
+<li><code>src/services/goods/Goods.ts</code></li>
+</ul>
+<pre><code class="language-ts">import Goods from '../../models/goods/Goods'
+import sequelize from '../../providers/db'
+
+const goodsRepository = sequelize.getRepository(Goods)
+
+class GoodsService {
+    async getById(id: number): Promise&lt;Goods&gt; {
+        const goods = await goodsRepository.findOne({ where: { 'articul': id } })
+        if (goods) return goods
+        throw new Error(`Goods with id ${id} not found`)
+    }
+
+    async create(goodsData: Partial&lt;Goods&gt;): Promise&lt;Goods&gt; {
+        try {
+            const goods = await goodsRepository.create(goodsData)
+            return goods.toJSON()
+        }
+        catch (e: any) {
+            const errors = e.errors.map((error: any) =&gt; error.message)
+            throw console.log(errors)
+        }
+    }
+
+    async update(id: number, goodsData: Partial&lt;Goods&gt;): Promise&lt;Goods&gt; {
+        try {
+            const goods = await goodsRepository.findOne({ where: { 'articul': id } })
+
+            if (goods) {
+                await goods.update(goodsData)
+                return goods.toJSON()
+            }
+            throw new Error(`Goods with id ${id} not found`)
+        }
+        catch (e: any) {
+            const errors = e.errors.map((error: any) =&gt; error.message)
+            throw console.log(errors)
+        }
+    }
+
+    async delete(id: number): Promise&lt;void&gt; {
+        const goods = await goodsRepository.findOne({ where: { 'articul': id } })
+        if (goods) {
+            await goods.destroy()
+            return
+        }
+        throw new Error(`Goods with id ${id} not found`)
+    }
+
+    async getCountGoods(): Promise&lt;any&gt; {
+        const result = await goodsRepository.findAll({
+            attributes: ['name', [sequelize.fn('SUM', sequelize.col('count')), 'total_count']],
+            group: ['name']
+        });
+        return result;
+    }
+}
+
+export default GoodsService    
+</code></pre>
+<ul>
+<li><code>src/services/workers/Workers.ts</code></li>
+</ul>
+<pre><code class="language-ts">import Worker from '../../models/workers/Workers';
+import sequelize from '../../providers/db';
+
+const workersRepository = sequelize.getRepository(Worker);
+
+class WorkersService {
+    async get(id: number): Promise&lt;Worker&gt; {
+        const worker = await workersRepository.findOne({ where: { 'id': id } });
+        if (worker) return worker
+        throw new Error(`Worker with id ${id} not found`);
+    }
+
+    async create(workerData: Partial&lt;Worker&gt;): Promise&lt;Worker&gt; {
+        try {
+            const worker = await workersRepository.create(workerData);
+            return worker.toJSON();
+        } catch (e: any) {
+            const errors = e.errors.map((error: any) =&gt; error.message);
+            throw console.log(errors);
+        }
+    }
+
+    async update(id: number, workerData: Partial&lt;Worker&gt;): Promise&lt;Worker&gt; {
+        try {
+            const worker = await workersRepository.findOne({ where: { id } });
+
+            if (worker) {
+                await worker.update(workerData);
+                return worker.toJSON();
+            }
+            throw new Error(`Worker with id ${id} not found`);
+        } catch (e: any) {
+            const errors = e.errors.map((error: any) =&gt; error.message);
+            throw console.log(errors);
+        }
+    }
+
+    async delete(id: number): Promise&lt;void&gt; {
+        const worker = await workersRepository.findOne({ where: { id } });
+        if (worker) {
+            await worker.destroy();
+            return;
+        }
+        throw new Error(`Worker with id ${id} not found`);
+    }
+
+}
+
+export default WorkersService;
+
+</code></pre>
+<hr>
+
+<h1 id="_2">Контроллеры</h1>
+<p><code>UserController</code></p>
+<pre><code class="language-ts">import jwt from 'jsonwebtoken'
+import { jwtOptions } from '../../middlewares/passport'
+import RefreshTokenService from '../../services/auth/RefreshToken'
+import UserService from '../../services/users/User'
+import hashPassword from '../../utils/hashPassword'
+
+class UserController {
+    private userService: UserService
+
+    constructor() {
+        this.userService = new UserService()
+    }
+
+    get = async (request: any, response: any) =&gt; {
+        try {
+            const user = await this.userService.getById(
+                Number(request.params.id)
+            )
+
+            response.send(user)
+        } catch (error: any) {
+            response.status(404).send({ &quot;error&quot;: error.message })
+        }
+    }
+
+    post = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        try {
+            const user = await this.userService.create(body)
+
+            response.status(201).send(user)
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: error.message })
+        }
+    }
+
+    me = async (request: any, response: any) =&gt; {
+        response.send(request.user)
+    }
+
+    hello = async (request: any, response: any) =&gt; {
+        const html = '&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;';
+        response.send(html)
+    }
+
+    auth = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        const { email, password } = body
+
+        try {
+            const { user, checkPassword } = await this.userService.checkPassword(email, password)
+            if (checkPassword) {
+                const payload = { id: user.id }
+
+                console.log('payload is', payload)
+
+                const accessToken = jwt.sign(payload, jwtOptions.secretOrKey)
+
+                const refreshTokenService = new RefreshTokenService(user)
+
+                const refreshToken = await refreshTokenService.generateRefreshToken()
+
+                response.send({ 'Answer' : `You successfully logged in as ${user.firstName} ${user.lastName}`, 
+                accessToken, refreshToken })
+            } else {
+                throw new Error('Login or password is incorrect!')
+            }
+        } catch (e: any) {
+            response.status(401).send({ &quot;error&quot;: e.message })
+        }
+    }
+
+    refreshToken = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        const { refreshToken } = body
+
+        const refreshTokenService = new RefreshTokenService()
+
+        try {
+            const { userId, isExpired } = await refreshTokenService
+                .isRefreshTokenExpired(refreshToken)
+
+            if (!isExpired &amp;&amp; userId) {
+                const user = await this.userService.getById(userId)
+
+                const payload = { id: user.id }
+
+                const accessToken = jwt.sign(payload, jwtOptions.secretOrKey)
+
+                const refreshTokenService = new RefreshTokenService(user)
+
+                const refreshToken = await refreshTokenService.generateRefreshToken()
+
+                response.send({ accessToken, refreshToken })
+            } else {
+                throw new Error('Invalid credentials')
+            }
+        } catch (e) {
+            response.status(401).send({ 'error': 'Invalid credentials' })
+        }
+    }
+
+    create = async (request: any, response: any) =&gt; {
+        try {
+            const { body } = request
+            body.password = hashPassword(body.password)
+
+            const user = await this.userService.create(body)
+
+            response.status(201).send(user)
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: error.message })
+        }
+    }
+}
+
+export default UserController
+</code></pre>
+<p><code>GoodsController</code></p>
+<pre><code class="language-ts">import GoodsService from '../../services/goods/Goods'
+import RefreshTokenService from '../../services/auth/RefreshToken'
+
+class GoodsController {
+    private goodsService: GoodsService
+
+    constructor() {
+        this.goodsService = new GoodsService()
+    }
+
+    get = async (request: any, response: any) =&gt; {
+        try {
+            const goods = await this.goodsService.getById(
+                Number(request.params.id)
+            )
+
+            response.send(goods)
+        } catch (error: any) {
+            response.status(404).send({ &quot;error&quot;: &quot;error&quot; })
+        }
+    }
+
+    create = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        try {
+            const goods = await this.goodsService.create(body)
+
+            response.status(200).send(goods)
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: &quot;error&quot; })
+        }
+    }
+
+    update = async (request: any, response: any) =&gt; {
+        const refreshToken = request.headers[&quot;refreshtoken&quot;];
+        if (!refreshToken) {
+            response.status(400).send({ &quot;error&quot;: &quot;Missing refreshToken header&quot; });
+            return;
+        }
+        const refreshTokenService = new RefreshTokenService();
+        const { userId, isExpired } = await refreshTokenService.isRefreshTokenExpired(refreshToken);
+        if(isExpired){
+            response.status(401).send({ &quot;error&quot;: &quot;Unauthorized, u need new refreshToken&quot; });
+            return;
+        }
+
+        const { body } = request
+
+        const id = Number(request.params.id)
+
+        try {
+            const goods = await this.goodsService.update(id, body)
+
+            response.send(goods)
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: &quot;error&quot; })
+        }
+    }
+
+    delete = async (request: any, response: any) =&gt; {
+        const refreshToken = request.headers[&quot;refreshtoken&quot;];
+        if (!refreshToken) {
+            response.status(400).send({ &quot;error&quot;: &quot;Missing refreshToken header&quot; });
+            return;
+        }
+        const refreshTokenService = new RefreshTokenService();
+        const { userId, isExpired } = await refreshTokenService.isRefreshTokenExpired(refreshToken);
+        if(isExpired){
+            response.status(401).send({ &quot;error&quot;: &quot;Unauthorized, u need new refreshToken&quot; });
+            return;
+        }
+
+        const id = Number(request.params.id)
+
+        try {
+            await this.goodsService.delete(id)
+
+            response.status(200).send({ message: `Goods with id ${id} has been deleted` })
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: &quot;error&quot; })
+        }
+    }
+
+    getCountGoods = async (request: any, response: any) =&gt; {
+        try {
+            const goods = await this.goodsService.getCountGoods()
+            response.send(goods)
+        } catch (error: any) {
+            response.status(404).send({ &quot;error&quot;: &quot;error&quot; })
+        }
+    }
+}
+
+export default GoodsController
+
+</code></pre>
+<p><code>WorkersController</code></p>
+<pre><code class="language-ts">import RefreshTokenService from '../../services/auth/RefreshToken';
+import WorkersService from '../../services/workers/Workers';
+
+class WorkersController {
+    private workersService: WorkersService;
+
+    constructor() {
+        this.workersService = new WorkersService();
+    }
+
+    get = async (request: any, response: any) =&gt; {
+        try {
+            const worker = await this.workersService.get(
+                Number(request.params.id)
+            );
+
+            response.send(worker);
+        } catch (error: any) {
+            response.status(404).send({ &quot;error&quot;: &quot;error&quot; });
+        }
+    };
+
+    create = async (request: any, response: any) =&gt; {
+        const { body } = request;
+
+        try {
+            const worker = await this.workersService.create(body);
+
+            response.status(200).send(worker);
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: &quot;error&quot; });
+        }
+    };
+
+    update = async (request: any, response: any) =&gt; {
+        const refreshToken = request.headers[&quot;refreshtoken&quot;];
+        if (!refreshToken) {
+            response.status(400).send({ &quot;error&quot;: &quot;Missing refreshToken header&quot; });
+            return;
+        }
+        const refreshTokenService = new RefreshTokenService();
+        const { userId, isExpired } = await refreshTokenService.isRefreshTokenExpired(refreshToken);
+        if (isExpired) {
+            response.status(401).send({ &quot;error&quot;: &quot;Unauthorized, u need new refreshToken&quot; });
+            return;
+        }
+
+        const { body } = request;
+
+        const id = Number(request.params.id);
+
+        try {
+            const worker = await this.workersService.update(id, body);
+
+            response.send(worker);
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: &quot;error&quot; });
+        }
+    };
+
+    delete = async (request: any, response: any) =&gt; {
+        const refreshToken = request.headers[&quot;refreshtoken&quot;];
+        if (!refreshToken) {
+            response.status(400).send({ &quot;error&quot;: &quot;Missing refreshToken header&quot; });
+            return;
+        }
+        const refreshTokenService = new RefreshTokenService();
+        const { userId, isExpired } = await refreshTokenService.isRefreshTokenExpired(refreshToken);
+        if (isExpired) {
+            response.status(401).send({ &quot;error&quot;: &quot;Unauthorized, u need new refreshToken&quot; });
+            return;
+        }
+
+        const id = Number(request.params.id);
+
+        try {
+            await this.workersService.delete(id);
+
+            response.status(200).send({ message: `Worker with id ${id} has been deleted` });
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: &quot;error&quot; });
+
+        }
+    }
+}
+
+export default WorkersController;
+</code></pre>
+<hr>
+
+<h1 id="routes">Маршруты (routes)</h1>
+<p><code>src/routes/users/User.ts</code> - маршруты для пользователя</p>
+<pre><code class="language-ts">import express from &quot;express&quot;
+import UserController from &quot;../../../controllers/users/User&quot;
+import passport from &quot;../../../middlewares/passport&quot;
+
+const router: express.Router = express.Router()
+
+const controller: UserController = new UserController()
+
+router.route('/').post(controller.post)
+
+router.route('/h').get(controller.hello)
+
+router.route('/profile').get(passport.authenticate('jwt', { session: false }), controller.me)
+
+router.route('/profile/:id').get(controller.get)
+
+router.route('/login').post(controller.auth)
+
+router.route('/refresh').post(controller.refreshToken)
+
+router.route('/create').post(controller.create)
+
+export default router
+</code></pre>
+<p><code>src/routes/index.ts</code> - export</p>
+<pre><code class="language-ts">import express from &quot;express&quot;
+import userRoutes from &quot;./users/User&quot;
+import goodsRoutes from &quot;./goods/Goods&quot;
+import workersRoutes from &quot;./workers/Workers&quot;
+
+const router: express.Router = express.Router()
+
+router.use('/users', userRoutes)
+router.use('/goods', goodsRoutes)
+router.use('/workers', workersRoutes)
+
+export default router
+</code></pre>
+<p><code>src/routes/workers/Workers.ts</code> - маршруты для работников</p>
+<pre><code class="language-ts">import express from &quot;express&quot;
+import WorlersController from &quot;../../../controllers/workers/Workers&quot;
+
+const router: express.Router = express.Router()
+
+const controller: WorlersController = new WorlersController()
+
+router.route('/get/:id').get(controller.get)
+
+router.route('/create').post(controller.create)
+
+router.route('/update/:id').post(controller.update)
+
+router.route('/delete/:id').post(controller.delete)
+
+export default router
+</code></pre>
+<p><code>src/routes/goods/Goods.ts</code> - маршруты для товаров</p>
+<pre><code class="language-ts">import express from &quot;express&quot;
+import GoodsController from &quot;../../../controllers/goods/Goods&quot;
+
+const router: express.Router = express.Router()
+
+const controller: GoodsController = new GoodsController()
+
+router.route('/get/:id').get(controller.get)
+
+router.route('/create').post(controller.create)
+
+router.route('/update/:id').post(controller.update)
+
+router.route('/delete/:id').post(controller.delete)
+
+router.route('/countGoods').get(controller.getCountGoods)
+
+export default router
+</code></pre>
+<hr>
+
+<h1 id="_3">Пример группировки данных</h1>
+<ul>
+<li>Данные товаров изначально</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/p_1.png" /></p>
+<ul>
+<li>Данные по запросу</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_2/p_2.png" /></p>
+<hr>
+
+<h1 id="_4">Вывод</h1>
+<p>Реализован RESTful API средствами express + typescript.</p></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <p>
+            <!--
+	<small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+	-->
+
+            
+            
+    </footer>
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Поиск</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Вы можете искать по документам.
+                    Введите условия поиска ниже.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск" id="mkdocs-search-query"
+                            title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="https://github.com/IYunet/ITMO-ICT-Backend-2023">
+        <center>GitHub</center>
+    </a>
+    </body>
+
+</html>
