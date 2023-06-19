@@ -18,17 +18,17 @@ class App {
     }
 
     private createApp(): express.Application {
-        const app = express()
-        app.use(express.json())
-        app.use('/v1', routes)
+        const app = express() // Create a new express application
+        app.use(express.json()) // Parse incoming JSON requests
+        app.use('/v1', routes) // Use the routes from the ../routes/index module with a base route of /v1
 
-        return app
+        return app // Return the express application
       }
 
     private createServer(): Server {
-        const server = createServer(this.app)
+        const server = createServer(this.app) // Create a new HTTP server with the express application as the handler
 
-        return server
+        return server // Return the HTTP server
     }
 
 

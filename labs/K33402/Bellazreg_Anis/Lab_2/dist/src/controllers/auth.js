@@ -16,17 +16,22 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const passport_1 = require("../middlewares/passport");
 const user_1 = __importDefault(require("../services/user"));
 const uuid_1 = require("uuid");
+const user_2 = __importDefault(require("../models/user"));
 class AuthController {
     constructor() {
         this.register = (request, response) => __awaiter(this, void 0, void 0, function* () {
+            const email = request.body.email;
             try {
-                const user = yield this.userService.getByEmail(request.body.email);
+                // console.log(email)
+                const user = yield user_2.default.findOne({ where: {
+                        email
+                    } });
                 if (user) {
                     response.status(400).send({ "error": "User with specified email already exists" });
                 }
                 else {
                     const id = (0, uuid_1.v4)();
-                    const users = yield this.userService.create(Object.assign(Object.assign({}, request.body), { id }));
+                    const users = yield user_2.default.create(Object.assign(Object.assign({}, request.body), { id }));
                     response.status(201).send(users);
                 }
             }

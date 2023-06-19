@@ -24,7 +24,7 @@ class UserController {
     post = async (request: any, response: any) => {
         const id = uuidv4()
         try {
-            const record = await this.userService.create({ ...request.body, id})
+            const record = await User.create({ ...request.body, id})
             return response.json({ record, msg: 'Successfully create user' })
         } catch (error: any) {
             response.status(400).send({ "error": error.message })

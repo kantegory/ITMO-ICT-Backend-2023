@@ -1,14 +1,17 @@
 import { DataTypes, Model } from "sequelize"
 import db from "../config/config";
 
+// Define an interface for the model's attributes
 interface Attributes {
     id: string;
     firstName: string;
     lastName: string;
     email: string;
   }
+// Define a User model that extends the Sequelize Model class with the Attributes interface
 class User extends Model<Attributes> {}
 
+// Initialize the User model with its attributes and options
 User.init(
     {
         id: {

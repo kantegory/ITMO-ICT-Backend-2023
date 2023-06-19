@@ -2,6 +2,8 @@ import jwt from 'jsonwebtoken'
 import { jwtOptions } from '../middlewares/passport'
 import UserService from '../services/user'
 import { v4 as uuidv4 } from "uuid"
+import express from "express";
+import User from "../models/user";
 
 
 class AuthController {
@@ -9,18 +11,23 @@ class AuthController {
 
     constructor() {
         this.userService = new UserService()
+
     }
 
-    register = async (request: any, response: any) => {
+    register = async (request: express.Request, response: express.Response) => {
+        const email = request.body.email;
         try {
-            const user = await this.userService.getByEmail(request.body.email);
+            // console.log(email)
+            const user = await User.findOne({where:{
+                email
+                }});
 
             if (user) {
               response.status(400).send({ "error": "User with specified email already exists" })
             }
             else {
                 const id = uuidv4()
-                const users = await this.userService.create({ ...request.body, id})
+                const users = await User.create({ ...request.body, id})
                 response.status(201).send(users)
             }
         }

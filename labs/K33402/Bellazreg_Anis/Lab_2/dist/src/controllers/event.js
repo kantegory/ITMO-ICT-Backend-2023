@@ -29,7 +29,7 @@ class EventController {
             const id = (0, uuid_1.v4)();
             try {
                 const record = yield this.eventService.create(Object.assign(Object.assign({}, request.body), { id }));
-                return response.json({ record, msg: 'Successfully create user' });
+                return response.json({ record, msg: 'Successfully create event' });
             }
             catch (error) {
                 response.status(400).send({ "error": error.message });

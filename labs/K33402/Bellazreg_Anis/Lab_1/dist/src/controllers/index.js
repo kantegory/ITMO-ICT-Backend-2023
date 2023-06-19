@@ -14,17 +14,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const user_1 = __importDefault(require("../services/user"));
+// Define a UserController class
 class UserController {
     constructor() {
+        // Define a get method that retrieves a list of users
         this.get = (request, response) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const records = yield this.userService.listUsers();
-                return response.json(records);
+                const records = yield this.userService.listUsers(); // Call the listUsers method of the userService property to retrieve a list of users
+                return response.json(records); // Return the list of users as a JSON response
             }
             catch (error) {
                 response.status(404).send({ "error": error.message });
             }
         });
+        // Define a post method that creates a new user
         this.post = (request, response) => __awaiter(this, void 0, void 0, function* () {
             const id = (0, uuid_1.v4)();
             try {
@@ -35,6 +38,7 @@ class UserController {
                 response.status(400).send({ "error": error.message });
             }
         });
+        // Define a getbyID method that retrieves a user with the specified ID
         this.getbyID = (request, response) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const record = yield this.userService.getById(request.params.id);
@@ -44,6 +48,7 @@ class UserController {
                 response.status(404).send({ "error": error.message });
             }
         });
+        // Define a put method that updates a user with the specified ID
         this.put = (request, response) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const record = yield this.userService.updateUser(request.params.id, request.body);
@@ -53,6 +58,7 @@ class UserController {
                 response.status(404).send({ "error": error.message });
             }
         });
+        // Define a delete method that deletes a user with the specified ID
         this.delete = (request, response) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const record = yield this.userService.deleteUser(request.params.id);
@@ -62,7 +68,7 @@ class UserController {
                 response.status(404).send({ "error": error.message });
             }
         });
-        this.userService = new user_1.default();
+        this.userService = new user_1.default(); // Initialize the userService property with a new instance of the UserService class
     }
 }
 exports.default = UserController;

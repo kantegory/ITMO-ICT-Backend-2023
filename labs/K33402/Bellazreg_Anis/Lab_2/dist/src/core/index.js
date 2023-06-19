@@ -8,7 +8,7 @@ const http_1 = require("http");
 const routes_1 = __importDefault(require("../routes"));
 const config_1 = __importDefault(require("../configs/config"));
 class App {
-    constructor(port = 8000, host = "localhost") {
+    constructor(port = 7000, host = "localhost") {
         this.port = port;
         this.host = host;
         this.app = this.createApp();
@@ -17,7 +17,7 @@ class App {
     createApp() {
         const app = (0, express_1.default)();
         app.use(express_1.default.json());
-        app.use('/v1', routes_1.default);
+        app.use('/', routes_1.default);
         return app;
     }
     createServer() {

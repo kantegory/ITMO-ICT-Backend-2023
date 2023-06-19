@@ -10,7 +10,7 @@ class App {
     private app: express.Application
     private server: Server
 
-    constructor(port = 8000, host = "localhost") {
+    constructor(port = 7000, host = "localhost") {
         this.port = port
         this.host = host
 
@@ -22,7 +22,7 @@ class App {
         const app = express()
 
         app.use(express.json())
-        app.use('/v1', routes)
+        app.use('/', routes)
 
         return app
       }

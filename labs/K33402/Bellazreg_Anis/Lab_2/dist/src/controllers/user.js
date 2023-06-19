@@ -12,8 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const user_1 = __importDefault(require("../models/user"));
 const uuid_1 = require("uuid");
-const user_1 = __importDefault(require("../services/user"));
+const user_2 = __importDefault(require("../services/user"));
 class UserController {
     constructor() {
         this.me = (request, response) => __awaiter(this, void 0, void 0, function* () {
@@ -31,7 +32,7 @@ class UserController {
         this.post = (request, response) => __awaiter(this, void 0, void 0, function* () {
             const id = (0, uuid_1.v4)();
             try {
-                const record = yield this.userService.create(Object.assign(Object.assign({}, request.body), { id }));
+                const record = yield user_1.default.create(Object.assign(Object.assign({}, request.body), { id }));
                 return response.json({ record, msg: 'Successfully create user' });
             }
             catch (error) {
@@ -65,7 +66,7 @@ class UserController {
                 response.status(404).send({ "error": error.message });
             }
         });
-        this.userService = new user_1.default();
+        this.userService = new user_2.default();
     }
 }
 exports.default = UserController;
