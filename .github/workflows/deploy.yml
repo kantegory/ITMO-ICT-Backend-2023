@@ -14,11 +14,19 @@ jobs:
       - uses: actions/checkout@v3
 
 
-      # Runs a set of commands using the runners shell
-      - name: Run a docker-compose script
-        run: |
-          cd labs/K33401/Baltsat_Konstantin/lab3_4
-          docker-compose up
+      # - name: Run a docker-compose script
+      #   run: |
+      #     cd labs/K33401/Baltsat_Konstantin/lab3_4
+      #     docker-compose up
+
+      - name: Docker compose
+        uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "./labs/K33401/Baltsat_Konstantin/lab3_4/docker-compose.yml"
+        env:
+          DB_USERNAME: postgres
+          DB_COINS: cryptocoin_ms
+          DB_AUTH: cryptocoin_auth_ms
 
 
     # steps:
