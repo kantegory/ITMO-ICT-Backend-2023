@@ -2,7 +2,7 @@ name: Autodeploy
 
 on:
   push:
-    branches: [ "hw6,lw4" ]
+    branches: [ "hw6" ]
 
 jobs:
   build:
