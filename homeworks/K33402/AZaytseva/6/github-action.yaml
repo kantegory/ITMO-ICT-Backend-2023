@@ -1,0 +1,47 @@
+name: Docker deploy
+
+on:
+  push:
+    # Запускаем пайплайн при пушах в ветку hw6
+    branches: [ "hw6" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Переходим в корень актуального состояния ветки
+      - uses: actions/checkout@v2
+
+      # Авторизация в сервисе Yandex Cloud Container Registry
+      - name: Login to Yandex Cloud Container Registry
+        id: login-cr
+        uses: yc-actions/yc-cr-login@v1
+        with:
+          yc-sa-json-credentials: ${{ secrets.YC_SA_JSON_CREDENTIALS }}
+
+      # Собираем и загружаем образы в реестр
+      - name: Build, tag, and push image to Yandex Cloud Container Registry
+        env:
+          CR_REGISTRY: crpf3tvmfa4lot7gl4jg
+          CR_REPOSITORY: backend
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG homeworks/K33402/AZaytseva/6/main
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:main$IMAGE_TAG
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG homeworks/K33402/AZaytseva/6/stat-service
+          docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:stat$IMAGE_TAG
+
+      # Запускаем собранные образы в виртуальной машине
+      - name: Deploying images to VM
+        uses: appleboy/ssh-action@v0.1.10
+        env:
+          CR_REGISTRY: crpf3tvmfa4lot7gl4jg
+          CR_REPOSITORY: backend
+          IMAGE_TAG: ${{ github.sha }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          script: sudo docker kill $(docker ps -q) &> /dev/null ; sudo docker rm $(docker ps -a -q) &> /dev/null ; sudo docker run -dp 8000:8000 cr.yandex/crpf3tvmfa4lot7gl4jg/backend:main${{ github.sha }} && sudo docker run --env MAIN_HOST=158.160.109.100 --env MAIN_PORT=8000 -dp 8008:8008 cr.yandex/crpf3tvmfa4lot7gl4jg/backend:stat${{ github.sha }}
