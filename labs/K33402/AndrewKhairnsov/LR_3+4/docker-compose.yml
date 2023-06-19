@@ -1,0 +1,22 @@
+version: '3'
+services:
+  gateway:
+    build: ./gateway
+    restart: always
+    depends_on:
+        - auth
+        - currency
+    ports:
+      - '8080:8080'
+
+  auth:
+    build: ./auth
+    restart: always
+    ports:
+      - '8081:8080'
+
+  currency:
+    build: ./currency
+    restart: always
+    ports:
+      - '8082:8080'
