@@ -24,7 +24,7 @@ jobs:
 
 
       - name: SSH into remote server and deploy
-        uses: appleboy/ssh-action@v0.3.0
+        uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USERNAME }}
