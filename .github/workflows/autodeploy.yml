@@ -21,9 +21,9 @@ jobs:
           CR_REPOSITORY: backend
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:user$IMAGE_TAG homeworks/K33412/Tanachev\ Egor/HW6/task/user
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:user$IMAGE_TAG ./homeworks/K33412/Tanachev\ Egor/HW6/task/user
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:user$IMAGE_TAG
-          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG homeworks/K33412/Tanachev\ Egor/HW6/task/market
+          docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG ./homeworks/K33412/Tanachev\ Egor/HW6/task/market
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG
 
       - name: Deploy VM (Yandex Cloud)
