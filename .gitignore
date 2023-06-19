@@ -13,5 +13,7 @@ node_modules
 # Ignore SASS config files
 .sass-cache
 
+.idea
+node_modules
 .DS_Store
 

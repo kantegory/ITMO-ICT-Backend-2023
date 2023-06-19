@@ -1,0 +1,3 @@
+const jwtsecret = "AZ95tw0Ionn7XPZZfN0NOml3d9FMfmSgXwovR9Ap6ryDIoGRU8EPHAB6iHsc0fb"
+
+export default jwtsecret

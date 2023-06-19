@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model Warehouse {
+    id        Int      @id @unique @default(autoincrement())
+    name      String
+    address   String?
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    stocks    Stock[]
+}
+
+model Product {
+    id          Int      @id @unique @default(autoincrement())
+    name        String
+    description String?
+    category    String
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    stocks      Stock[]
+}
+
+model Receipt {
+    id             Int            @id @unique @default(autoincrement())
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+    receiptEntries ReceiptEntry[]
+}
+
+model ReceiptEntry {
+    id        Int      @id @unique @default(autoincrement())
+    discount  Float    @default(0.0)
+    tax       Float    @default(0.10)
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    receipt   Receipt @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+    receiptId Int // relation scalar field  (used in the `@relation` attribute above)
+
+    stock   Stock @relation(fields: [stockId], references: [id], onDelete: Cascade)
+    stockId Int // relation scalar field  (used in the `@relation` attribute above)
+}
+
+model Stock {
+    id             Int            @id @unique @default(autoincrement())
+    buyPrice       Decimal        @default(0)
+    sellPrice      Decimal        @default(0)
+    quantity       Int            @default(1)
+    createdAt      DateTime       @default(now())
+    updatedAt      DateTime       @updatedAt
+    receiptEntries ReceiptEntry[]
+
+    product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+    productId Int // relation scalar field  (used in the `@relation` attribute above)
+
+    warehouse   Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+    warehouseId Int // relation scalar field  (used in the `@relation` attribute above)
+}
