@@ -1,0 +1,23 @@
+http://127.0.0.1:3000/
+
+
+###
+
+http://127.0.0.1:3000/users
+
+
+###
+
+http://127.0.0.1:3000/users/1
+
+
+###
+
+POST http://127.0.0.1:3000/users HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Some user",
+    "email": "some@example.com",
+    "password": "1"
+}

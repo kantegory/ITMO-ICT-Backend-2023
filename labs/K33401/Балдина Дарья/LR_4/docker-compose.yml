@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+  auth_service:
+    container_name: user
+    build:
+      context: ./user
+    ports:
+      - "9000:9000"
+    command: npm run start
+  hotel-room_service:
+    container_name: hotel-room
+    build:
+       context: ./hotel-room
+    ports:
+      - "9001:9001"
+    command: npm run start
+    depends_on:
+      - auth_service
+  booking_service:
+    container_name: booking
+    build: 
+       context: ./booking
+    ports:
+      - "9002:9002"
+    command: npm run start
+    depends_on:
+      - auth_service

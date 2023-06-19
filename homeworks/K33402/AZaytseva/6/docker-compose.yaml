@@ -1,0 +1,12 @@
+services:
+  main:
+    build: ./main
+    ports:
+      - "8000:8000"
+  stat:
+    build: ./stat-service
+    ports:
+      - "8008:8008"
+    environment:
+      MAIN_HOST: main
+      MAIN_PORT: 8000

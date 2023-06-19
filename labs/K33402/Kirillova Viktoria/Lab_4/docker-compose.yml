@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  micro_2:
+    container_name: micro_2
+    image: micro_2
+    build:
+      context: micro_2
+    environment:
+      NODE_ENV: production
+    command: npm start  
+    ports:
+      - 4002:4002
+    restart: always  
+  micro_1:
+    env_file:
+      - ./Micro_1/.env
+    container_name: micro_1 
+    image: micro_1
+    build:
+      context: micro_1
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4001:4001
+    restart: always 
+  gateway:
+    container_name: gateway 
+    image: gateway
+    build:
+      context: gateway
+    environment:
+      NODE_ENV: production
+    ports:
+      - 4000:4000
+    restart: always 

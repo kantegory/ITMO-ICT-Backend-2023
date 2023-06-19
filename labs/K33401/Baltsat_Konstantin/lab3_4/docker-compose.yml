@@ -1,0 +1,80 @@
+version: '3.8'
+services:
+  gateway-service:
+    build:
+      context: ./gateway-service
+    container_name: cryptocoin-gateway-service
+    restart: always
+    ports:
+      - '8000:8000'
+    environment:
+      AUTH_SERVICE: auth-service:8010
+      COINS_SERVICE: coins-service:8015
+    depends_on:
+      - auth-service
+      - coins-service
+    volumes:
+      - ./gateway-service:/pg_backend/gateway-service
+      - ./gateway-service/node_modules:/pg_backend/gateway-service/node_modules
+  auth-service:
+    build:
+      context: ./auth-service
+    container_name: cryptocoin-auth-service
+    restart: always
+    expose:
+      - 8010
+    environment:
+      DB_HOST: auth-db
+      DB_PORT: 5432
+    depends_on:
+      - auth-db
+    volumes:
+      - ./auth-service:/pg_backend/auth-service
+      - /pg_backend/auth-service/node_modules
+  coins-service:
+    build:
+      context: ./coins-service
+    container_name: cryptocoin-coins-service
+    restart: always
+    expose:
+      - 8015
+    environment:
+      DB_HOST: coins-db
+      DB_PORT: 5432
+    depends_on:
+      - coins-db
+    volumes:
+      - ./coins-service:/pg_backend/coins-service
+      - /pg_backend/coins-service/node_modules
+  auth-db:
+    image: postgres
+    container_name: cryptocoin-auth-db
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      # POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_DB: ${DB_AUTH}
+      PGDATA: /var/lib/postgresql/data/pg_auth_data/
+    volumes:
+      - ./pg_backend/auth_data:/var/lib/postgresql/data/pg_auth_data
+  coins-db:
+    image: postgres
+    container_name: cryptocoin-coins-db
+    restart: always
+    env_file:
+      - .env
+    expose:
+      - 5432
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      # POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+      POSTGRES_DB: ${DB_COINS}
+      PGDATA: /var/lib/postgresql/data/pg_coins_data/
+    volumes:
+      - ./pg_backend/coins_data:/var/lib/postgresql/data/pg_coins_data
