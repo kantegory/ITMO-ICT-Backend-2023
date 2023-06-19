@@ -1,0 +1,35 @@
+version: '3.4'
+services:
+  auth:
+    env_file:
+      - ./auth/.env
+    container_name: auth
+    image: auth
+    build:
+      context: auth
+    environment:
+      NODE_ENV: production
+    command: npm start  
+    ports:
+      - 5001:5001
+    restart: always  
+  main:
+    container_name: main 
+    image: main
+    build:
+      context: main
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5002:5002
+    restart: always 
+  gateway:
+    container_name: gateway 
+    image: gateway
+    build:
+      context: gateway
+    environment:
+      NODE_ENV: production
+    ports:
+      - 5000:5000
+    restart: always 
