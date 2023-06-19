@@ -1,3 +1,4 @@
+.DS_Store
 # Ignore Mac system files
 .DS_store
 
@@ -15,3 +16,4 @@ node_modules
 
 .idea
 node_modules
+.DS_Store
