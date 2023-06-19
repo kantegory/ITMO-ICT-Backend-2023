@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Genre {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  games Game[]
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  games Game[]
+}
+
+model Game {
+  id          Int        @id @default(autoincrement())
+  name        String
+  releaseDate DateTime
+  developer   String
+  publisher   String
+  price       Float
+  categories  Category[]
+  genres      Genre[]
+  Like        Like[]
+}
+
+model Like {
+  id     Int  @id @default(autoincrement())
+  game   Game @relation(fields: [gameId], references: [id])
+  gameId Int
+  userId Int
+}

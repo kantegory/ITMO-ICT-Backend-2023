@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "7a601022-2c67-414a-96f4-46ff7e729020",
+		"name": "Lab_2_API_Documentation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Feedbacks",
+			"item": [
+				{
+					"name": "feedbacks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:900/feedback",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "feedbacks",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"Khar\",\r\n\t\"email\": \"kim@gmail.com\",\r\n\t\"subject\": \"problem in register\",\r\n\t\"message\": \"fix it \"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/feedback",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"feedback"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reg/Log",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"kim@gmail.com\",\r\n\t\"password\": \"Kharpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/login",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"firstName\": \"Khar\",\r\n\t\"lastName\": \"Kim\",\r\n\t\"email\": \"kim@gmail.com\",\r\n\t\"password\": \"Kharpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/users",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "findById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"kim@gmail.com\",\r\n\t\"password\": \"Kharpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/users/18",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"users",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userInfoByJwt",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"email\": \"kim@gmail.com\",\r\n\t\"password\": \"Kharpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/jwt",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"jwt"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUser",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:900/users/4",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"users",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"firstName\": \"Jacob\",\r\n\t\"lastName\": \"WIl\",\r\n\t\"email\": \"jacob@gmail.com\",\r\n\t\"password\": \"jpass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/users/1",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "showAllUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:900/users",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meal",
+			"item": [
+				{
+					"name": "addMealToDB",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"mealName\": \"Chicken\",\r\n  \"mealImage\": \"https://example.com/images/spaghetti.jpg\",\r\n  \"instructions\": \"Cook spaghetti and sauce, combine and serve.\",\r\n  \"ingredients\": [\r\n    {\r\n      \"name\": \"Spaghetti\",\r\n      \"quantity\": \"500\",\r\n      \"unit\": \"g\"\r\n    },\r\n    {\r\n      \"name\": \"Bolognese sauce\",\r\n      \"quantity\": \"1\",\r\n      \"unit\": \"jar\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/meal",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"meal"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindMealByName",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:900/meal/Spaghetti Chicken",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"meal",
+								"Spaghetti Chicken"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cabinat",
+			"item": [
+				{
+					"name": "addMealFav",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"userId\": \"1\",\r\n\t\"mealId\": \"2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:900/addfav",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"addfav"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mealForUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:900/usermeal/1",
+							"host": [
+								"localhost"
+							],
+							"port": "900",
+							"path": [
+								"usermeal",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
