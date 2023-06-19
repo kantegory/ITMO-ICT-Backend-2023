@@ -14,7 +14,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # - name: Docker compose
+      # - name: SSH into remote server and deploy
       #   uses: isbang/compose-action@v1.4.1
       #   with:
       #     compose-file: "./labs/K33401/Baltsat_Konstantin/lab3_4/docker-compose.yml"
@@ -24,22 +24,25 @@ jobs:
       #     DB_AUTH: cryptocoin_auth_ms
 
 
-      # - name: SSH into remote server and deploy
-      #   uses: appleboy/ssh-action@v0.1.10
-      #   with:
-      #     host: ${{ secrets.REMOTE_HOST }}
-      #     username: ${{ secrets.REMOTE_USERNAME }}
-      #     key: ${{ secrets.REMOTE_PRIVATE_KEY }}
-      #     script: |
-      #       git pull origin autodeploy
-      #       cd ITMO-ICT-Backend-2023/labs/K33401/Baltsat_Konstantin/lab3_4
-      #       docker-compose down
-      #       docker-compose up -d
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.7.0
+      - name: SSH into remote server and deploy
+        uses: appleboy/ssh-action@v0.1.10
         with:
-          ssh-private-key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          # key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+          key_path: 'income'
+          script: |
+            cd ITMO-ICT-Backend-2023
+            git pull origin autodeploy
+            cd labs/K33401/Baltsat_Konstantin/lab3_4
+            docker-compose down
+            docker-compose up -d
+
+      # - name: Set up SSH
+      #   uses: webfactory/ssh-agent@v0.7.0
+      #   with:
+      #     ssh-private-key: ${{ secrets.REMOTE_PRIVATE_KEY }}
 
       # - name: Install dependencies and build
       #   run: |
@@ -49,6 +52,6 @@ jobs:
       #     docker-compose down
       #     docker-compose up -d
 
-      - name: Deploy to remote server
-        run: |
-          ssh admin@${{ secrets.REMOTE_HOST }} "cd /ITMO-ICT-Backend-2023 && git pull origin autodeploy && cd /labs/K33401/Baltsat_Konstantin/lab3_4 && docker-compose up -d"
+      # - name: Deploy to remote server
+      #   run: |
+      #     ssh admin@${{ secrets.REMOTE_HOST }} "cd /ITMO-ICT-Backend-2023 && git pull origin autodeploy && cd /labs/K33401/Baltsat_Konstantin/lab3_4 && docker-compose up -d"
