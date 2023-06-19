@@ -24,16 +24,16 @@ jobs:
 
 
       - name: SSH into remote server and deploy
-          uses: appleboy/ssh-action@v0.3.0
-          with:
-            host: ${{ secrets.REMOTE_HOST }}
-            username: ${{ secrets.REMOTE_USERNAME }}
-            password: ${{ secrets.REMOTE_PRIVATE_KEY }}
-            script: |
-              git pull origin autodeploy
-              cd ITMO-ICT-Backend-2023/labs/K33401/Baltsat_Konstantin/lab3_4
-              docker-compose down
-              docker-compose up -d
+        uses: appleboy/ssh-action@v0.3.0
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          password: ${{ secrets.REMOTE_PRIVATE_KEY }}
+          script: |
+            git pull origin autodeploy
+            cd ITMO-ICT-Backend-2023/labs/K33401/Baltsat_Konstantin/lab3_4
+            docker-compose down
+            docker-compose up -d
 
     #   - name: Checkout code
     #     uses: actions/checkout@v2
