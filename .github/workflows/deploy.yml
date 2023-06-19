@@ -30,14 +30,14 @@ jobs:
         with:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USERNAME }}
-          # key: ${{ secrets.REMOTE_PRIVATE_KEY }}
-          key_path: 'income'
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }}
+          # key_path: 'income'
           script: |
             cd ITMO-ICT-Backend-2023
             git pull origin autodeploy
             cd labs/K33401/Baltsat_Konstantin/lab3_4
-            docker-compose down
             docker-compose up -d
+            docker-compose down
 
       # - name: Set up SSH
       #   uses: webfactory/ssh-agent@v0.7.0
