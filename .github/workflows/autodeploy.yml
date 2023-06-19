@@ -25,7 +25,8 @@ jobs:
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:user$IMAGE_TAG
           docker build -t cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG ./homeworks/K33412/Tanachev\ Egor/HW6/task/market
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG
-
+        
+        
       - name: Deploy VM (Yandex Cloud)
         uses: appleboy/ssh-action@v0.1.10
         env:
@@ -40,5 +41,5 @@ jobs:
           script: |
             sudo docker kill $(docker ps -q) &> /dev/null
             sudo docker rm $(docker ps -a -q) &> /dev/null
-            sudo docker run -dp 1111:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user${{ github.sha }}
-            sudo docker run --env MAIN_HOST=51.250.5.151 --env MAIN_PORT=8000 -dp 2222:2222 cr.yandex/crp7qfv6r081t2ofp03o/backend:market${{ github.sha }}
+            sudo docker run -dp 1111:1111 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:user${{ github.sha }}
+            sudo docker run --env MAIN_HOST=51.250.5.151 --env MAIN_PORT=8000 -dp 2222:2222 cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market${{ github.sha }}
