@@ -27,7 +27,7 @@ jobs:
           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG
         
         
-      - name: Deploy VM (Yandex Cloud) 
+      - name: Deploy VM (Yandex Cloud)
         uses: appleboy/ssh-action@v0.1.10 
         env:
           CR_REGISTRY: crp7qfv6r081t2ofp03o
