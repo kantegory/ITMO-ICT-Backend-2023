@@ -9,11 +9,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Login (Yandex Cloud)
-        id: login-cr
-        uses: yc-actions/yc-cr-login@v1
-        with:
-          yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
+#       - name: Login (Yandex Cloud)
+#         id: login-cr
+#         uses: yc-actions/yc-cr-login@v1
+#         with:
+#           yc-sa-json-credentials: ${{ secrets.AUTHORIZED_KEY }}
 
 #       - name: Build image (Yandex Cloud)
 #         env:
@@ -39,8 +39,8 @@ jobs:
           key: ${{ secrets.KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           port: ${{ secrets.PORT }}
-          script: |
-            sudo docker kill $(docker ps -q) &> /dev/null
-            sudo docker rm $(docker ps -a -q) &> /dev/null
+          script: 
+#            sudo docker kill $(docker ps -q) &> /dev/null
+#            sudo docker rm $(docker ps -a -q) &> /dev/null
             sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user5641985cef5d083145c3b0a099cf314e116fa755
 #            sudo docker run -dp 80:2222 cr.yandex/crp7qfv6r081t2ofp03o/backend:market${{ github.sha }}
