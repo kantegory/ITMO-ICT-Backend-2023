@@ -58,7 +58,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           port: 22
 
-      - name: Run commands on VM 
+      - name: Run commands on VM
         env:
            YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
         run: |
