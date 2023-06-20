@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  auth:
+    restart: always
+    build: auth
+    ports:
+      - "3000:3000"
+    container_name: auth
+  books:
+    restart: always
+    build: books
+    ports:
+      - "3001:3001"
+    container_name: books
