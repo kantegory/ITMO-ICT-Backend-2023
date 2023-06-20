@@ -54,7 +54,7 @@ jobs:
         with:
           host: 51.250.111.202
           username: admin
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          key: ${{ secrets.KEY }}
           port: 22
 
       - name: Run commands on VM
