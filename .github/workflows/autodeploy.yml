@@ -55,6 +55,7 @@ jobs:
           host: 51.250.111.202
           username: admin
           key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
           port: 22
 
       - name: Run commands on VM
