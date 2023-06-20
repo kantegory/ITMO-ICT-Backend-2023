@@ -1,6 +1,9 @@
 name: Docker deploy 
 
-on: push 
+on:
+  push:
+    branches:
+      - hw6
 
 jobs:
   build:
