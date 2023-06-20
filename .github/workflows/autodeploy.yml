@@ -49,24 +49,19 @@ jobs:
 
 
 
-#       - name: Connect to VM via SSH
-#         uses: appleboy/ssh-action@master
-#         with:
-#           host: 51.250.111.202
-#           username: admin
-#           key: ${{ secrets.KEY }}
-#           passphrase: ${{ secrets.PASSPHRASE }}
-#           port: 22
+      - name: Connect to VM via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: 51.250.111.202
+          username: admin
+          key: ${{ secrets.KEY }}
+          passphrase: ${{ secrets.PASSPHRASE }}
+          port: 22
 
       - name: Run commands on VM 
         env:
-           HOST: 51.250.111.202
-           USERNAME: admin
-           KEY: ${{ secrets.KEY }}
-           PASSPHRASE: ${{ secrets.PASSPHRASE }}
-           PORT: 22
            YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
         run: |
-          ssh -o StrictHostKeyChecking=no $USERNAME@$HOST
           sudo docker login --username oauth --password $YANDEX_KEY cr.yandex
           sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user5641985cef5d083145c3b0a099cf314e116fa755
+          sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:market5641985cef5d083145c3b0a099cf314e116fa755
