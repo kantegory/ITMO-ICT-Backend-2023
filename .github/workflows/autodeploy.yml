@@ -28,7 +28,7 @@ jobs:
         
         
       - name: Deploy VM (Yandex Cloud)
-        uses: admin/ssh-action@v0.1.10
+        uses: admin/ssh-action@v0.1.10 
         env:
           CR_REGISTRY: crp7qfv6r081t2ofp03o
           CR_REPOSITORY: backend
