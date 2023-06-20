@@ -63,7 +63,11 @@ jobs:
            YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
         run: |
           sudo docker login --username oauth --password $YANDEX_KEY cr.yandex
-          sudo docker kill $(docker ps -q) &> /dev/null
-          sudo docker rm $(docker ps -a -q) &> /dev/null
+          if [ "$(docker ps -q)" ]; then
+            sudo docker kill $(docker ps -q) &> /dev/null
+          fi
+          if [ "$(docker ps -a -q)" ]; then
+            sudo docker rm $(docker ps -a -q) &> /dev/null
+          fi
           sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user5641985cef5d083145c3b0a099cf314e116fa755
           sudo docker run -dp 80:2222 cr.yandex/crp7qfv6r081t2ofp03o/backend:market5641985cef5d083145c3b0a099cf314e116fa755
