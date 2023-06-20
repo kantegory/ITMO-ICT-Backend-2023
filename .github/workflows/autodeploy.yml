@@ -52,10 +52,10 @@ jobs:
       - name: Connect to VM via SSH
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          host: 51.250.111.202
+          username: admin
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.PORT }}
+          port: 22
 
       - name: Run commands on VM
         run: | 
