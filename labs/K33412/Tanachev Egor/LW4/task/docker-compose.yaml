@@ -1,0 +1,22 @@
+# Версия
+version: "3.9"
+
+services:
+  # Сервис Пользователя
+  user:
+    container_name: user
+    build:
+      context: ./user
+    ports:
+      - "1111:1111"
+    command: npm run start
+  # Сервис Интернет-магазина
+  market:
+    container_name: market
+    build:
+       context: ./market
+    ports:
+      - "2222:2222"
+    command: npm run start
+    depends_on:
+      - user
