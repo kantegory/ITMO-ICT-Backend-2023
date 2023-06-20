@@ -59,6 +59,8 @@ jobs:
           port: 22
           YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
 
-      - name: Run commands on VM          
+      - name: Run commands on VM
+        env:
+          YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
         run: | 
           docker login --username oauth --password $YANDEX_KEY cr.yandex
