@@ -27,20 +27,36 @@ jobs:
 #           docker push cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:market$IMAGE_TAG
         
         
-      - name: Deploy VM (Yandex Cloud) 
-        uses: appleboy/ssh-action@v0.1.10 
-        env:
-          CR_REGISTRY: crp7qfv6r081t2ofp03o
-          CR_REPOSITORY: backend
-          IMAGE_TAG: ${{ github.sha }}
+#       - name: Deploy VM (Yandex Cloud) 
+#         uses: appleboy/ssh-action@v0.1.10 
+#         env:
+#           CR_REGISTRY: crp7qfv6r081t2ofp03o
+#           CR_REPOSITORY: backend
+#           IMAGE_TAG: ${{ github.sha }}
+#         with:
+#           host: ${{ secrets.HOST }}
+#           username: ${{ secrets.USERNAME }}
+#           key: ${{ secrets.KEY }}
+#           passphrase: ${{ secrets.PASSPHRASE }}
+#           port: ${{ secrets.PORT }}
+#           script: 
+#             sudo docker kill $(docker ps -q) &> /dev/null
+#             sudo docker rm $(docker ps -a -q) &> /dev/null
+#             sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user5641985cef5d083145c3b0a099cf314e116fa755
+#             sudo docker run -dp 80:2222 cr.yandex/crp7qfv6r081t2ofp03o/backend:market${{ github.sha }}
+
+
+
+
+
+      - name: Connect to VM via SSH
+        uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          script: 
-#            sudo docker kill $(docker ps -q) &> /dev/null
-#            sudo docker rm $(docker ps -a -q) &> /dev/null
-            sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user5641985cef5d083145c3b0a099cf314e116fa755
-#            sudo docker run -dp 80:2222 cr.yandex/crp7qfv6r081t2ofp03o/backend:market${{ github.sha }}
+
+      - name: Run commands on VM
+        run: |
+          sudo docker run -dp 80:1111 cr.yandex/crp7qfv6r081t2ofp03o/backend:user5641985cef5d083145c3b0a099cf314e116fa755
