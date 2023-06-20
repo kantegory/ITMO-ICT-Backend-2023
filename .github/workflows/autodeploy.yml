@@ -60,8 +60,6 @@ jobs:
           YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
 
       - name: Run commands on VM
-        env:
-          YANDEX_KEY: ${{ secrets.YANDEX_KEY }}
         run: | 
           sudo docker kill $(docker ps -q) &> /dev/null
           sudo docker rm $(docker ps -a -q) &> /dev/null
