@@ -1,1 +1,1 @@
-[![Autodeploy](https://github.com/egortanachev/ITMO-ICT-Backend-2023/actions/workflows/autodeploy.yml/badge.svg?branch=hw6&event=push)](https://github.com/egortanachev/ITMO-ICT-Backend-2023/actions/workflows/autodeploy.yml)
+[![Docker deploy](https://github.com/egortanachev/ITMO-ICT-Backend-2023/actions/workflows/autodeploy.yml/badge.svg)](https://github.com/egortanachev/ITMO-ICT-Backend-2023/actions/workflows/autodeploy.yml)
