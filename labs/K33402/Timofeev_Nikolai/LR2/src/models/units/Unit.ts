@@ -7,6 +7,10 @@ class Unit extends Model {
     @Unique
     @Column
     title: string
+    
+    @AllowNull(false)
+    @Column
+    price: number
 
     @Column
     stockAmount: number

@@ -6,6 +6,7 @@ import dotenv from "dotenv"
 import Employee from '../models/empoyees/Employee'
 import Warehouse from '../models/warehouses/Warehouse'
 import Unit from '../models/units/Unit'
+import Deal from '../models/deal/Deal'
 dotenv.config()
 
 const sequelize = new Sequelize({
@@ -17,7 +18,7 @@ const sequelize = new Sequelize({
   logging: console.log,
 })
 
-const models = [User, RefreshToken, Employee, Warehouse, Unit]
+const models = [User, RefreshToken, Employee, Warehouse, Unit, Deal]
 
 sequelize.addModels(models)
 

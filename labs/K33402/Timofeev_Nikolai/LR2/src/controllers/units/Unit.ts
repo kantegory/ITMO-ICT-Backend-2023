@@ -10,8 +10,8 @@ class UnitController {
 
   get = async (request: any, response: any) => {
     try {
-      const employee: Unit = await this._service.getById(Number(request.params.id));
-      response.send(employee);
+      const unit: Unit = await this._service.getById(Number(request.params.id));
+      response.send(unit);
     } catch (error: any) {
       response.status(404).send({ error: error.message });
     }
@@ -35,6 +35,24 @@ class UnitController {
       response.status(500).send({ error: error.message });
     }
   };
+
+  search = async (request: any, response: any) => {
+    try {
+        const query = request.params.query;
+        
+        response.send(await this._service.search(query));
+      } catch (error: any) {
+        response.status(500).send({ error: error.message });
+      }
+  }
+
+  stockGraph = async (request: any, response: any) => {
+    try {
+        return response.send(await this._service.stockGraph())
+    } catch (error: any) {
+        response.status(500).send({ error: error.message });
+    }
+  }
 }
 
 export default UnitController;
