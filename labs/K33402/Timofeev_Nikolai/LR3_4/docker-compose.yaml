@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  main_api:
+    build: ./main_api
+    restart: always
+    depends_on:
+        - empl_api
+    ports:
+      - '5000:5000'
+
+  empl_api:
+    build: ./employees_api
+    restart: always
+    ports:
+      - '5001:5001'
+
+networks:
+  default:
+    name: lab_network
