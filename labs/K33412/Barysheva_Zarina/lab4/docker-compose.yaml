@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mainservice:
+    build: ./mainservice
+    restart: always
+    depends_on:
+        - userservice
+    ports:
+      - '8100:8100'
+
+  userservice:
+    build: ./userservice
+    restart: always
+    ports:
+      - '8101:8101'
+
+networks:
+  default:
+    name: lab_network
