@@ -1,8 +1,6 @@
-# Версия
 version: "3.9"
 
 services:
-  # Сервис Пользователя
   user:
     image: user-service
     ports:
@@ -10,7 +8,9 @@ services:
     command: npm run start
     networks:
       - app-network
-  # Сервис Интернет-магазина
+    deploy:
+      replicas: 3
+
   market:
     image: market-service
     ports:
@@ -18,6 +18,8 @@ services:
     command: npm run start
     networks:
       - app-network
+    deploy:
+      replicas: 3
 
 networks:
   app-network:
