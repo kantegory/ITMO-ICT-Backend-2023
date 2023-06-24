@@ -1,0 +1,24 @@
+# Версия
+version: "3.9"
+
+services:
+  # Сервис Пользователя
+  user:
+    image: user-service
+    ports:
+      - "1111:1111"
+    command: npm run start
+    networks:
+      - app-network
+  # Сервис Интернет-магазина
+  market:
+    image: market-service
+    ports:
+      - "2222:2222"
+    command: npm run start
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: overlay
