@@ -1,0 +1,26 @@
+version: "3.9"
+
+services:
+  user:
+    image: user-service
+    ports:
+      - "1111:1111"
+    command: npm run start
+    networks:
+      - app-network
+    deploy:
+      replicas: 3
+
+  market:
+    image: market-service
+    ports:
+      - "2222:2222"
+    command: npm run start
+    networks:
+      - app-network
+    deploy:
+      replicas: 3
+
+networks:
+  app-network:
+    driver: overlay
