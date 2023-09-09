@@ -1,10 +1,15 @@
-import {Sequelize} from 'sequelize-typescript'
-import TokenModel from '../models/tokenModel'
-import UserModel from '../models/userModel'
-// import Todo from '../models/todo'
-import dotenv from "dotenv"
+import { Sequelize } from 'sequelize-typescript';
+import TokenModel from '../models/tokenModel';
+import UserModel from '../models/userModel';
+import dotenv from "dotenv";
 
-dotenv.config()
+dotenv.config();
+
+/**
+ * This module configures and establishes a connection to the database using Sequelize.
+ */
+
+// Initialize a Sequelize instance with database configuration options.
 // @ts-ignore
 const sequelize = new Sequelize({
     database: process.env.NAME,
@@ -12,20 +17,26 @@ const sequelize = new Sequelize({
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     storage: process.env.STORAGE,
-    logging: true,
-})
+    logging: true, // Enable logging for SQL queries
+});
 
-const models = [UserModel, TokenModel]
+// Define the models to be used with Sequelize.
+const models = [UserModel, TokenModel];
 
-sequelize.addModels(models)
+// Add the defined models to the Sequelize instance.
+sequelize.addModels(models);
 
+// Synchronize the models with the database.
 sequelize
     .sync()
     .then(() => {
-        console.log('Models synced successfully')
+        console.log('Models synced successfully');
     })
     .catch((e) => console.log(e));
 
+/**
+ * Asynchronous function to test the database connection.
+ */
 async function testConnection() {
     try {
         await sequelize.authenticate();
@@ -35,6 +46,7 @@ async function testConnection() {
     }
 }
 
-testConnection()
+// Test the database connection when this module is imported.
+testConnection();
 
-export default sequelize
+export default sequelize;
