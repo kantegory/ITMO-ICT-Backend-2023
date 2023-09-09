@@ -1,4 +1,4 @@
-import User from '../models/userModel';
+import UserModel from '../models/userModel';
 import UserService from '../services/userService';
 import UserError from '../errors/userError';
 import jwt from 'jsonwebtoken';
@@ -25,7 +25,7 @@ class UserController {
      */
     get = async (request: any, response: any) => {
         try {
-            const user: User | UserError = await this.userService.getById(
+            const user: UserModel | UserError = await this.userService.getById(
                 Number(request.params.id)
             );
             response.send(user);
@@ -42,7 +42,7 @@ class UserController {
     post = async (request: any, response: any) => {
         const { body } = request;
         try {
-            const user: User | UserError = await this.userService.create(body);
+            const user: UserModel | UserError = await this.userService.create(body);
             response.status(201).send(user);
         } catch (error: any) {
             response.status(400).send({ "error": error.message });

@@ -28,4 +28,3 @@ module.exports = {
         storage: process.env.STORAGE
     }
 }
-  
