@@ -1,5 +1,5 @@
 import {Sequelize} from 'sequelize-typescript'
-// import Token from '../models/token'
+import TokenModel from '../models/tokenModel'
 import UserModel from '../models/userModel'
 // import Todo from '../models/todo'
 import dotenv from "dotenv"
@@ -12,10 +12,10 @@ const sequelize = new Sequelize({
     username: process.env.USERNAME,
     password: process.env.PASSWORD,
     storage: process.env.STORAGE,
-    logging: false,
+    logging: true,
 })
 
-const models = [UserModel]
+const models = [UserModel, TokenModel]
 
 sequelize.addModels(models)
 
