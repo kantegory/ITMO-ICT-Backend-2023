@@ -6,7 +6,7 @@ class HashPasswordUtils {
     }
     
     static checkPassword(passwordToCheck: string, correctPasswordHash: string): boolean {
-        return bcrypt.compareSync(correctPasswordHash, passwordToCheck);
+        return bcrypt.compareSync(passwordToCheck, correctPasswordHash);
     }
 }
 
