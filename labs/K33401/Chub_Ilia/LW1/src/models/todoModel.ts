@@ -1,7 +1,7 @@
 import {Table, Model, Column, AllowNull} from "sequelize-typescript";
 
 @Table
-class Todo extends Model {
+class TodoModel extends Model {
     @AllowNull(false)
     @Column
     name: string
@@ -11,4 +11,4 @@ class Todo extends Model {
     description: string
 }
 
-export default Todo
+export default TodoModel
