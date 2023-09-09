@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize-typescript';
 import TokenModel from '../models/tokenModel';
 import UserModel from '../models/userModel';
+import TodoModel from '../models/todoModel';
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -21,7 +22,7 @@ const sequelize = new Sequelize({
 });
 
 // Define the models to be used with Sequelize.
-const models = [UserModel, TokenModel];
+const models = [UserModel, TokenModel, TodoModel];
 
 // Add the defined models to the Sequelize instance.
 sequelize.addModels(models);
