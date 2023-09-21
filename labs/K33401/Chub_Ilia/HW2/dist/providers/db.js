@@ -13,10 +13,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
+const dotenv_1 = __importDefault(require("dotenv"));
 const tokenModel_1 = __importDefault(require("../models/tokenModel"));
 const userModel_1 = __importDefault(require("../models/userModel"));
 const todoModel_1 = __importDefault(require("../models/todoModel"));
-const dotenv_1 = __importDefault(require("dotenv"));
+const eventModel_1 = __importDefault(require("../models/eventModel"));
+const eventTypeModel_1 = __importDefault(require("../models/eventTypeModel"));
+const placeModel_1 = __importDefault(require("../models/placeModel"));
+const registrationModel_1 = __importDefault(require("../models/registrationModel"));
 dotenv_1.default.config();
 /**
  * This module configures and establishes a connection to the database using Sequelize.
@@ -32,7 +36,7 @@ const sequelize = new sequelize_typescript_1.Sequelize({
     logging: true, // Enable logging for SQL queries
 });
 // Define the models to be used with Sequelize.
-const models = [userModel_1.default, tokenModel_1.default, todoModel_1.default];
+const models = [eventModel_1.default, eventTypeModel_1.default, placeModel_1.default, registrationModel_1.default, todoModel_1.default, tokenModel_1.default, userModel_1.default];
 // Add the defined models to the Sequelize instance.
 sequelize.addModels(models);
 // Synchronize the models with the database.

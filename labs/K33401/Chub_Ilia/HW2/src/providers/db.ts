@@ -1,8 +1,12 @@
 import { Sequelize } from 'sequelize-typescript';
+import dotenv from "dotenv";
 import TokenModel from '../models/tokenModel';
 import UserModel from '../models/userModel';
 import TodoModel from '../models/todoModel';
-import dotenv from "dotenv";
+import EventModel from '../models/eventModel';
+import EventTypeModel from '../models/eventTypeModel';
+import PlaceModel from '../models/placeModel';
+import RegistrationModel from '../models/registrationModel';
 
 dotenv.config();
 
@@ -22,7 +26,7 @@ const sequelize = new Sequelize({
 });
 
 // Define the models to be used with Sequelize.
-const models = [UserModel, TokenModel, TodoModel];
+const models = [EventModel, EventTypeModel, PlaceModel, RegistrationModel, TodoModel, TokenModel, UserModel];
 
 // Add the defined models to the Sequelize instance.
 sequelize.addModels(models);
