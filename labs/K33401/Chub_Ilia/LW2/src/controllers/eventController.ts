@@ -2,13 +2,24 @@ import EventModel from "../models/eventModel";
 import EventService from "../services/eventService";
 import EventError from "../errors/eventError";
 
+/**
+ * The `EventController` class handles HTTP requests related to events.
+ */
 class EventController {
     private eventService: EventService;
 
+    /**
+     * Constructs an instance of the `EventController` class.
+     */
     constructor() {
         this.eventService = new EventService();
     }
 
+    /**
+     * Retrieves a specific event by ID and sends it as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     get = async (request: any, response: any) => {
         try {
             const event: EventModel | EventError = await this.eventService.getById(Number(request.params.id));
@@ -18,6 +29,11 @@ class EventController {
         }
     }
 
+    /**
+     * Retrieves all events and sends them as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     getAll = async (request: any, response: any) => {
         try {
             const events: EventModel[] | EventError = await this.eventService.getAll(request.query);
@@ -27,6 +43,11 @@ class EventController {
         }
     }
 
+    /**
+     * Creates a new event based on the request body and sends it as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     create = async (request: any, response: any) => {
         const { body } = request;
         try {
@@ -37,6 +58,11 @@ class EventController {
         }
     }
 
+    /**
+     * Deletes an event by ID and sends the deleted event as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     delete = async (request: any, response: any) => {
         try {
             const event: EventModel | EventError = await this.eventService.delete(Number(request.params.id));
@@ -46,6 +72,11 @@ class EventController {
         }
     }
 
+    /**
+     * Updates an event by ID with the request body and sends the updated event as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     update = async (request: any, response: any) => {
         const { body } = request;
         try {

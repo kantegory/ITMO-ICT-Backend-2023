@@ -17,6 +17,12 @@ class EventService {
         return await this.findById(id)
     }
 
+    /**
+     * Retrieves all events based on the query parameters.
+     * @param query - The query parameters for sorting, filtering, and pagination.
+     * @returns An array of event models.
+     * @throws EventError if there is an error in the query parameters.
+     */
     async getAll(query: any): Promise<EventModel[]> {
         const {sort, placeId, eventTypeId, desc, offset, limit} = query
         const req = {

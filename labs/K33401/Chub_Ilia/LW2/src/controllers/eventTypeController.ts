@@ -2,13 +2,24 @@ import EventTypeModel from "../models/eventTypeModel";
 import EventTypeService from "../services/eventTypeService";
 import EventTypeError from "../errors/eventTypeError";
 
+/**
+ * The `EventTypeController` class handles HTTP requests related to event types.
+ */
 class EventTypeController {
     private eventTypeService: EventTypeService;
 
+    /**
+     * Constructs an instance of the `EventTypeController` class.
+     */
     constructor() {
         this.eventTypeService = new EventTypeService();
     }
 
+    /**
+     * Retrieves a specific event type by ID and sends it as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     get = async (request: any, response: any) => {
         try {
             const eventType: EventTypeModel | EventTypeError = await this.eventTypeService.getById(Number(request.params.id));
@@ -18,6 +29,11 @@ class EventTypeController {
         }
     }
 
+    /**
+     * Retrieves all event types and sends them as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     getAll = async (request: any, response: any) => {
         try {
             const eventTypes: EventTypeModel[] | EventTypeError = await this.eventTypeService.getAll();
@@ -27,6 +43,11 @@ class EventTypeController {
         }
     }
 
+    /**
+     * Creates a new event type based on the request body and sends it as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     create = async (request: any, response: any) => {
         const { body } = request;
         try {
@@ -37,6 +58,11 @@ class EventTypeController {
         }
     }
 
+    /**
+     * Deletes an event type by ID and sends the deleted event type as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     delete = async (request: any, response: any) => {
         try {
             const eventType: EventTypeModel | EventTypeError = await this.eventTypeService.delete(Number(request.params.id));
@@ -46,6 +72,11 @@ class EventTypeController {
         }
     }
 
+    /**
+     * Updates an event type by ID with the request body and sends the updated event type as a response.
+     * @param request - The HTTP request object.
+     * @param response - The HTTP response object.
+     */
     update = async (request: any, response: any) => {
         const { body } = request;
         try {

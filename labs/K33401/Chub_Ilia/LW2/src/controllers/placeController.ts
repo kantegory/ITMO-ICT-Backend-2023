@@ -10,14 +10,16 @@ class PlaceController {
 
     /**
      * Constructs an instance of the `PlaceController` class.
+     * Initializes the PlaceService.
      */
     constructor() {
         this.placeService = new PlaceService();
     }
 
     /**
-     * Retrieves a specific place item by ID and sends it as a response.
-     * @param request - The HTTP request object.
+     * Handles the GET request to retrieve a specific place item by ID.
+     * Sends the retrieved place item as a response.
+     * @param request - The HTTP request object containing the ID of the place item.
      * @param response - The HTTP response object.
      */
     get = async (request: any, response: any) => {
@@ -30,7 +32,8 @@ class PlaceController {
     }
 
     /**
-     * Retrieves all place items and sends them as a response.
+     * Handles the GET request to retrieve all place items.
+     * Sends the retrieved place items as a response.
      * @param request - The HTTP request object.
      * @param response - The HTTP response object.
      */
@@ -44,8 +47,9 @@ class PlaceController {
     }
 
     /**
-     * Creates a new place item based on the request body and sends it as a response.
-     * @param request - The HTTP request object.
+     * Handles the POST request to create a new place item based on the request body.
+     * Sends the created place item as a response.
+     * @param request - The HTTP request object containing the body with place item data.
      * @param response - The HTTP response object.
      */
     create = async (request: any, response: any) => {
@@ -59,8 +63,9 @@ class PlaceController {
     }
 
     /**
-     * Deletes a place item by ID and sends the deleted item as a response.
-     * @param request - The HTTP request object.
+     * Handles the DELETE request to delete a specific place item by ID.
+     * Sends the deleted place item as a response.
+     * @param request - The HTTP request object containing the ID of the place item.
      * @param response - The HTTP response object.
      */
     delete = async (request: any, response: any) => {
@@ -73,8 +78,9 @@ class PlaceController {
     }
 
     /**
-     * Updates a place item by ID with the request body and sends the updated item as a response.
-     * @param request - The HTTP request object.
+     * Handles the PUT request to update a specific place item by ID with the request body.
+     * Sends the updated place item as a response.
+     * @param request - The HTTP request object containing the ID of the place item and the body with updated data.
      * @param response - The HTTP response object.
      */
     update = async (request: any, response: any) => {
