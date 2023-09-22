@@ -20,7 +20,7 @@ class EventController {
 
     getAll = async (request: any, response: any) => {
         try {
-            const events: EventModel[] | EventError = await this.eventService.getAll();
+            const events: EventModel[] | EventError = await this.eventService.getAll(request.query);
             response.status(200).json({ message: "EventModel fetched successfully", data: events });
         } catch (error: any) {
             response.status(404).send({ "error": error.message });

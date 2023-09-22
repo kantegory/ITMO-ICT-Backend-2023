@@ -1,5 +1,10 @@
 import EventModel from '../models/eventModel'
 import EventError from '../errors/eventError'
+import PlaceService from './placeService'
+import EventTypeService from './eventTypeService'
+
+const placeService = new PlaceService()
+const eventTypeService = new EventTypeService()
 
 class EventService {
     async findById(id: number): Promise<EventModel> {
@@ -12,8 +17,45 @@ class EventService {
         return await this.findById(id)
     }
 
-    async getAll(): Promise<EventModel[]> {
-        return await EventModel.findAll()
+    async getAll(query: any): Promise<EventModel[]> {
+        const {sort, placeId, eventTypeId, desc, offset, limit} = query
+        const req = {
+            where: {}
+        }
+
+        try {
+            if (sort == 'name' || sort == 'date') {
+                if (!desc || desc == 0) {
+                    // @ts-ignore
+                    req['order'] = [[sort, 'ASC']]
+                } else {
+                    // @ts-ignore
+                    req['order'] = [[sort, 'DESC']]
+                }
+            }
+            if (eventTypeId) {
+                await eventTypeService.findById(eventTypeId)
+                // @ts-ignore
+                req['where']['eventTypeId'] = eventTypeId
+            }
+            if (placeId) {
+                await placeService.findById(placeId)
+                // @ts-ignore
+                req['where']['placeId'] = placeId
+            }
+            if (limit) {
+                // @ts-ignore
+                req['limit'] = limit
+            }
+            if (offset) {
+                // @ts-ignore
+                req['offset'] = offset
+            }
+        } catch (e: any) {
+            throw new EventError(e.message)
+        }
+
+        return await EventModel.findAll(req)
     }
 
     async update(id: number, eventData: object): Promise<EventModel | EventError> {
