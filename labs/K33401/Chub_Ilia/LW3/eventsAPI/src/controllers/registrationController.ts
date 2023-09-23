@@ -1,6 +1,7 @@
 import RegistrationModel from "../models/registrationModel";
 import RegistrationService from "../services/registrationService";
 import RegistrationError from "../errors/registrationError";
+import fetch from 'node-fetch';
 
 /**
  * The `RegistrationController` class handles HTTP requests related to registration items.
@@ -38,8 +39,9 @@ class RegistrationController {
      */
     get = async (request: any, response: any) => {
         try {
-            const registration: RegistrationModel | RegistrationError = await this.registrationService.getById(Number(request.params.id));
-            response.status(200).json({ message: "RegistrationModel fetched successfully", data: registration });
+            const user = await this.getUser(request.headers['authorization'])
+            const registration: RegistrationModel[] | RegistrationError = await this.registrationService.getAllByUser(user.id)
+            response.status(200).json({message: "Registration fetched successfully", data: registration})
         } catch (error: any) {
             response.status(404).send({ "error": error.message });
         }

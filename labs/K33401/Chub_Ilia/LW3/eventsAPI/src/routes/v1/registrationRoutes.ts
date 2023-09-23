@@ -12,7 +12,7 @@ registrationRoutes.route('/:id')
     .get(controller.get)
     .delete(controller.delete)
 
-    registrationRoutes.route('/my')
+registrationRoutes.route('/my')
     .get(controller.getMy)
 
 export default registrationRoutes;
