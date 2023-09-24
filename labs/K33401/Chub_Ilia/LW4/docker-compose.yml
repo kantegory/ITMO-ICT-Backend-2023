@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  users:
+    restart: always
+    build: usersAPI
+    ports:
+      - "3001:3001"
+    container_name: itmo.backenddevelopment.lw4usersAPI
+  events:
+    restart: always
+    build: eventsAPI
+    ports:
+      - "3002:3002"
+    container_name: itmo.backenddevelopment.lw4eventsAPI
