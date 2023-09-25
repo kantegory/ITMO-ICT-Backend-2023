@@ -1,15 +1,12 @@
 import {
     AllowNull,
-    BelongsTo,
     BelongsToMany,
     Column,
     Default, DefaultScope,
-    ForeignKey,
     HasMany,
     Model, Scopes,
     Table
 } from "sequelize-typescript";
-import User from "../users/User";
 import CoinWallet from "./CoinWallet";
 import Coin from "./Coin";
 
@@ -32,16 +29,13 @@ class Wallet extends Model {
     @Column
     name: string
 
-    @ForeignKey(() => User)
+    @AllowNull(false)
     @Column
     userId: number
 
     @Default(0)
     @Column
     balance: number
-
-    @BelongsTo(() => User)
-    user: User
 
     @HasMany(() => CoinWallet)
     coinWallets: CoinWallet[]

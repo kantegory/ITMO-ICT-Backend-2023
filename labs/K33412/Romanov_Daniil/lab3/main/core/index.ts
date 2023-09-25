@@ -15,7 +15,7 @@ class App {
     private server: Server
     private sequelize: Sequelize
 
-    constructor(port = 3300, host = "localhost") {
+    constructor(port = 9002, host = "localhost") {
         this.port = parseInt(process.env.PORT!) || port
         this.host = process.env.HOST || host
 
@@ -29,7 +29,7 @@ class App {
         app.use(cors())
         app.use(bodyParser.json())
         app.use(passport.initialize())
-        app.use('/v1', routes)
+        app.use(routes)
 
         return app
     }

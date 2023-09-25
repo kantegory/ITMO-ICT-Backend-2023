@@ -1,7 +1,20 @@
-import {AllowNull, BeforeCreate, BeforeUpdate, Column, HasMany, Model, Table, Unique} from "sequelize-typescript";
+import {
+    AllowNull,
+    BeforeCreate,
+    BeforeUpdate,
+    Column,
+    DefaultScope,
+    HasMany,
+    Model,
+    Table,
+    Unique
+} from "sequelize-typescript";
 import hashPassword from "../../utils/hashPassword";
 import Wallet from "../wallets/Wallet";
 
+@DefaultScope(() => ({
+    attributes: ['id', 'firstName', 'lastName', 'email', 'password']
+}))
 @Table
 class User extends Model {
     @AllowNull(false)
