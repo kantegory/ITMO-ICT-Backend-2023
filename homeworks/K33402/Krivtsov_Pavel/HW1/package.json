@@ -1,0 +1,11 @@
+{
+  "name": "hw1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "rme": "npm uninstall express"
+  },
+  "author": "",
+  "license": "ISC"
+}

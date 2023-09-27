@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    depends_on:
+      - users
+      - kinopoisk
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: always
+  users:
+    container_name: users
+    build:
+      context: ./users
+    ports:
+      - "8001"
+    restart: always
+  kinopoisk:
+    container_name: kinopoisk
+    build:
+      context: ./kinopoisk
+    ports:
+      - "8002"
+    restart: always
+
