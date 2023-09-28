@@ -1,32 +1,37 @@
-import {Table, Column, Model, Unique, AllowNull, BeforeCreate, BeforeUpdate, CreatedAt} from 'sequelize-typescript';
+import {
+    Table,
+    Column,
+    Model,
+    Unique,
+    AllowNull,
+    BeforeCreate,
+    BeforeUpdate
+} from 'sequelize-typescript';
 
 import hashPassword from "../../utils/hashPassword"
 
 @Table
 class User extends Model {
     @Column
-    firstName!: string;
+    firstName!: string
 
     @Column
-    lastName!: string;
+    lastName!: string
 
     @Column
     patronymic?: string
 
     @Unique
     @Column
-    username!: string;
+    username!: string
 
     @Unique
     @Column
-    email!: string;
+    email!: string
 
     @AllowNull(false)
     @Column
-    password!: string;
-
-    @CreatedAt
-    creationDate!: Date;
+    password!: string
 
     @BeforeCreate
     @BeforeUpdate

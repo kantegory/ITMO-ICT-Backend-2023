@@ -1,5 +1,6 @@
 import {Router} from "express"
 import {UserController} from "../../controllers/userController"
+import passport from "passport";
 
 export const userRouter = Router()
 const controller: UserController = new UserController()
@@ -8,13 +9,13 @@ const controller: UserController = new UserController()
 userRouter.get("/", controller.getAll)
 
 // Регистрация нового пользователя
-userRouter.post("/reg")
+userRouter.post("/reg", controller.post)
 
 // Вход в аккаунт
 userRouter.post("/login", controller.auth)
 
 // Аккаунт авторизированного пользователя
-userRouter.route("/account")
+userRouter.get('/account', passport.authenticate('jwt', {session: false}), controller.me)
 
 // Аккаунт пользователя по id
 userRouter.get("/:id", controller.get)

@@ -1,12 +1,12 @@
 import express from "express"
 import cors from "cors"
 import {createServer, Server} from "http"
-// import routes from "../routes/v1/index"
+import routes from "../routes/index"
 import sequelize from "../providers/db"
 import {Sequelize} from 'sequelize-typescript'
 import bodyParser from "body-parser"
-// import passport from "../middlewares/passport"
 import dotenv from "dotenv"
+import passport from "../middlewares/passport";
 
 dotenv.config()
 
@@ -32,8 +32,9 @@ class App {
         const app = express()
         app.use(cors())
         app.use(bodyParser.json())
-        // app.use(passport.initialize())
-        // app.use('/api/v1', routes)
+        app.use(bodyParser.urlencoded())
+        app.use(passport.initialize())
+        app.use('/api/v1', routes)
 
         return app
     }
