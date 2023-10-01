@@ -5,8 +5,8 @@ export default class DefaultService {
 
     private repo = sequelize.getRepository(User)
     
-    add(nickname: string, password: string, email: string) {
-        this.repo.create({ nickname: nickname, password: password, email: email })
+    add(name: string, password: string, email: string) {
+        this.repo.create({ name: name, password: password, email: email })
     }
 
     get() {

@@ -7,8 +7,8 @@ export default class ExampleController {
     post = async (request: any, response: any) => {
         try {
             const user = request.body
-            await this.service.add(user.nickname, user.password, user.email)
-            response.send('Added' + "'" + user.nickname + "'" + "user")
+            await this.service.add(user.name, user.password, user.email)
+            response.send('Added' + "'" + user.name + "'" + "user")
         } catch (error: any) {
             response.status(400).send(error.message)
         }
