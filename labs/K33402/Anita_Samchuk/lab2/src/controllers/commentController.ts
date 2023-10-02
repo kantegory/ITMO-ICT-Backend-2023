@@ -2,6 +2,7 @@ import {CommentService} from "../services/comments/commentService";
 import {Request, Response} from "express";
 import Comment from "../models/comments/Comment";
 import {CommentError} from "../helpers/errors/commentError";
+import post from "../models/posts/Post";
 
 export class CommentController {
     private commentService: CommentService
@@ -33,9 +34,9 @@ export class CommentController {
     }
 
     getFiltered = async (request: Request, response: Response) => {
-        const {postId, commentId} = request.params
+        const {postId, userId} = request.params
         try {
-            const comments: Comment[] | CommentError = await this.commentService.filterByAuthor(+postId, +commentId)
+            const comments: Comment[] | CommentError = await this.commentService.filterByAuthor(+postId, +userId)
 
             response.status(200).json(comments)
         } catch (error: any) {
@@ -43,20 +44,19 @@ export class CommentController {
         }
     }
 
-    // createComment = async (request: Request, response: Response) => {
-    //     const {postId} = request.params
-    //     const {body} = request
-    //     try {
-    //         const userId = request.user ? request.user.id : null;
-    //         if (userId !== null) {
-    //             const comment: Comment | CommentError = await this.commentService.create(+userId, +postId, body)
-    //
-    //             response.status(201).json(comment)
-    //         }
-    //     } catch (error: any) {
-    //         response.status(404).json({error: error.message})
-    //     }
-    // }
+    createComment = async (request: Request, response: Response) => {
+        console.log("Я тут был!!")
+        try {
+            const {postId} = request.params
+            const {body} = request
+            const userId = request.user?.id;
+            const comment: Comment | CommentError = await this.commentService.create(userId, +postId, body)
+
+            response.status(201).json(comment)
+        } catch (error: any) {
+            response.status(404).json({error: error.message})
+        }
+    }
 
     updateComment = async (request: Request, response: Response) => {
         const {body} = request
@@ -72,10 +72,11 @@ export class CommentController {
 
     deleteComment = async (request: Request, response: Response) => {
         const {postId, commentId} = request.params
+        const userId = request.user?.id
         try {
-            await this.commentService.deleteComment(+postId, +commentId)
+            await this.commentService.deleteComment(+postId, +commentId, userId)
 
-            response.status(204)
+            response.status(200).json({message: 'Comment Deleted'})
         } catch (error: any) {
             response.status(404).json({error: error.message})
         }

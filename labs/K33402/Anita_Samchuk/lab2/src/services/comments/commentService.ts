@@ -1,8 +1,12 @@
 import sequelize from "../../providers/db";
 import {CommentError} from "../../helpers/errors/commentError";
 import Comment from "../../models/comments/Comment";
+import Post from "../../models/posts/Post";
+import User from "../../models/users/User";
 
 const commentRepository = sequelize.getRepository(Comment)
+const postRepository = sequelize.getRepository(Post)
+const userRepository = sequelize.getRepository(User)
 
 export class CommentService {
     async getAllComments(postId: number): Promise<Comment[]> {
@@ -24,34 +28,40 @@ export class CommentService {
         throw new CommentError(`Comment with id ${commentId} not found`)
     }
 
-    async filterByAuthor(postId: number, authorId: number): Promise<Comment[]> {
-        const comments = await commentRepository.findAll({
-            where: {
-                'authorId': authorId,
-                'postId': postId
-            }
-        })
-        if (comments) return comments
-
-        return []
-    }
-
-    async create(authorId: number, postId: number, commentData: Partial<Comment>): Promise<Comment> {
+    async filterByAuthor(postId: number, userId: number): Promise<Comment[]> {
         try {
-            const comment = await commentRepository.create({
-                body: commentData,
-                authorId: authorId,
-                postId: postId
+            const comments = await commentRepository.findAll({
+                where: {
+                    'userId': userId,
+                    'postId': postId
+                }
             })
+            if (comments) return comments
 
-            return comment.toJSON()
+            return []
         } catch (error: any) {
-            const errors = error.errors.map((error: any) => error.message)
-            throw new CommentError(errors)
+            throw new CommentError(error.message)
         }
     }
 
-    async updateComment(postId: number, commentId: number, newData: any): Promise<Comment> {
+    async create(userId: number, postId: number, commentData: Partial<Comment>): Promise<Comment> {
+        try {
+            const post = await postRepository.findByPk(postId)
+            const user = await userRepository.findByPk(userId)
+            if (post && user) {
+                // @ts-ignore
+                const comment = await post.createComment(commentData)
+                // @ts-ignore
+                await user.addComments(comment)
+                return comment
+            }
+            throw new CommentError('User or post not found')
+        } catch (error: any) {
+            throw new CommentError(error.message)
+        }
+    }
+
+    async deleteComment(postId: number, commentId: number, userId: number) {
         try {
             const comment = await commentRepository.findOne({
                 where: {
@@ -59,32 +69,14 @@ export class CommentService {
                     'id': commentId
                 }
             })
-            if (comment) {
-                Object.assign(comment, newData)
-                return await comment.save()
-            }
-            throw new CommentError(`Comment with id ${commentId} not found`)
-        } catch (error: any) {
-            const errors = error.errors.map((error: any) => error.message)
-            throw new CommentError(errors)
-        }
-    }
 
-    async deleteComment(postId: number, commentId: number) {
-        try {
-            const comment = await commentRepository.findOne({
-                where: {
-                    'postId': postId,
-                    'id': commentId
-                }
-            })
             if (comment) {
+                if (comment?.userId !== userId) throw new Error("Could not delete someone else\'s comments")
                 return await comment.destroy()
             }
-            throw new Error("Invalid identifier")
+            throw new Error("Comment not found")
         } catch (error: any) {
-            const errors = error.errors.map((error: any) => error.message)
-            throw new CommentError(errors)
+            throw new CommentError(error)
         }
     }
 }

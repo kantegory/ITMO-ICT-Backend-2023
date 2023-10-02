@@ -4870,14 +4870,14 @@ sequelize-pool@^7.1.0:
 
 sequelize-typescript@^2.1.5:
   version "2.1.5"
-  resolved "https://registry.npmjs.org/sequelize-typescript/-/sequelize-typescript-2.1.5.tgz"
+  resolved "https://registry.yarnpkg.com/sequelize-typescript/-/sequelize-typescript-2.1.5.tgz#f12d14607cc8abfd6172cd99f7d3255ec5c4d78e"
   integrity sha512-x1CNODct8gJyfZPwEZBU5uVGNwgJI2Fda913ZxD5ZtCSRyTDPBTS/0uXciF+MlCpyqjpmoCAPtudQWzw579bzA==
   dependencies:
     glob "7.2.0"
 
 sequelize@^6.33.0:
   version "6.33.0"
-  resolved "https://registry.npmjs.org/sequelize/-/sequelize-6.33.0.tgz"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.33.0.tgz#45c70d52687f1c7eae3a0496f21f7055d99b46da"
   integrity sha512-GkeCbqgaIcpyZ1EyXrDNIwktbfMldHAGOVXHGM4x8bxGSRAOql5htDWofPvwpfL/FoZ59CaFmfO3Mosv1lDbQw==
   dependencies:
     "@types/debug" "^4.1.8"

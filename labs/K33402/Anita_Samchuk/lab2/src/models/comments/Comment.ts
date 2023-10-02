@@ -21,17 +21,17 @@ class Comment extends Model {
 
     @ForeignKey(() => User)
     @Column
-    userId?: number;
+    userId?: number
 
-    @BelongsTo(() => User, 'userId')
-    user?: User;
+    @BelongsTo(() => User, {onDelete: 'CASCADE'})
+    user?: User
 
     @ForeignKey(() => Post)
     @Column
-    postId?: number;
+    postId?: number
 
-    @BelongsTo(() => Post, 'postId')
-    post?: Post;
+    @BelongsTo(() => Post, {onDelete: 'CASCADE'})
+    post?: Post
 }
 
 export default Comment

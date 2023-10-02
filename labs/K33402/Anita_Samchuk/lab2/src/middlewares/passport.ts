@@ -19,7 +19,7 @@ const customJwtStrategy = new JwtStrategy(opts, async function (jwt_payload, nex
     const user = await userService.getById(jwt_payload.id)
 
     if (user) {
-        next(null, user)
+        next(null, user as Express.User)
     } else {
         next(null, false)
     }

@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken"
 import {jwtOptions} from "../middlewares/passport";
 import RefreshTokenService from "../services/auth/RefreshToken";
 import Post from "../models/posts/Post";
+import {PostError} from "../helpers/errors/postError";
 
 export class UserController {
     private userService: UserService
@@ -100,8 +101,8 @@ export class UserController {
 
     getPosts = async (request: Request, response: Response) => {
         try {
-            console.log("ПОСТЫ: " + request.user?.posts)
-            response.status(201).json(request.user?.posts)
+            const posts: Post[] | PostError = await this.userService.getPosts(request.user?.id)
+            response.status(200).json(posts)
         } catch (error: any) {
             response.status(404).json({error: error.message})
         }

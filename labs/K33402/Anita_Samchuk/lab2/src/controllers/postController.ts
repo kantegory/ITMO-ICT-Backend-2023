@@ -4,6 +4,8 @@ import Post from "../models/posts/Post";
 import {PostError} from "../helpers/errors/postError";
 import User from "../models/users/User";
 import {use} from "passport";
+import Comment from "../models/comments/Comment";
+import {CommentError} from "../helpers/errors/commentError";
 
 export class PostController {
     private postService: PostService
@@ -48,7 +50,7 @@ export class PostController {
             const {body} = request
             const user = request.user
             if (user) {
-                const post: Post | PostError = await this.postService.create(body, user, user?.id)
+                const post: Post | PostError = await this.postService.create(body, user?.id)
                 response.status(201).json(post)
             } else {
                 throw new PostError("User not found")
@@ -61,8 +63,9 @@ export class PostController {
     updatePost = async (request: Request, response: Response) => {
         const {body} = request
         const {id} = request.params
+        const userId = request.user?.id
         try {
-            const post: Post | PostError = await this.postService.updatePost(+id, body)
+            const post: Post | PostError = await this.postService.updatePost(+id, body, userId)
 
             response.status(201).json(post)
         } catch (error: any) {
@@ -72,9 +75,19 @@ export class PostController {
 
     deletePost = async (request: Request, response: Response) => {
         try {
-            await this.postService.deletePost(+request.user?.id)
+            await this.postService.deletePost(+request.params.id, request.user?.id)
 
-            response.status(204)
+            response.status(200).json({message: 'Post is deleted'})
+        } catch (error: any) {
+            response.status(404).json({error: error.message})
+        }
+    }
+
+    getComments = async (request: Request, response: Response) => {
+        try {
+            console.log(request.params)
+            const comments: Comment[] | CommentError = await this.postService.getComments(+request.params.postId)
+            response.status(200).json(comments)
         } catch (error: any) {
             response.status(404).json({error: error.message})
         }

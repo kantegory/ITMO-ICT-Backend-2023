@@ -53,10 +53,10 @@ class Post extends Model {
     @Column
     userId!: number;
 
-    @BelongsTo(() => User, 'userId')
+    @BelongsTo(() => User, {onDelete: 'CASCADE'})
     user!: User;
 
-    @HasMany(() => Comment, 'postId')
+    @HasMany(() => Comment, {onDelete: 'CASCADE'})
     comments!: Comment[];
 }
 

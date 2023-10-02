@@ -6,8 +6,7 @@ import {
     AllowNull,
     BeforeCreate,
     BeforeUpdate,
-    HasMany,
-    Default, DataType
+    HasMany
 } from 'sequelize-typescript';
 
 import hashPassword from "../../utils/hashPassword"
@@ -29,11 +28,11 @@ class User extends Model {
     @Column
     password!: string
 
-    @HasMany(() => Post, 'userId')
+    @HasMany(() => Post, {onDelete: 'CASCADE'})
     posts!: Post[]
 
-    @HasMany(() => Post, 'userId')
-    comments!: Post[]
+    @HasMany(() => Comment, {onDelete: 'CASCADE'})
+    comments!: Comment[]
 
     @BeforeCreate
     @BeforeUpdate
