@@ -1,0 +1,38 @@
+version: '3.9'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/gateway
+      - /gateway/node_modules
+    depends_on:
+      - events_microservice
+      - users_microservice
+    ports:
+      - "127.0.0.1:8000:8000"
+    restart: always
+
+  events_microservice:
+    container_name: events_microservice
+    build:
+      context: ./events_microservice
+    volumes:
+      - ./events_microservice:/events_microservice
+      - /events_microservice/node_modules
+    ports:
+      - "9000:9000"
+    restart: always
+
+  users_microservice:
+    container_name: users_microservice
+    build:
+      context: ./users_microservice
+    volumes:
+      - ./users_microservice:/users_microservice
+      - /users_microservice/node_modules
+    ports:
+      - "9091:9091"
+    restart: always
