@@ -1,0 +1,23 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const UserController_1 = __importDefault(require("../controllers/UserController"));
+const EventController_1 = __importDefault(require("../controllers/EventController"));
+const TicketController_1 = __importDefault(require("../controllers/TicketController"));
+const router = express_1.default.Router();
+const passport = require('passport');
+const userController = new UserController_1.default();
+const eventController = new EventController_1.default();
+const ticketController = new TicketController_1.default();
+router.route('/getUsers').get(userController.get);
+router.route('/getUserByEmail').get(userController.getByEmail);
+router.route('/addUser').post(userController.add);
+router.route('/getAllEvents').get(eventController.getAll);
+router.route('/getEvents').get(eventController.getFiltered);
+router.route('/addEvent').post(eventController.add);
+router.route('/getTickets').get(passport.authenticate('jwt', { session: false }), ticketController.get);
+router.route('/addTicket').post(passport.authenticate('jwt', { session: false }), ticketController.add);
+exports.default = router;
