@@ -1,0 +1,37 @@
+version: '3'
+services:
+  auth-service:
+    build: auth-service
+    ports:
+      - '3001:3001'
+    environment:
+      - DB_URL=./auth-service/db-auth.sqlite
+      - JWT_SECRET=shatten_tod
+    volumes:
+      - ./auth-service/:/auth-service/
+      - /auth-service/node_modules
+    command: npm run start
+
+  event-service:
+    build: event-service
+    ports:
+      - '3002:3002'
+    environment:
+      - DB_URL=./event-service/db-event.sqlite
+      - JWT_SECRET=shatten_tod
+    volumes:
+      - ./event-service/:/event-service/
+      - /event-service/node_modules
+    command: npm run start
+
+  user-event-service:
+    build: user-event-service
+    ports:
+      - '3003:3003'
+    environment:
+      - DB_URL=./user-event-service/db-user-event.sqlite
+      - JWT_SECRET=shatten_tod
+    volumes:
+      - ./user-event-service/:/user-event-service/
+      - /user-event-service/node_modules
+    command: npm run start
