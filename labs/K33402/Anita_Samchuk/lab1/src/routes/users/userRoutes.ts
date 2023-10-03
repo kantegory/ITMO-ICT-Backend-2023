@@ -20,7 +20,6 @@ userRouter.get('/account', passport.authenticate('jwt', {session: false}), contr
 // Аккаунт пользователя по id
 userRouter.get("/:id", controller.get)
 
-
 // Аккаунт пользователя по username
 userRouter.get("/:username", controller.getByUsername)
 
