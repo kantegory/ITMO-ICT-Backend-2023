@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  bridge:
+    container_name: bridge
+    build:
+      context: ./bridge
+    volumes:
+      - ./bridge:/app
+      - /app/node_modules
+    command: npm start
+    ports:
+      - "9000:9000"
+    restart: always
+
+  login:
+    container_name: login
+    build:
+      context: ./login
+    volumes:
+      - ./login:/app
+      - /app/node_modules
+    depends_on:
+      - bridge
+    command: npm start
+    ports:
+      - "9001:9001"
+    restart: always
+
+  main:
+    container_name: main
+    build:
+      context: ./main
+    volumes:
+      - ./main:/app
+      - /app/node_modules
+    depends_on:
+      - bridge
+    command: npm start
+    ports:
+      - "9002:9002"
+    restart: always
