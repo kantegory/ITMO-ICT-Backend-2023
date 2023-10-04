@@ -58,7 +58,6 @@ export class UserService {
         if (user) {
             // @ts-ignore
             const posts = await user.getPosts()
-            console.log(posts)
             if (posts) return posts
         }
         throw new UserError('User not found')

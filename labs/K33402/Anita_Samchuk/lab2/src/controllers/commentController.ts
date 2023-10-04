@@ -45,7 +45,6 @@ export class CommentController {
     }
 
     createComment = async (request: Request, response: Response) => {
-        console.log("Я тут был!!")
         try {
             const {postId} = request.params
             const {body} = request

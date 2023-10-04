@@ -57,17 +57,21 @@ export class UserController {
     }
 
     auth = async (request: Request, response: Response) => {
-        const {email, password} = request.body
-        console.log("GET email and pass:" + email + " " + password)
-        const {user, checkPassword} = await this.userService.checkPassword(email, password)
+        try {
+            const {email, password} = request.body
+            const {user, checkPassword} = await this.userService.checkPassword(email, password)
 
-        if (checkPassword) {
-            const payload = {id: user.id}
-            console.log("payload is", payload)
-            const accessToken = jwt.sign(payload, jwtOptions.secretOrKey)
-            const refreshTokenService = new RefreshTokenService(user)
-            const refreshToken = await refreshTokenService.generateRefreshToken()
-            response.send({accessToken, refreshToken})
+            if (checkPassword) {
+                const payload = {id: user.id}
+                const accessToken = jwt.sign(payload, jwtOptions.secretOrKey)
+                const refreshTokenService = new RefreshTokenService(user)
+                const refreshToken = await refreshTokenService.generateRefreshToken()
+                response.send({accessToken, refreshToken})
+            } else {
+                response.status(404).json({error: "Wrong email or password"})
+            }
+        } catch (error: any) {
+            response.status(404).json({error: error.message})
         }
     }
 
