@@ -18,3 +18,4 @@ class CoinWallet extends Model {
 }
 
 export default CoinWallet
+

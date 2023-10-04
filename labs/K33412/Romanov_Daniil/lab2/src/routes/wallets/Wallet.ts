@@ -15,3 +15,4 @@ router.route('/:id/buy_coin').post(passport.authenticate('jwt', { session: false
 router.route('/:id/sell_coin').post(passport.authenticate('jwt', { session: false }), walletController.sellCoin)
 
 export default router
+

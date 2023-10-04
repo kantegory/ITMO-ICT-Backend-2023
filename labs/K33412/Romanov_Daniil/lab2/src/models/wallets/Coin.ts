@@ -18,3 +18,5 @@ class Coin extends Model {
 }
 
 export default Coin
+
+

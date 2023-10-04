@@ -4,7 +4,7 @@ import axios from "axios"
 
 const accessTokenStrategy = new Strategy(async function (token: any, done: any) {
     axios.post(
-        `http://localhost:9001/users/accessToken`,
+        `http://localhost:9001/accessToken`,
         {'accessToken': token}
     ).then((resp) => {
         if (resp.status == 200 && resp.data.valid) {

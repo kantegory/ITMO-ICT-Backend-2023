@@ -3,6 +3,6 @@ import User from "./users/User";
 
 const routes: express.Router = express.Router()
 
-routes.use('/users', User)
+routes.use(User)
 
 export default routes
