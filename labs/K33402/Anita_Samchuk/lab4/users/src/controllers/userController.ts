@@ -58,7 +58,6 @@ export class UserController {
     auth = async (request: Request, response: Response) => {
         try {
             const {email, password} = request.body
-            console.log("GET email and pass:" + email + " " + password)
             const {user, checkPassword} = await this.userService.checkPassword(email, password)
 
             if (checkPassword) {
@@ -107,9 +106,7 @@ export class UserController {
 
     getPosts = async (request: Request, response: Response) => {
         try {
-            // @ts-ignore
             if (request.user?.id) {
-                // @ts-ignore
                 const body = JSON.stringify({'userId': request.user?.id})
                 const posts = await fetch(process.env.POSTSAPI!, {
                     method: 'POST',

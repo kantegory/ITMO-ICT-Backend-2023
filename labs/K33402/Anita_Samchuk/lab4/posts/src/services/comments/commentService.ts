@@ -8,9 +8,10 @@ const postRepository = sequelize.getRepository(Post)
 
 export class CommentService {
     async getAllComments(postId: number): Promise<Comment[]> {
+        const post = await postRepository.findByPk(postId)
+        if (post) throw new CommentError("Post not found")
         const comments = await commentRepository.findAll({where: {'postId': postId}})
         if (comments) return comments
-
         return []
     }
 
@@ -73,7 +74,7 @@ export class CommentService {
             }
             throw new Error("Comment not found")
         } catch (error: any) {
-            throw new CommentError(error)
+            throw new CommentError(error.message)
         }
     }
 }

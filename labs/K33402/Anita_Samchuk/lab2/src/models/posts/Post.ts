@@ -44,20 +44,20 @@ class Post extends Model {
     language!: Language
 
     @UpdatedAt
-    updatedOn!: Date;
+    updatedOn!: Date
 
     @CreatedAt
     creationDate!: Date
 
     @ForeignKey(() => User)
     @Column
-    userId!: number;
+    userId!: number
 
     @BelongsTo(() => User, {onDelete: 'CASCADE'})
-    user!: User;
+    user!: User
 
     @HasMany(() => Comment, {onDelete: 'CASCADE'})
-    comments!: Comment[];
+    comments!: Comment[]
 }
 
 export default Post

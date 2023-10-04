@@ -13,7 +13,7 @@ export class CommentService {
         const comments = await commentRepository.findAll({where: {'postId': postId}})
         if (comments) return comments
 
-        return []
+        throw new CommentError("Post not found")
     }
 
     async getCommentByPostAndId(postId: number, commentId: number): Promise<Comment> {

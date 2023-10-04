@@ -5,8 +5,7 @@ import {
     Unique,
     AllowNull,
     BeforeCreate,
-    BeforeUpdate,
-    HasMany, Default, DataType
+    BeforeUpdate
 } from 'sequelize-typescript';
 
 import hashPassword from "../../utils/hashPassword"

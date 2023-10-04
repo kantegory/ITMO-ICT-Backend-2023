@@ -6,7 +6,7 @@ export const postRouter = Router()
 const controller: PostController = new PostController()
 
 postRouter.use("/comments", commentRouter)
-postRouter.get("/", controller.getPosts)
+postRouter.get("/all", controller.getPosts)
 postRouter.get("/filter", controller.getFiltered)
 postRouter.post("/filter", controller.getFiltered)
 postRouter.get("/:postId/comments", controller.getComments)

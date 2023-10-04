@@ -6,9 +6,7 @@ import {
     Default,
     UpdatedAt,
     CreatedAt,
-    AllowNull,
-    DataType,
-    ForeignKey, BelongsTo
+    AllowNull
 } from 'sequelize-typescript';
 import Comment from "../comments/Comment";
 
@@ -50,10 +48,10 @@ class Post extends Model {
 
     @AllowNull(false)
     @Column
-    userId!: number;
+    userId!: number
 
     @HasMany(() => Comment, {onDelete: 'CASCADE'})
-    comments!: Comment[];
+    comments!: Comment[]
 }
 
 export default Post

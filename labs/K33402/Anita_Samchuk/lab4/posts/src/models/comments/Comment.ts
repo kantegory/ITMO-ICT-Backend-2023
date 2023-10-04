@@ -2,10 +2,7 @@ import {
     Table,
     Column,
     Model,
-    Unique,
     AllowNull,
-    BeforeCreate,
-    BeforeUpdate,
     ForeignKey,
     BelongsTo
 } from 'sequelize-typescript';

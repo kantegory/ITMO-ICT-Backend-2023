@@ -2,7 +2,6 @@ import {Request, Response} from "express";
 import {PostService} from "../services/posts/postService";
 import Post from "../models/posts/Post";
 import {PostError} from "../helpers/errors/postError";
-import {use} from "passport";
 import Comment from "../models/comments/Comment";
 import {CommentError} from "../helpers/errors/commentError";
 import {getUser} from "../utils/getUser";
@@ -15,6 +14,7 @@ export class PostController {
     }
 
     getPosts = async (request: Request, response: Response) => {
+        console.log("Я тут!")
         try {
             const posts: Post[] | PostError = await this.postService.getAllPosts()
 

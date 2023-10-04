@@ -15,6 +15,7 @@ export class PostController {
     }
 
     getPosts = async (request: Request, response: Response) => {
+        console.log("Я тут!")
         try {
             const posts: Post[] | PostError = await this.postService.getAllPosts()
 
