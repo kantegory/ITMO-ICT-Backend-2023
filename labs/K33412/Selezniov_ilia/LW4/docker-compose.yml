@@ -1,0 +1,50 @@
+version: '3.9'
+services:
+  auth_db:
+    image: mysql
+    environment:
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_DATABASE=mysql
+      - MYSQL_ROOT_PASSWORD=mysql
+    expose:
+      - 3306
+    volumes:
+      - volume_auth:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+  main_db:
+    image: mysql
+    environment:
+      - MYSQL_USER=mysql
+      - MYSQL_PASSWORD=mysql
+      - MYSQL_DATABASE=mysql
+      - MYSQL_ROOT_PASSWORD=mysql
+    expose:
+      - 3306
+    volumes:
+      - volume_main:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
+  auth_service:
+    build:
+      context: auth_service
+    depends_on:
+      auth_db:
+        condition: service_healthy
+
+  main_service:
+    build:
+      context: main_service
+    ports:
+      - "5000:5000"
+    depends_on:
+      main_db:
+        condition: service_healthy
+volumes:
+  volume_auth:
+  volume_main:

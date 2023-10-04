@@ -1,0 +1,22 @@
+{
+  "name": "hw2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "echo \"App starting...\"",
+    "start": "npx nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3",
+    "sequelize": "^6.17.0",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15",
+    "sequelize-cli": "^6.4.1"
+  }
+}

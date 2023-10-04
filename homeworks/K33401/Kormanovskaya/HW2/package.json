@@ -1,0 +1,21 @@
+{
+  "name": "hw2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.21",
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.4"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
+  }
+}

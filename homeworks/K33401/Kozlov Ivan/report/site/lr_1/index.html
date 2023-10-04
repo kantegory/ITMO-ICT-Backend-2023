@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    
+    <link rel="../img/favicon.ico">
+
+    
+    <title>Лабораторная №1 - Отчеты по Backend</title>
+    
+
+    <link href="../css/hack.min.css" rel="stylesheet">
+    <link href="../css/bootstrap-custom.css" rel="stylesheet">
+    <link href="../css/base.css" rel="stylesheet">
+    <link href="../css/cinder.css" rel="stylesheet">
+    <link href="../css/highlight.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+        <![endif]-->
+
+     
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+
+            <a class="navbar-brand" href="..">Отчеты по Backend</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="..">Главная страница</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Лабораторные <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Лабораторная №1</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../lr_2/">Лабораторная №2</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Домашние задания <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../hw_1/">Задание №1</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_2/">Задание №2</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_3/">Задание №3</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../hw_4_5/">Задание №4-5</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                            <i class="fas fa-search"></i> Search
+                        </a>
+                    </li>
+		    <!--
+                    <li >
+                        <a rel="prev" href="..">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../lr_2/">
+                            Next <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </li>
+		    -->
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <div class="container">
+        
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="first-level active"><a href="#no-1">Лабораторная работа № 1</a></li>
+        <li class="first-level "><a href="#boilerplate">Структура boilerplate</a></li>
+        <li class="first-level "><a href="#_1">Необходимые зависимости</a></li>
+        <li class="first-level "><a href="#_2">Файлы окружения и конфигурации</a></li>
+        <li class="first-level "><a href="#src">Структура src</a></li>
+        <li class="first-level "><a href="#_3">Модели</a></li>
+        <li class="first-level "><a href="#routes">Маршруты (routes)</a></li>
+        <li class="first-level "><a href="#_4">Контроллеры</a></li>
+        <li class="first-level "><a href="#c">Cервисы для работы с моделями</a></li>
+        <li class="first-level "><a href="#_5">Пример работы</a></li>
+        <li class="first-level "><a href="#_6">Вывод</a></li>
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<h1 id="no-1">Лабораторная работа № 1</h1>
+<p><code>Описание:</code> </p>
+<p>Нужно написать свой boilerplate на express + sequelize / TypeORM + typescript.</p>
+<p>Должно быть явное разделение на:</p>
+<ul>
+<li>модели</li>
+<li>контроллеры</li>
+<li>роуты</li>
+<li>сервисы для работы с моделями (реализуем паттерн “репозиторий”)</li>
+<li><a href="https://github.com/kantegory/express-sequelize-boilerplate">пример</a></li>
+</ul>
+<hr>
+
+<h1 id="boilerplate">Структура boilerplate</h1>
+<p><code>Скриншот структуры:</code></p>
+<p><img alt="Screenshot" src="../img/lr_1/p_1.png" /></p>
+<hr>
+
+<h1 id="_1">Необходимые зависимости</h1>
+<p>В файле <code>package.json</code> были установлены необходимые зависимсоти:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;lr_1&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;dependencies&quot;: {
+    &quot;bcrypt&quot;: &quot;^5.1.0&quot;,
+    &quot;body-parser&quot;: &quot;^1.20.2&quot;,
+    &quot;cors&quot;: &quot;^2.8.5&quot;,
+    &quot;express&quot;: &quot;^4.18.2&quot;,
+    &quot;passport&quot;: &quot;^0.6.0&quot;,
+    &quot;passport-jwt&quot;: &quot;^4.0.1&quot;,
+    &quot;reflect-metadata&quot;: &quot;^0.1.13&quot;,
+    &quot;sequelize&quot;: &quot;^6.30.0&quot;,
+    &quot;sequelize-typescript&quot;: &quot;^2.1.5&quot;,
+    &quot;sequelize-typescript-migration-v2&quot;: &quot;^0.0.2-beta.6&quot;,
+    &quot;sqlite3&quot;: &quot;^5.1.6&quot;,
+    &quot;tcs&quot;: &quot;^10.0.2&quot;,
+    &quot;typeorm&quot;: &quot;^0.3.13&quot;,
+    &quot;uuid&quot;: &quot;^9.0.0&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@types/bcrypt&quot;: &quot;^5.0.0&quot;,
+    &quot;@types/cors&quot;: &quot;^2.8.13&quot;,
+    &quot;@types/dotenv&quot;: &quot;^8.2.0&quot;,
+    &quot;@types/express&quot;: &quot;^4.17.17&quot;,
+    &quot;@types/express-session&quot;: &quot;^1.17.7&quot;,
+    &quot;@types/flat&quot;: &quot;^5.0.2&quot;,
+    &quot;@types/node&quot;: &quot;^18.15.11&quot;,
+    &quot;@types/passport&quot;: &quot;^1.0.12&quot;,
+    &quot;@types/passport-jwt&quot;: &quot;^3.0.8&quot;,
+    &quot;@types/styled-components&quot;: &quot;^5.1.26&quot;,
+    &quot;@types/styled-system&quot;: &quot;^5.1.16&quot;,
+    &quot;@types/uuid&quot;: &quot;^9.0.1&quot;,
+    &quot;@types/validator&quot;: &quot;^13.7.14&quot;,
+    &quot;@typescript-eslint/eslint-plugin&quot;: &quot;^5.57.1&quot;,
+    &quot;@typescript-eslint/parser&quot;: &quot;^5.57.1&quot;,
+    &quot;dotenv&quot;: &quot;^16.0.3&quot;,
+    &quot;eslint&quot;: &quot;^8.38.0&quot;,
+    &quot;express-list-endpoints&quot;: &quot;^6.0.0&quot;,
+    &quot;nodemon&quot;: &quot;^2.0.22&quot;,
+    &quot;sequelize-cli&quot;: &quot;^6.6.0&quot;,
+    &quot;ts-node&quot;: &quot;^10.9.1&quot;,
+    &quot;typescript&quot;: &quot;^5.0.4&quot;
+  }
+}
+</code></pre>
+<hr>
+
+<h1 id="_2">Файлы окружения и конфигурации</h1>
+<p><code>.env</code> - содержит переменные окружения</p>
+<pre><code class="language-env">#DATABASE
+NAME=db
+DIALECT=sqlite
+USERNAME=root
+PASSWORD=null
+STORAGE=db.sqlite
+DATABASE_DEVELOPMENT=database_development
+DATABASE_TEST=database_test
+DATABASE_PRODUCTION=database_production
+
+# JWT
+ACCESS_TOKEN_LIFETIME=3000000 # in milliseconds
+REFRESH_TOKEN_LIFETIME=36000000 # in milliseconds
+
+# SERVER
+PORT=9090
+HOST=127.0.0.1
+</code></pre>
+<p><code>.eslintignore</code> - содержит дериктории, которые не нужно проверять линтером</p>
+<pre><code class="language-eslintignore">node_modules
+dist
+</code></pre>
+<p><code>.eslintrc.js</code> - файл конфигурации для ESLint</p>
+<pre><code class="language-js">module.exports = {
+    &quot;env&quot;: {
+        &quot;browser&quot;: true,
+        &quot;es2021&quot;: true
+    },
+    &quot;extends&quot;: [
+        &quot;eslint:recommended&quot;,
+        &quot;plugin:@typescript-eslint/recommended&quot;
+    ],
+    &quot;overrides&quot;: [
+    ],
+    &quot;parser&quot;: &quot;@typescript-eslint/parser&quot;,
+    &quot;parserOptions&quot;: {
+        &quot;ecmaVersion&quot;: &quot;latest&quot;,
+        &quot;sourceType&quot;: &quot;module&quot;
+    },
+    &quot;plugins&quot;: [
+        &quot;@typescript-eslint&quot;
+    ],
+    &quot;rules&quot;: {
+    }
+}
+</code></pre>
+<p><code>.sequelizerc</code> - файл конфигурации для sequelize</p>
+<pre><code class="language-js">const path = require('path')
+
+module.exports = {
+  'config': path.resolve('src', 'configs/db.mjs'),
+  'models-path': path.resolve('src', 'models'),
+  'migrations-path': path.resolve('src', 'migrations'),
+  'seeders-path': path.resolve('src', 'seeders')
+}
+</code></pre>
+<p><code>nodemon.json</code> -  это конфигурационный файл для пакета nodemon</p>
+<pre><code class="language-json">{
+    &quot;watch&quot;: [
+        &quot;src&quot;
+    ],
+    &quot;ext&quot;: &quot;ts&quot;,
+    &quot;ignore&quot;: [
+        &quot;node_modules&quot;,
+        &quot;src/**/*.spec.ts&quot;
+    ],
+    &quot;exec&quot;: &quot;ts-node ./src/index.ts&quot;
+}
+</code></pre>
+<p><code>tsconfig.json</code> - это файл конфигурации TypeScript, который используется для настройки компилятора TypeScript</p>
+<pre><code class="language-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;module&quot;: &quot;commonjs&quot;,
+    &quot;outDir&quot;: &quot;./dist&quot;,
+    &quot;strict&quot;: true,
+    &quot;esModuleInterop&quot;: true,
+    &quot;strictPropertyInitialization&quot;: false,
+    &quot;experimentalDecorators&quot;: true,
+    &quot;emitDecoratorMetadata&quot;: true,
+    &quot;allowJs&quot;: true,
+  },
+  &quot;include&quot;: [
+    &quot;./src/**/*&quot;
+  ],
+  &quot;exclude&quot;: [
+    &quot;node_modules&quot;
+  ]
+}
+</code></pre>
+<hr>
+
+<h1 id="src">Структура src</h1>
+<ul>
+<li>
+<p><code>configs</code> - содержит файлы конфигурации, в данном случае файл для подключения к базе данных.</p>
+</li>
+<li>
+<p><code>controllers</code> - содержит контроллеры для каждого ресурса, в данном случае контроллер для пользователей.</p>
+</li>
+<li>
+<p><code>core</code> - содержит файлы ядра приложения, такие как файл, который инициализирует Express.</p>
+</li>
+<li>
+<p><code>index.ts</code> - точка входа для запуска приложения.</p>
+</li>
+<li>
+<p><code>middlewares</code> - содержит аутентификацию с использованием Passport.js.</p>
+</li>
+<li>
+<p><code>migrations</code> - содержит файлы миграций для базы данных.</p>
+</li>
+<li>
+<p><code>models</code> - содержит модели для каждой таблицы базы данных, в данном случае модели для пользователей и токенов.</p>
+</li>
+<li>
+<p><code>providers</code> - содержит провайдеры, которые управляют зависимостями, в данном случае провайдер для создания и настройки подключения к базе данных.</p>
+</li>
+<li>
+<p><code>routes</code> - содержит маршруты для каждого ресурса API, в данном случае маршруты для пользователей.</p>
+</li>
+<li>
+<p><code>seeders</code> - содержит файлы начальных данных для базы данных.</p>
+</li>
+<li>
+<p><code>services</code> - содержит службы, которые обрабатывают бизнес-логику приложения, в данном случае служба для пользователей и токенов обновления.</p>
+</li>
+<li>
+<p><code>utils</code> - содержит утилиты, которые используются во всем приложении, в данном случае утилиты для проверки и хэширования паролей.</p>
+</li>
+</ul>
+<pre><code class="language-bash">src/
+├── configs
+│   └── db.mjs
+├── controllers
+│   └── users
+│       └── User.ts
+├── core
+│   └── index.ts
+├── index.ts
+├── middlewares
+│   └── passport.ts
+├── migrations
+├── models
+│   ├── auth
+│   │   └── RefreshToken.ts
+│   └── users
+│       └── User.ts
+├── providers
+│   └── db.ts
+├── routes
+│   └── v1
+│       ├── index.ts
+│       └── users
+│           └── User.ts
+├── seeders
+├── services
+│   ├── auth
+│   │   └── RefreshToken.ts
+│   └── users
+│       └── User.ts
+└── utils
+    ├── checkPassword.ts
+    └── hashPassword.ts
+</code></pre>
+<hr>
+
+<h1 id="_3">Модели</h1>
+<p><code>User.ts</code> - модель пользователя</p>
+<pre><code class="language-ts">import { AllowNull, BeforeCreate, BeforeUpdate, Column, Model, Table, Unique } from 'sequelize-typescript'
+import hashPassword from '../../utils/hashPassword'
+
+@Table
+class User extends Model {
+    @AllowNull(false)
+    @Column
+    firstName: string
+
+    @AllowNull(false)
+    @Column
+    lastName: string
+
+    @Unique
+    @Column
+    email: string
+
+    @AllowNull(false)
+    @Column
+    password: string
+
+    @BeforeCreate
+    @BeforeUpdate
+    static generatePasswordHash(instance: User) {
+        const { password } = instance
+
+        if (instance.changed('password')) {
+            instance.password = hashPassword(password)
+        }
+    }
+}
+
+export default User
+</code></pre>
+<p><code>RefreshToken.ts</code> - модель хранения токенов</p>
+<pre><code class="language-ts">import { Table, Column, Model, Unique, AllowNull, ForeignKey } from 'sequelize-typescript'
+import User from '../users/User'
+
+@Table
+class RefreshToken extends Model {
+    @Unique
+    @AllowNull(false)
+    @Column
+    token: string
+
+    @ForeignKey(() =&gt; User)
+    @Column
+    userId: number 
+}
+
+export default RefreshToken
+</code></pre>
+<hr>
+
+<h1 id="routes">Маршруты (routes)</h1>
+<p><code>src/routes/users/User.ts</code> - маршруты для пользователя</p>
+<pre><code class="language-ts">import express from &quot;express&quot;
+import UserController from &quot;../../../controllers/users/User&quot;
+import passport from &quot;../../../middlewares/passport&quot;
+
+const router: express.Router = express.Router()
+
+const controller: UserController = new UserController()
+
+router.route('/').post(controller.post)
+
+router.route('/h').get(controller.hello)
+
+router.route('/profile').get(passport.authenticate('jwt', { session: false }), controller.me)
+
+router.route('/profile/:id').get(controller.get)
+
+router.route('/login').post(controller.auth)
+
+router.route('/refresh').post(controller.refreshToken)
+
+router.route('/create').post(controller.create)
+
+export default router
+</code></pre>
+<p><code>src/routes/index.ts</code> - export</p>
+<pre><code class="language-ts">import express from &quot;express&quot;
+import userRoutes from &quot;./users/User&quot;
+
+const router: express.Router = express.Router()
+
+router.use('/users', userRoutes)
+
+export default router
+</code></pre>
+<hr>
+
+<h1 id="_4">Контроллеры</h1>
+<p>Методы класса UserController:</p>
+<ul>
+<li>
+<p><code>get</code> : Получает идентификатор из параметров запроса, используя метод getById экземпляра UserService, и отправляет данные о пользователе в ответ.</p>
+</li>
+<li>
+<p><code>post</code> : Получает тело запроса, создает пользователя с помощью метода create экземпляра UserService, и отправляет данные о созданном пользователе в ответ.</p>
+</li>
+<li>
+<p><code>me</code> : Возвращает данные о пользователе, полученные из объекта запроса.</p>
+</li>
+<li>
+<p><code>auth</code> : Получает адрес электронной почты и пароль из тела запроса, вызывает метод checkPassword экземпляра UserService для проверки соответствия пароля, генерирует новый токен доступа и токен обновления, и отправляет ответ с токенами и информацией о пользователе.</p>
+</li>
+<li>
+<p><code>refreshToken</code> : Получает токен обновления из тела запроса, проверяет его с помощью метода isRefreshTokenExpired экземпляра RefreshTokenService, генерирует новый токен доступа и токен обновления, используя jsonwebtoken и экземпляр RefreshTokenService, и отправляет ответ с новыми токенами.</p>
+</li>
+<li>
+<p><code>create</code> : Получает тело запроса, хеширует пароль пользователя, используя функцию hashPassword, создает пользователя с помощью метода create экземпляра UserService, и отправляет данные о созданном пользователе в ответ.</p>
+</li>
+</ul>
+<p><code>src/controllers/users/User.ts</code> </p>
+<pre><code class="language-ts">import jwt from 'jsonwebtoken'
+import { jwtOptions } from '../../middlewares/passport'
+import RefreshTokenService from '../../services/auth/RefreshToken'
+import UserService from '../../services/users/User'
+import hashPassword from '../../utils/hashPassword'
+
+class UserController {
+    private userService: UserService
+
+    constructor() {
+        this.userService = new UserService()
+    }
+
+    get = async (request: any, response: any) =&gt; {
+        try {
+            const user = await this.userService.getById(
+                Number(request.params.id)
+            )
+
+            response.send(user)
+        } catch (error: any) {
+            response.status(404).send({ &quot;error&quot;: error.message })
+        }
+    }
+
+    post = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        try {
+            const user = await this.userService.create(body)
+
+            response.status(201).send(user)
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: error.message })
+        }
+    }
+
+    me = async (request: any, response: any) =&gt; {
+        response.send(request.user)
+    }
+
+    hello = async (request: any, response: any) =&gt; {
+        const html = '&lt;html&gt;&lt;body&gt;&lt;h1&gt;Hello World!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;';
+        response.send(html)
+    }
+
+    auth = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        const { email, password } = body
+
+        try {
+            const { user, checkPassword } = await this.userService.checkPassword(email, password)
+            if (checkPassword) {
+                const payload = { id: user.id }
+
+                console.log('payload is', payload)
+
+                const accessToken = jwt.sign(payload, jwtOptions.secretOrKey)
+
+                const refreshTokenService = new RefreshTokenService(user)
+
+                const refreshToken = await refreshTokenService.generateRefreshToken()
+
+                response.send({ 'Answer' : `You successfully logged in as ${user.firstName} ${user.lastName}`, 
+                accessToken, refreshToken })
+            } else {
+                throw new Error('Login or password is incorrect!')
+            }
+        } catch (e: any) {
+            response.status(401).send({ &quot;error&quot;: e.message })
+        }
+    }
+
+    refreshToken = async (request: any, response: any) =&gt; {
+        const { body } = request
+
+        const { refreshToken } = body
+
+        const refreshTokenService = new RefreshTokenService()
+
+        try {
+            const { userId, isExpired } = await refreshTokenService
+                .isRefreshTokenExpired(refreshToken)
+
+            if (!isExpired &amp;&amp; userId) {
+                const user = await this.userService.getById(userId)
+
+                const payload = { id: user.id }
+
+                const accessToken = jwt.sign(payload, jwtOptions.secretOrKey)
+
+                const refreshTokenService = new RefreshTokenService(user)
+
+                const refreshToken = await refreshTokenService.generateRefreshToken()
+
+                response.send({ accessToken, refreshToken })
+            } else {
+                throw new Error('Invalid credentials')
+            }
+        } catch (e) {
+            response.status(401).send({ 'error': 'Invalid credentials' })
+        }
+    }
+
+    create = async (request: any, response: any) =&gt; {
+        try {
+            const { body } = request
+            body.password = hashPassword(body.password)
+
+            const user = await this.userService.create(body)
+
+            response.status(201).send(user)
+        } catch (error: any) {
+            response.status(400).send({ &quot;error&quot;: error.message })
+        }
+    }
+}
+
+export default UserController
+</code></pre>
+<hr>
+
+<h1 id="c">Cервисы для работы с моделями</h1>
+<ul>
+<li><code>src/services/users/User.ts</code></li>
+</ul>
+<pre><code class="language-ts">import User from '../../models/users/User'
+import sequelize from '../../providers/db'
+import checkPassword from '../../utils/checkPassword'
+const userRepository = sequelize.getRepository(User)
+
+class UserService {
+
+    async getById(id: number): Promise&lt;User&gt; {
+        const user = await userRepository.findOne({ where: { 'id': id } })
+        if (user) return user
+        throw new Error(`User with id ${id} not found`)
+    }
+
+    async create(userData: Partial&lt;User&gt;): Promise&lt;User&gt; {
+        try {
+            const user = await userRepository.create(userData)
+            return user.toJSON()
+        }
+        catch (e: any) {
+            const errors = e.errors.map((error: any) =&gt; error.message)
+            throw console.log(errors)
+        }
+    }
+
+    async checkPassword(email: string, password: string): Promise&lt;any&gt; {
+        const user = await userRepository.findOne({ where: { 'email' : email } })
+
+        if (user) return { user: user.toJSON(), checkPassword: checkPassword(user.dataValues, password) }
+
+        throw console.log('Incorrect login/password!')
+    }
+}
+
+export default UserService
+
+</code></pre>
+<ul>
+<li><code>src/services/auth/RefreshToken.ts</code></li>
+</ul>
+<pre><code class="language-ts">import { randomUUID } from &quot;crypto&quot;
+import dotenv from &quot;dotenv&quot;
+import RefreshToken from '../../models/auth/RefreshToken'
+import User from '../../models/users/User'
+dotenv.config()
+
+class RefreshTokenService {
+    private user: User | null
+
+    constructor(user: User | null = null) {
+        this.user = user
+    }
+
+    generateRefreshToken = async (): Promise&lt;string&gt; =&gt; {
+        const token = randomUUID()
+
+        const userId = this.user?.id
+
+        await RefreshToken.create({ token, userId })
+
+        return token
+    }
+
+    isRefreshTokenExpired = async (token: string): Promise&lt;{ userId: number | null, isExpired: boolean }&gt; =&gt; {
+        const refreshToken = await RefreshToken.findOne({ where: { token } })
+
+        if (refreshToken) {
+            const tokenData = refreshToken.toJSON()
+
+            const currentDate = new Date()
+            const timeDelta = currentDate.getTime() - tokenData.createdAt.getTime()
+
+            if (timeDelta &gt; 0 &amp;&amp; timeDelta &lt; parseInt(process.env.REFRESH_TOKEN_LIFETIME!)) {
+                return { userId: tokenData.userId, isExpired: false }
+            }
+
+            return { userId: null, isExpired: true }
+        }
+
+        return { userId: null, isExpired: true }
+    }
+}
+
+export default RefreshTokenService
+</code></pre>
+<hr>
+
+<h1 id="_5">Пример работы</h1>
+<ul>
+<li>Создание пользователя</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_1/p_2.png" /></p>
+<ul>
+<li>Вход пользователя</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_1/p_3.png" /></p>
+<ul>
+<li>Получение пользователя, если он вошел</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_1/p_4.png" /></p>
+<ul>
+<li>Получение пользователя по id</li>
+</ul>
+<p><img alt="Screenshot" src="../img/lr_1/p_5.png" /></p>
+<hr>
+
+<h1 id="_6">Вывод</h1>
+<p>В ходе работы были созданы основные файлы и структура проекта согласно требованиям. Такой boilerplate позволит быстро начать работу над проектом, используя готовые решения и подходы.
+Разделение на модели, контроллеры, роуты и сервисы позволяет улучшить читаемость и поддерживаемость кода, а также обеспечивает возможность изменения отдельных компонентов приложения без влияния на другие.
+Также я познакомился как работать с sequelize/TypeORM, typescript и express.</p></div>
+        
+        
+    </div>
+
+    <footer class="col-md-12 text-center">
+        
+        <p>
+            <!--
+	<small>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p></small>
+	-->
+
+            
+            
+    </footer>
+
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/fontawesome-all.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>var base_url = ".."</script>
+    
+    <script src="../js/base.js"></script>
+    <script src="../search/main.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="searchModalLabel">Поиск</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Вы можете искать по документам.
+                    Введите условия поиска ниже.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Поиск" id="mkdocs-search-query"
+                            title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+    <a href="https://github.com/IYunet/ITMO-ICT-Backend-2023">
+        <center>GitHub</center>
+    </a>
+    </body>
+
+</html>

@@ -1,0 +1,22 @@
+{
+  "name": "hw2",
+  "version": "1.0.0",
+  "description": "Homework 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Konstantin Baltsat",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sequelize": "^6.29.3",
+    "sqlite3": "^5.1.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0",
+    "ts-node": "^10.9.1"
+  }
+}

@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/app
+      - ./gateway/node_modules:/app/gateway/node_modules
+    command: npm start
+    ports:
+      - 3000:3000
+    restart: always
+  events:
+    container_name: events
+    build:
+      context: ./events
+    volumes:
+      - ./events:/app
+      - ./events/node_modules:/app/events/node_modules
+    depends_on:
+      - gateway
+    command: npm start
+    ports:
+      - 9523:9523
+    restart: always
+  auth:
+    container_name: users
+    build:
+      context: ./users
+    depends_on:
+      - gateway
+    command: npm start
+    volumes:
+      - ./users:/app
+      - ./users/node_modules:/app/users/node_modules
+    ports:
+      - 2920:2920
+    restart: always
