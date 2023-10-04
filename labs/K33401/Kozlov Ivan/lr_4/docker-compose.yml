@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    volumes:
+      - ./gateway:/app
+      - /app/node_modules
+    command: npx nodemon index.js
+    ports:
+      - 3000:3000
+    restart: always
+  main_app:
+    container_name: main_app
+    build:
+      context: ./main_app
+    volumes:
+      - ./main_app:/app
+      - /app/node_modules
+    depends_on:
+      - microservice
+    command: npx nodemon dist/index.js
+    ports:
+      - 9090:9090
+    restart: always
+  microservice:
+    container_name: microservice
+    build:
+      context: ./microservice
+    depends_on:
+      - gateway
+    command: npx nodemon dist/index.js
+    volumes:
+      - ./microservice:/app
+      - /app/node_modules
+    ports:
+      - 9091:9091 
+    restart: always
