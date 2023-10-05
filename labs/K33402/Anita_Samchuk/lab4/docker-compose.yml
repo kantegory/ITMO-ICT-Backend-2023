@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  gateway:
+    container_name: gateway
+    build:
+      context: ./gateway
+    depends_on:
+      - users
+      - posts
+    ports:
+      - "127.0.0.1:5555:5555"
+    restart: always
+  users:
+    container_name: users
+    build:
+      context: ./users
+    depends_on:
+      - posts
+    ports:
+      - "5556"
+    restart: always
+  posts:
+    container_name: posts
+    build:
+      context: ./posts
+    ports:
+      - "5557"
+    restart: always

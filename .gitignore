@@ -17,4 +17,4 @@ node_modules
 .idea
 node_modules
 .DS_Store
-
+dist
