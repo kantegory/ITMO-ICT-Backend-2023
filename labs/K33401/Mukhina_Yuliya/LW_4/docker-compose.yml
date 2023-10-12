@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  events:
+    restart: always
+    build: events
+    ports:
+      - "8001:8001"
+    container_name: events
+  users:
+    restart: always
+    build: users
+    ports:
+      - "8002:8002"
+    container_name: users
