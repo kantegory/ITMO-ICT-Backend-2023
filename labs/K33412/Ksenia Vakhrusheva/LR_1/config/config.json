@@ -1,0 +1,10 @@
+{
+  "development": {
+    "username": "user1",
+    "password": "pass1",
+    "database": "database1",
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "./database/dev.sqlite"
+  }
+}
